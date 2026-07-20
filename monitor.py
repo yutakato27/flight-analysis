@@ -54,15 +54,28 @@ def buscar_kayak():
         "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "preco_minimo_pessoa": None,
         "preco_minimo_casal": None,
-        "todos_precos_casal": [],
+        "detalhes_voo": None,
         "status": "erro",
-        "fonte": "kayak",
     }
     try:
         print(f"🌐 Abrindo Kayak...")
         driver.get(URL_KAYAK)
         print(f"⏳ Aguardando {TIMEOUT_KAYAK}s...")
         time.sleep(TIMEOUT_KAYAK)
+        
+        # Tenta pegar os cards de voos
+        cards = driver.find_elements(By.CSS_SELECTOR, "div.nrc6-wrapper")
+        if not cards:
+            cards = driver.find_elements(By.CSS_SELECTOR, "div.inner-wrapper")
+            
+        if cards:
+            # Pega detalhes do primeiro card (que é o mais barato devido ao sort=price_a)
+            primeiro_card_texto = cards[0].text
+            linhas_card = [l for l in primeiro_card_texto.split('\n') if l.strip()]
+            
+            # Tenta encontrar a cia aérea e as horas usando regex básica ou pegando o texto
+            resultado["detalhes_voo"] = " | ".join(linhas_card[:10]) # Salva as primeiras linhas como resumo (horarios, cia, escalas)
+            
         body = driver.find_element(By.TAG_NAME, "body").text
         precos_pessoa, totais_casal = extrair_precos_kayak(body)
         
@@ -70,7 +83,6 @@ def buscar_kayak():
             resultado.update({
                 "preco_minimo_pessoa": min(precos_pessoa),
                 "preco_minimo_casal":  min(precos_pessoa) * NUM_ADULTOS,
-                "todos_precos_casal":  totais_casal[:8],
                 "status": "ok",
             })
         else:

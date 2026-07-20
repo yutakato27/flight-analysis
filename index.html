@@ -135,6 +135,10 @@
     </div>
     <div style="color:var(--muted); font-size:.8rem; margin-top:4px">Para 2 adultos</div>
     
+    <div id="detalhes-voo" style="margin-top:16px; padding:12px; background:rgba(0,0,0,0.2); border:1px solid var(--border); border-radius:8px; font-size:0.75rem; color:var(--muted); line-height:1.5; word-wrap:break-word;">
+      Aguardando detalhes do voo...
+    </div>
+    
     <div style="margin-top:20px; padding-top:20px; border-top:1px solid var(--border)">
       <a id="link-kayak" href="https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=price_a&fs=stops=~1" target="_blank" style="
         display:block; text-align:center; padding:12px; background: linear-gradient(135deg, #3b82f6, #8b5cf6);
@@ -175,6 +179,13 @@ function render(hist) {
   if (ultimo.preco_minimo_casal <= 6500) { b.textContent = '🚨 EXCELENTE'; b.className = 'badge green'; }
   else if (ultimo.preco_minimo_casal <= 7000) { b.textContent = '✅ BOM'; b.className = 'badge yellow'; }
   else { b.textContent = '📈 AGUARDANDO'; b.className = 'badge muted'; }
+
+  if (ultimo.detalhes_voo) {
+    const det = ultimo.detalhes_voo.replace(/\|/g, '<br>•');
+    document.getElementById('detalhes-voo').innerHTML = `<strong style="color:var(--text)">Melhor Rota:</strong><br>•${det}`;
+  } else {
+    document.getElementById('detalhes-voo').innerHTML = "Detalhes não disponíveis nesta coleta.";
+  }
 
   const tb = document.getElementById('tabela-body');
   tb.innerHTML = '';
