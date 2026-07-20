@@ -1,0 +1,97 @@
+[
+  {
+    "timestamp": "2026-07-20T11:02:22.440009",
+    "preco_minimo": 28658,
+    "todos_precos": [
+      28658,
+      78417
+    ],
+    "status": "ok",
+    "fonte": "google_flights"
+  },
+  {
+    "timestamp": "2026-07-20T11:07:57.716602",
+    "preco_minimo": 4104,
+    "todos_precos": [
+      4104,
+      4118,
+      4195,
+      4309,
+      4347,
+      4361,
+      4372,
+      4394,
+      4496,
+      4497
+    ],
+    "status": "ok"
+  },
+  {
+    "timestamp": "2026-07-20T11:18:11.830489",
+    "preco_minimo_pessoa": 3233,
+    "preco_minimo_casal": 6466,
+    "todos_precos_casal": [
+      6466,
+      6906,
+      7010,
+      7032,
+      7264,
+      7368,
+      7662,
+      7764
+    ],
+    "status": "ok",
+    "fonte": "kayak"
+  },
+  {
+    "timestamp": "2026-07-20T11:38:06.123411",
+    "preco_minimo_pessoa": 3233,
+    "preco_minimo_casal": 6466,
+    "todos_precos_casal": [
+      6466,
+      6906,
+      7010,
+      7032,
+      7264,
+      7368,
+      7662,
+      7764
+    ],
+    "status": "ok",
+    "fonte": "kayak"
+  },
+  {
+    "timestamp": "2026-07-20T11:40:00.049743",
+    "preco_minimo_pessoa": 3233,
+    "preco_minimo_casal": 6466,
+    "todos_precos_casal": [
+      6466,
+      6906,
+      7010,
+      7032,
+      7264,
+      7368,
+      7662,
+      7764
+    ],
+    "status": "ok",
+    "fonte": "kayak"
+  },
+  {
+    "timestamp": "2026-07-20T13:21:55.742098",
+    "preco_minimo_pessoa": 3233,
+    "preco_minimo_casal": 6466,
+    "todos_precos_casal": [
+      6466,
+      6906,
+      7010,
+      7032,
+      7264,
+      7368,
+      7662,
+      7764
+    ],
+    "status": "ok",
+    "fonte": "kayak"
+  }
+]

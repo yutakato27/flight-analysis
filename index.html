@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✈ Monitor CWB → MCO | Orlando 2027</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:         #0a0e1a; --card: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.08);
+    --text:       #e2e8f0; --muted: #64748b;
+    --green:      #10b981; --yellow: #f59e0b; --red: #ef4444; --blue: #3b82f6; --purple: #8b5cf6;
+    --glow-green: 0 0 30px rgba(16,185,129,.25);
+  }
+  body {
+    font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);
+    min-height: 100vh; padding: 24px;
+    background-image: radial-gradient(ellipse at 20% 50%, rgba(59,130,246,.08) 0%, transparent 50%),
+                      radial-gradient(ellipse at 80% 20%, rgba(139,92,246,.06) 0%, transparent 50%);
+  }
+
+  header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-icon { font-size: 2rem; background: linear-gradient(135deg, var(--blue), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  h1 { font-size: 1.5rem; font-weight: 700; line-height:1.2; }
+  h1 span { color: var(--muted); font-weight: 400; font-size: 1rem; display: block; }
+  
+  .controls-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 12px 20px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(12px);
+  }
+  
+  .github-link {
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    border: none; border-radius: 10px; color: #fff; text-decoration: none;
+    padding: 10px 20px; font-size: .875rem; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 8px; transition: opacity .2s;
+  }
+  .github-link:hover { opacity: .9; transform: translateY(-1px); }
+
+  .status-bar {
+    display: flex; gap: 8px; align-items: center; font-size: .75rem; color: var(--muted);
+    justify-content: flex-end; margin-bottom: 24px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+  
+  .grid-top { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .grid-bottom { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+  @media (max-width: 900px) { .grid-top { grid-template-columns: 1fr 1fr; } .grid-bottom { grid-template-columns: 1fr; } }
+  
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; backdrop-filter: blur(12px); }
+  .card-label { font-size: .75rem; font-weight: 600; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .card-value { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #fff, rgba(255,255,255,.7)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .card-value.green { background: linear-gradient(135deg, var(--green), #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .card-value.red { background: linear-gradient(135deg, var(--red), #f87171); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  
+  .preco-display { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-top:16px; }
+  .preco-numero { font-size: 3.5rem; font-weight: 800; line-height: 1; }
+  .badge { padding: 4px 12px; border-radius: 99px; font-size: .75rem; font-weight: 600; }
+  .badge.green { background: rgba(16,185,129,.15); color: var(--green); }
+  .badge.yellow { background: rgba(245,158,11,.15); color: var(--yellow); }
+  .badge.muted { background: rgba(100,116,139,.15); color: var(--muted); }
+  
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+  th { text-align: left; padding: 10px; color: var(--muted); font-size:.7rem; border-bottom: 1px solid var(--border); }
+  td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,.04); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-icon">✈</span>
+    <h1>Monitor de Passagens <span>CWB → MCO · Fev 15–27, 2027</span></h1>
+  </div>
+  
+  <div class="controls-card">
+    <a href="https://github.com/yutakato27/flight-analysis/actions" class="github-link" target="_blank">
+      <span>⚙️</span> GitHub Actions
+    </a>
+  </div>
+</header>
+
+<div class="status-bar">
+  <div class="dot"></div>
+  <span id="status-text">Atualizado automaticamente via GitHub Actions</span>
+</div>
+
+<div class="grid-top">
+  <div class="card">
+    <div class="card-label">📉 Mínimo Histórico</div>
+    <div class="card-value green" id="stat-min">—</div>
+  </div>
+  <div class="card">
+    <div class="card-label">📈 Máximo Histórico</div>
+    <div class="card-value red" id="stat-max">—</div>
+  </div>
+  <div class="card">
+    <div class="card-label">📊 Média Histórica</div>
+    <div class="card-value" id="stat-avg">—</div>
+  </div>
+  <div class="card">
+    <div class="card-label">🔢 Verificações</div>
+    <div class="card-value" id="stat-checks">—</div>
+  </div>
+</div>
+
+<div class="grid-bottom">
+  <div class="card">
+    <div class="card-label">📈 Gráfico Histórico</div>
+    <canvas id="chart-preco" style="max-height:280px"></canvas>
+  </div>
+
+  <div class="card">
+    <div class="card-label">💰 Último Preço</div>
+    <span class="badge" id="preco-badge">—</span>
+    <div class="preco-display">
+      <span style="font-size:1.5rem; color:var(--muted)">R$</span>
+      <span class="preco-numero" id="preco-casal">—</span>
+    </div>
+    <div style="color:var(--muted); font-size:.8rem; margin-top:4px">Para 2 adultos</div>
+    
+    <div style="margin-top:20px; padding-top:20px; border-top:1px solid var(--border)">
+      <a id="link-kayak" href="https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=price_a&fs=stops=~2" target="_blank" style="
+        display:block; text-align:center; padding:12px; background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        border-radius:12px; color:#fff; text-decoration:none; font-weight:600;
+      ">🛒 Abrir Kayak</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:20px; overflow-x:auto;">
+  <div class="card-label">📋 Últimos Registros</div>
+  <table>
+    <thead><tr><th>Data / Hora</th><th>Preço Casal</th><th>Por Pessoa</th></tr></thead>
+    <tbody id="tabela-body"></tbody>
+  </table>
+</div>
+
+<script>
+let chart = null;
+
+function fmt(v) { return 'R$ ' + v.toLocaleString('pt-BR'); }
+
+function render(hist) {
+  const validos = hist.filter(h => h.preco_minimo_casal != null);
+  if (validos.length === 0) return;
+  
+  const precos = validos.map(h => h.preco_minimo_casal);
+  const ultimo = validos[validos.length - 1];
+
+  document.getElementById('stat-min').textContent = fmt(Math.min(...precos));
+  document.getElementById('stat-max').textContent = fmt(Math.max(...precos));
+  document.getElementById('stat-avg').textContent = fmt(Math.round(precos.reduce((a,b)=>a+b,0)/precos.length));
+  document.getElementById('stat-checks').textContent = validos.length;
+  
+  document.getElementById('preco-casal').textContent = ultimo.preco_minimo_casal.toLocaleString('pt-BR');
+  
+  const b = document.getElementById('preco-badge');
+  if (ultimo.preco_minimo_casal <= 6500) { b.textContent = '🚨 EXCELENTE'; b.className = 'badge green'; }
+  else if (ultimo.preco_minimo_casal <= 7000) { b.textContent = '✅ BOM'; b.className = 'badge yellow'; }
+  else { b.textContent = '📈 AGUARDANDO'; b.className = 'badge muted'; }
+
+  const tb = document.getElementById('tabela-body');
+  tb.innerHTML = '';
+  [...validos].reverse().slice(0, 15).forEach(h => {
+    tb.innerHTML += `<tr>
+      <td>${new Date(h.timestamp).toLocaleString('pt-BR')}</td>
+      <td><strong>${fmt(h.preco_minimo_casal)}</strong></td>
+      <td>${fmt(h.preco_minimo_pessoa || Math.round(h.preco_minimo_casal/2))}</td>
+    </tr>`;
+  });
+
+  const ctx = document.getElementById('chart-preco').getContext('2d');
+  if (chart) chart.destroy();
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: validos.map(h => new Date(h.timestamp).toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'})),
+      datasets: [{ data: validos.map(h => h.preco_minimo_casal), borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.1)', fill: true, tension: 0.4 }]
+    },
+    options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { ticks: { color: '#64748b' } }, x: { ticks: { color: '#64748b' } } } }
+  });
+}
+
+async function loadData() {
+  try {
+    // Adiciona timestamp na query para evitar cache agressivo no Github Pages
+    const r = await fetch('./data/historico.json?t=' + new Date().getTime());
+    if(r.ok) render(await r.json());
+  } catch(e) {
+    console.error("Erro ao carregar dados", e);
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>
