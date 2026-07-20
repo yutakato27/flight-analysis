@@ -134,5 +134,13 @@
     "preco_minimo_casal": 6466,
     "detalhes_voo": "6:00 – 15:30 | CWBAfonso Pena | - | MCOOrlando | 1 escala | BSB |  Escala de 1h 15min em | 11h 30min | 20:50 – 11:00 | +1",
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-07-20T18:56:18.657120+00:00",
+    "preco_minimo_pessoa": 3233,
+    "preco_minimo_casal": 6466,
+    "detalhes_voo": "✈️ GOL | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 20:50 – 11:00 (12h 10min)",
+    "status": "ok",
+    "link_direto": "https://www.kayak.com.br/book/flight?code=0dDiNRlKnF.FSHH5H2Di6UNUvH8T-y68A.104932.e959d33271ad6f90df89979917ac4edc&h=471c39299db1&sub=F1247121121352455830E04f7c0c5373&viewId=5810ac13-f906-4bc7-bbc4-1448fa38d67b&viewRank=1&bucket=LT&pageOrigin=F..RP.FE.M1"
   }
 ]
