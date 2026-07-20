@@ -10,7 +10,6 @@ permissions:
 
 jobs:
   scrape-and-update:
-    runs-name: ubuntu-latest
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
