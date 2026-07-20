@@ -150,5 +150,13 @@
     "detalhes_voo": "✈️ GOL | 🛫 Ida: 19:25 – 15:30 (22h 05min) | 🛬 Volta: 11:55 – 10:10 (20h 15min)",
     "status": "ok",
     "link_direto": "https://www.kayak.com.br/book/flight?code=0eDiDtNmSj.nvCtXeNjH_gEdn9PX-8xhQ.63144.9715e7b9f14f2403baf556b443300293&h=6d7adb5fa5f8&sub=F1640671707088501842E0c1bd0afda3&viewId=af2c8b04-4398-4e9b-9c6a-f66d8d94c04c&viewRank=1&adContentId=64a3e36f7f75fe33f1bb144d6cf7f13e&bucket=PO&pageOrigin=F..RP.FE.M1"
+  },
+  {
+    "timestamp": "2026-07-20T19:14:22.956442+00:00",
+    "preco_minimo_pessoa": 3233,
+    "preco_minimo_casal": 6466,
+    "detalhes_voo": "✈️ GOL | 🛫 Ida: 19:25 – 15:30 (22h 05min) | 🛬 Volta: 11:55 – 10:10 (20h 15min)",
+    "status": "ok",
+    "link_direto": "https://www.kayak.com.br/book/flight?code=0eCCSvpUUT.nvCtXeNjH_gEdn9PX-8xhQ.63144.9715e7b9f14f2403baf556b443300293&h=61a01916104b&sub=F-255196791791574056E0c1bd0afda3&viewId=71f3f071-d9e1-4fb6-91c0-7acc1d1b976b&viewRank=1&adContentId=07e499da599ed24e70cb190dd17d2a3d&bucket=PO&pageOrigin=F..RP.FE.M1"
   }
 ]
