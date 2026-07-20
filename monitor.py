@@ -11,7 +11,7 @@ NUM_ADULTOS     = 2
 
 URL_KAYAK = (
     "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
-    "2adults?sort=price_a&fs=stops=~1"
+    "2adults?sort=price_a&fs=stops=~2"
 )
 
 def criar_driver():
