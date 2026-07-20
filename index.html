@@ -29,16 +29,25 @@
   
   .controls-card {
     background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-    padding: 12px 20px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(12px);
+    padding: 12px 20px; display: flex; align-items: center; gap: 12px; backdrop-filter: blur(12px);
   }
   
   .github-link {
-    background: linear-gradient(135deg, var(--blue), var(--purple));
-    border: none; border-radius: 10px; color: #fff; text-decoration: none;
-    padding: 10px 20px; font-size: .875rem; font-weight: 600; cursor: pointer;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    border-radius: 10px; color: #fff; text-decoration: none;
+    padding: 10px 16px; font-size: .85rem; font-weight: 600; cursor: pointer;
     display: flex; align-items: center; gap: 8px; transition: opacity .2s;
   }
-  .github-link:hover { opacity: .9; transform: translateY(-1px); }
+  .github-link:hover { opacity: .8; }
+
+  #btn-trigger {
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    border: none; border-radius: 10px; color: #fff;
+    padding: 10px 16px; font-size: .85rem; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 8px; transition: opacity .2s, transform .1s;
+  }
+  #btn-trigger:hover { opacity: .9; transform: translateY(-1px); }
+  #btn-trigger.loading { opacity: .6; pointer-events: none; }
 
   .status-bar {
     display: flex; gap: 8px; align-items: center; font-size: .75rem; color: var(--muted);
@@ -79,8 +88,11 @@
   
   <div class="controls-card">
     <a href="https://github.com/yutakato27/flight-analysis/actions" class="github-link" target="_blank">
-      <span>⚙️</span> GitHub Actions
+      <span>⚙️</span> Ver Logs (Actions)
     </a>
+    <button id="btn-trigger" onclick="triggerAction()">
+      <span id="btn-icon">🔄</span> Verificar Agora
+    </button>
   </div>
 </header>
 
@@ -186,9 +198,47 @@ function render(hist) {
   });
 }
 
+async function triggerAction() {
+  let token = localStorage.getItem('gh_token');
+  if (!token) {
+    token = prompt("Para rodar a verificação manualmente, precisamos de um Personal Access Token (PAT) do GitHub com permissão 'repo' ou 'workflow'.\n\nEste token ficará salvo apenas no seu navegador.\n\nInsira seu token:");
+    if (!token) return;
+    localStorage.setItem('gh_token', token);
+  }
+
+  const btn = document.getElementById('btn-trigger');
+  const txt = document.getElementById('btn-icon');
+  btn.classList.add('loading');
+  txt.innerHTML = '⏳';
+  
+  try {
+    const res = await fetch("https://api.github.com/repos/yutakato27/flight-analysis/actions/workflows/monitor.yml/dispatches", {
+      method: "POST",
+      headers: {
+        "Accept": "application/vnd.github.v3+json",
+        "Authorization": `token ${token}`,
+      },
+      body: JSON.stringify({ ref: "master" })
+    });
+
+    if (res.ok) {
+      alert("✅ Verificação solicitada com sucesso! O robô já está trabalhando no GitHub.\nAtualize a página em cerca de 2 minutos para ver o novo preço.");
+    } else if (res.status === 401 || res.status === 403 || res.status === 404) {
+      alert("❌ Falha de Autenticação. O seu token é inválido ou não tem permissão para rodar workflows.\nVamos limpar o token salvo para você tentar novamente.");
+      localStorage.removeItem('gh_token');
+    } else {
+      alert("❌ Ocorreu um erro ao pedir a verificação. Código: " + res.status);
+    }
+  } catch (error) {
+    alert("❌ Erro de rede ao tentar iniciar a verificação.");
+  } finally {
+    btn.classList.remove('loading');
+    txt.innerHTML = '🔄';
+  }
+}
+
 async function loadData() {
   try {
-    // Adiciona timestamp na query para evitar cache agressivo no Github Pages
     const r = await fetch('./data/historico.json?t=' + new Date().getTime());
     if(r.ok) render(await r.json());
   } catch(e) {
