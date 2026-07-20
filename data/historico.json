@@ -127,5 +127,12 @@
     ],
     "status": "ok",
     "fonte": "kayak"
+  },
+  {
+    "timestamp": "2026-07-20T18:49:47.004599+00:00",
+    "preco_minimo_pessoa": 3233,
+    "preco_minimo_casal": 6466,
+    "detalhes_voo": "6:00 – 15:30 | CWBAfonso Pena | - | MCOOrlando | 1 escala | BSB |  Escala de 1h 15min em | 11h 30min | 20:50 – 11:00 | +1",
+    "status": "ok"
   }
 ]
