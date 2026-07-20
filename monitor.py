@@ -69,12 +69,34 @@ def buscar_kayak():
             cards = driver.find_elements(By.CSS_SELECTOR, "div.inner-wrapper")
             
         if cards:
-            # Pega detalhes do primeiro card (que é o mais barato devido ao sort=price_a)
-            primeiro_card_texto = cards[0].text
-            linhas_card = [l for l in primeiro_card_texto.split('\n') if l.strip()]
+            # Pega link de compra direta se existir
+            links = cards[0].find_elements(By.TAG_NAME, "a")
+            link_direto = URL_KAYAK
+            for a in links:
+                href = a.get_attribute('href')
+                if href and ('/book/' in href or 'flights' in href):
+                    link_direto = href
+                    break
+            resultado["link_direto"] = link_direto
+
+            # Pega detalhes do primeiro card
+            linhas_card = [l for l in cards[0].text.split('\n') if l.strip()]
             
-            # Tenta encontrar a cia aérea e as horas usando regex básica ou pegando o texto
-            resultado["detalhes_voo"] = " | ".join(linhas_card[:10]) # Salva as primeiras linhas como resumo (horarios, cia, escalas)
+            # Limpa as linhas ruins
+            cia = "Companhia"
+            for i, l in enumerate(linhas_card):
+                if "R$" in l:
+                    if i > 0: cia = linhas_card[i-1]
+                    break
+                    
+            horarios = [l for l in linhas_card if "–" in l and ":" in l]
+            duracoes = [l for l in linhas_card if "h" in l and ("min" in l or "m" in l) and "Escala" not in l]
+            
+            ida = f"🛫 Ida: {horarios[0]} ({duracoes[0]})" if len(horarios)>0 and len(duracoes)>0 else ""
+            volta = f"🛬 Volta: {horarios[1]} ({duracoes[1]})" if len(horarios)>1 and len(duracoes)>1 else ""
+            
+            texto_formatado = f"✈️ {cia} | {ida} | {volta}"
+            resultado["detalhes_voo"] = texto_formatado
             
         body = driver.find_element(By.TAG_NAME, "body").text
         precos_pessoa, totais_casal = extrair_precos_kayak(body)

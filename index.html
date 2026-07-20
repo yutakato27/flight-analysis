@@ -181,10 +181,17 @@ function render(hist) {
   else { b.textContent = '📈 AGUARDANDO'; b.className = 'badge muted'; }
 
   if (ultimo.detalhes_voo) {
-    const det = ultimo.detalhes_voo.replace(/\|/g, '<br>•');
-    document.getElementById('detalhes-voo').innerHTML = `<strong style="color:var(--text)">Melhor Rota:</strong><br>•${det}`;
+    const det = ultimo.detalhes_voo.replace(/\|/g, '<br>');
+    document.getElementById('detalhes-voo').innerHTML = `<strong style="color:var(--text)">Resumo da Rota:</strong><br>${det}`;
   } else {
     document.getElementById('detalhes-voo').innerHTML = "Detalhes não disponíveis nesta coleta.";
+  }
+  
+  if (ultimo.link_direto) {
+    document.getElementById('link-kayak').href = ultimo.link_direto;
+    document.getElementById('link-kayak').textContent = "🎫 Comprar Passagem Selecionada";
+  } else {
+    document.getElementById('link-kayak').textContent = "🛒 Abrir Kayak";
   }
 
   const tb = document.getElementById('tabela-body');
