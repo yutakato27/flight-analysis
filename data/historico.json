@@ -93,5 +93,22 @@
     ],
     "status": "ok",
     "fonte": "kayak"
+  },
+  {
+    "timestamp": "2026-07-20T17:17:41.002254+00:00",
+    "preco_minimo_pessoa": 3233,
+    "preco_minimo_casal": 6466,
+    "todos_precos_casal": [
+      6466,
+      6906,
+      7010,
+      7032,
+      7264,
+      7368,
+      7662,
+      7764
+    ],
+    "status": "ok",
+    "fonte": "kayak"
   }
 ]
