@@ -187,12 +187,9 @@ function render(hist) {
     document.getElementById('detalhes-voo').innerHTML = "Detalhes não disponíveis nesta coleta.";
   }
   
-  if (ultimo.link_direto) {
-    document.getElementById('link-kayak').href = ultimo.link_direto;
-    document.getElementById('link-kayak').textContent = "🎫 Comprar Passagem Selecionada";
-  } else {
-    document.getElementById('link-kayak').textContent = "🛒 Abrir Kayak";
-  }
+  // Voltando o botão para a busca geral do Kayak para evitar links fantasmas das agências
+  document.getElementById('link-kayak').href = "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=bestflight_a&fs=stops=~2";
+  document.getElementById('link-kayak').textContent = "🛒 Abrir Kayak (Busca ao vivo)";
 
   const tb = document.getElementById('tabela-body');
   tb.innerHTML = '';
