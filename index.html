@@ -257,7 +257,7 @@ async function triggerAction() {
 
 async function loadData() {
   try {
-    const r = await fetch('./data/historico.json?t=' + new Date().getTime());
+    const r = await fetch('https://raw.githubusercontent.com/yutakato27/flight-analysis/main/data/historico.json?t=' + new Date().getTime());
     if(r.ok) render(await r.json());
   } catch(e) {
     console.error("Erro ao carregar dados", e);
