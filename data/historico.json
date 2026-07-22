@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "timestamp": "2026-07-20T19:14:22.956442+00:00",
+    "preco_minimo_pessoa": 3233,
+    "preco_minimo_casal": 6466,
+    "detalhes_voo": "✈️ GOL | 🛫 Ida: 19:25 – 15:30 (22h 05min) | 🛬 Volta: 11:55 – 10:10 (20h 15min)",
+    "status": "ok"
+  },
+  {
+    "timestamp": "2026-07-21T18:10:32.378000+00:00",
+    "preco_minimo_pessoa": 3216,
+    "preco_minimo_casal": 6432,
+    "detalhes_voo": "✈️ GOL | 🛫 Ida: 19:25 – 15:30 (22h 05min) | 🛬 Volta: 11:55 – 10:10 (20h 15min)",
+    "status": "ok"
+  }
+]
