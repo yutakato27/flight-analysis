@@ -9,16 +9,16 @@ LOG_FILE        = os.path.join(os.path.dirname(__file__), "data", "historico.jso
 TIMEOUT_KAYAK   = 30
 NUM_ADULTOS     = 2
 
-# Busca 1: Menor preço geral (1 ou 2 paradas, ordenado por melhor voo)
+# Busca 1: Menor preço geral (1 ou 2 paradas, mais barato primeiro)
 URL_MENOR_PRECO = (
     "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
-    "2adults?sort=bestflight_a&fs=stops=1,2"
+    "2adults?sort=price_a&fs=stops=1,2"
 )
 
-# Busca 2: Melhor custo-benefício (máximo 1 parada, ordenado por preço)
+# Busca 2: Melhor custo-benefício (1 ou 2 paradas, mas prioriza melhor combinação de rota)
 URL_MELHOR_ROTA = (
     "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
-    "2adults?sort=price_a&fs=stops=1"
+    "2adults?sort=bestflight_a&fs=stops=1,2"
 )
 
 def criar_driver():
