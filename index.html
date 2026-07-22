@@ -139,11 +139,29 @@
       Aguardando detalhes do voo...
     </div>
     
-    <div style="margin-top:20px; padding-top:20px; border-top:1px solid var(--border)">
+    <div style="margin-top:20px; padding-top:20px; border-top:1px solid var(--border); display:flex; flex-direction:column; gap:10px;">
       <a id="link-kayak" href="https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=bestflight_a&fs=stops=1,2" target="_blank" style="
-        display:block; text-align:center; padding:12px; background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-        border-radius:12px; color:#fff; text-decoration:none; font-weight:600;
-      ">🛒 Abrir Kayak</a>
+        display:flex; align-items:center; justify-content:center; gap:10px;
+        padding:12px; background: linear-gradient(135deg, #ff6900, #ff8c38);
+        border-radius:12px; color:#fff; text-decoration:none; font-weight:700; font-size:.9rem;
+      ">
+        <svg width="20" height="20" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 6C17.6 6 6 17.6 6 32s11.6 26 26 26 26-11.6 26-26S46.4 6 32 6zm0 10l6 12H26l6-12zm-14 20l8-4-8-4v8zm28 0v-8l-8 4 8 4zm-14 12l-6-12h12l-6 12z" fill="white"/>
+        </svg>
+        Buscar no Kayak
+      </a>
+      
+      <a href="https://www.skyscanner.com.br/transport/flights/cwb/mco/270215/270227/?adultsv2=2&cabinclass=economy" target="_blank" style="
+        display:flex; align-items:center; justify-content:center; gap:10px;
+        padding:12px; background: linear-gradient(135deg, #0770e3, #05c2f0);
+        border-radius:12px; color:#fff; text-decoration:none; font-weight:700; font-size:.9rem;
+        transition: opacity .2s, transform .1s;
+      " onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21.8 15.7c-.5-.3-3.5-2.1-6.4-3.8l-2.2-6.2c-.2-.5-.6-.8-1.1-.8H10c-.4 0-.7.4-.6.8l1.5 5.3-3.7-2.2-.6-1.9c-.1-.4-.5-.7-.9-.7H4.5c-.4 0-.7.3-.6.7l.6 2.2C2.3 10 1 11 1 12s1.3 2 3.5 2.9l-.6 2.2c-.1.4.2.7.6.7h1.2c.4 0 .8-.3.9-.7l.6-1.9 3.7-2.2L9.4 18c-.1.4.2.8.6.8h2.1c.5 0 .9-.3 1.1-.8l2.2-6.2c2.9-1.7 5.9-3.5 6.4-3.8.7-.5 1.2-1.2 1.2-2s-.5-1.8-1.2-2.3z"/>
+        </svg>
+        Buscar no Skyscanner
+      </a>
     </div>
   </div>
 </div>
