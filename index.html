@@ -126,50 +126,60 @@
     <canvas id="chart-preco" style="max-height:280px"></canvas>
   </div>
 
+  <!-- CARD: MENOR PREÇO -->
   <div class="card">
-    <div class="card-label">💰 Último Preço</div>
-    <span class="badge" id="preco-badge">—</span>
+    <div class="card-label">💰 Menor Preço (até 2 escalas)</div>
+    <span class="badge" id="preco-badge-1">—</span>
     <div class="preco-display">
       <span style="font-size:1.5rem; color:var(--muted)">R$</span>
-      <span class="preco-numero" id="preco-casal">—</span>
+      <span class="preco-numero" id="preco-casal-1">—</span>
     </div>
     <div style="color:var(--muted); font-size:.8rem; margin-top:4px">Para 2 adultos</div>
-    
-    <div id="detalhes-voo" style="margin-top:16px; padding:12px; background:rgba(0,0,0,0.2); border:1px solid var(--border); border-radius:8px; font-size:0.75rem; color:var(--muted); line-height:1.5; word-wrap:break-word;">
-      Aguardando detalhes do voo...
+    <div id="detalhes-voo-1" style="margin-top:16px; padding:12px; background:rgba(0,0,0,0.2); border:1px solid var(--border); border-radius:8px; font-size:0.75rem; color:var(--muted); line-height:1.5; word-wrap:break-word;">
+      Aguardando dados...
     </div>
-    
-    <div style="margin-top:20px; padding-top:20px; border-top:1px solid var(--border); display:flex; flex-direction:column; gap:10px;">
-      <a id="link-kayak" href="https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=bestflight_a&fs=stops=1,2" target="_blank" style="
-        display:flex; align-items:center; justify-content:center; gap:10px;
-        padding:12px; background: linear-gradient(135deg, #ff6900, #ff8c38);
-        border-radius:12px; color:#fff; text-decoration:none; font-weight:700; font-size:.9rem;
-      ">
-        <svg width="20" height="20" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M32 6C17.6 6 6 17.6 6 32s11.6 26 26 26 26-11.6 26-26S46.4 6 32 6zm0 10l6 12H26l6-12zm-14 20l8-4-8-4v8zm28 0v-8l-8 4 8 4zm-14 12l-6-12h12l-6 12z" fill="white"/>
-        </svg>
-        Buscar no Kayak
+    <div style="margin-top:16px; display:flex; flex-direction:column; gap:8px;">
+      <a href="https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=bestflight_a&fs=stops=1,2" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:linear-gradient(135deg,#ff6900,#ff8c38);border-radius:10px;color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;">
+        <svg width="16" height="16" viewBox="0 0 64 64" fill="white"><path d="M32 6C17.6 6 6 17.6 6 32s11.6 26 26 26 26-11.6 26-26S46.4 6 32 6zm0 10l6 12H26l6-12zm-14 20l8-4-8-4v8zm28 0v-8l-8 4 8 4zm-14 12l-6-12h12l-6 12z"/></svg>
+        Kayak
       </a>
-      
-      <a href="https://www.skyscanner.com.br/transport/flights/cwb/mco/270215/270227/?adultsv2=2&cabinclass=economy" target="_blank" style="
-        display:flex; align-items:center; justify-content:center; gap:10px;
-        padding:12px; background: linear-gradient(135deg, #0770e3, #05c2f0);
-        border-radius:12px; color:#fff; text-decoration:none; font-weight:700; font-size:.9rem;
-        transition: opacity .2s, transform .1s;
-      " onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-          <path d="M21.8 15.7c-.5-.3-3.5-2.1-6.4-3.8l-2.2-6.2c-.2-.5-.6-.8-1.1-.8H10c-.4 0-.7.4-.6.8l1.5 5.3-3.7-2.2-.6-1.9c-.1-.4-.5-.7-.9-.7H4.5c-.4 0-.7.3-.6.7l.6 2.2C2.3 10 1 11 1 12s1.3 2 3.5 2.9l-.6 2.2c-.1.4.2.7.6.7h1.2c.4 0 .8-.3.9-.7l.6-1.9 3.7-2.2L9.4 18c-.1.4.2.8.6.8h2.1c.5 0 .9-.3 1.1-.8l2.2-6.2c2.9-1.7 5.9-3.5 6.4-3.8.7-.5 1.2-1.2 1.2-2s-.5-1.8-1.2-2.3z"/>
-        </svg>
-        Buscar no Skyscanner
+      <a href="https://www.skyscanner.com.br/transport/flights/cwb/mco/270215/270227/?adultsv2=2&cabinclass=economy" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:linear-gradient(135deg,#0770e3,#05c2f0);border-radius:10px;color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M21.8 15.7c-.5-.3-3.5-2.1-6.4-3.8l-2.2-6.2c-.2-.5-.6-.8-1.1-.8H10c-.4 0-.7.4-.6.8l1.5 5.3-3.7-2.2-.6-1.9c-.1-.4-.5-.7-.9-.7H4.5c-.4 0-.7.3-.6.7l.6 2.2C2.3 10 1 11 1 12s1.3 2 3.5 2.9l-.6 2.2c-.1.4.2.7.6.7h1.2c.4 0 .8-.3.9-.7l.6-1.9 3.7-2.2L9.4 18c-.1.4.2.8.6.8h2.1c.5 0 .9-.3 1.1-.8l2.2-6.2c2.9-1.7 5.9-3.5 6.4-3.8.7-.5 1.2-1.2 1.2-2s-.5-1.8-1.2-2.3z"/></svg>
+        Skyscanner
       </a>
     </div>
   </div>
+
+  <!-- CARD: MELHOR ROTA (1 parada) -->
+  <div class="card" style="border:1px solid rgba(139,92,246,0.4); box-shadow: 0 0 20px rgba(139,92,246,0.15);">
+    <div class="card-label">⭐ Melhor Rota (máx. 1 escala)</div>
+    <span class="badge" id="preco-badge-2">—</span>
+    <div class="preco-display">
+      <span style="font-size:1.5rem; color:var(--muted)">R$</span>
+      <span class="preco-numero" id="preco-casal-2">—</span>
+    </div>
+    <div style="color:var(--muted); font-size:.8rem; margin-top:4px">Para 2 adultos · máx. 1 conexão</div>
+    <div id="detalhes-voo-2" style="margin-top:16px; padding:12px; background:rgba(139,92,246,0.08); border:1px solid rgba(139,92,246,0.3); border-radius:8px; font-size:0.75rem; color:var(--muted); line-height:1.5; word-wrap:break-word;">
+      Aguardando dados...
+    </div>
+    <div style="margin-top:16px; display:flex; flex-direction:column; gap:8px;">
+      <a href="https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=price_a&fs=stops=1" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:linear-gradient(135deg,#ff6900,#ff8c38);border-radius:10px;color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;">
+        <svg width="16" height="16" viewBox="0 0 64 64" fill="white"><path d="M32 6C17.6 6 6 17.6 6 32s11.6 26 26 26 26-11.6 26-26S46.4 6 32 6zm0 10l6 12H26l6-12zm-14 20l8-4-8-4v8zm28 0v-8l-8 4 8 4zm-14 12l-6-12h12l-6 12z"/></svg>
+        Kayak (1 escala)
+      </a>
+      <a href="https://www.skyscanner.com.br/transport/flights/cwb/mco/270215/270227/?adultsv2=2&cabinclass=economy&stops=1" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:linear-gradient(135deg,#0770e3,#05c2f0);border-radius:10px;color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M21.8 15.7c-.5-.3-3.5-2.1-6.4-3.8l-2.2-6.2c-.2-.5-.6-.8-1.1-.8H10c-.4 0-.7.4-.6.8l1.5 5.3-3.7-2.2-.6-1.9c-.1-.4-.5-.7-.9-.7H4.5c-.4 0-.7.3-.6.7l.6 2.2C2.3 10 1 11 1 12s1.3 2 3.5 2.9l-.6 2.2c-.1.4.2.7.6.7h1.2c.4 0 .8-.3.9-.7l.6-1.9 3.7-2.2L9.4 18c-.1.4.2.8.6.8h2.1c.5 0 .9-.3 1.1-.8l2.2-6.2c2.9-1.7 5.9-3.5 6.4-3.8.7-.5 1.2-1.2 1.2-2s-.5-1.8-1.2-2.3z"/></svg>
+        Skyscanner (1 escala)
+      </a>
+    </div>
+  </div>
+
 </div>
 
 <div class="card" style="margin-top:20px; overflow-x:auto;">
   <div class="card-label">📋 Últimos Registros</div>
   <table>
-    <thead><tr><th>Data / Hora</th><th>Preço Casal</th><th>Por Pessoa</th></tr></thead>
+    <thead><tr><th>Data / Hora</th><th>💰 Menor Preço (casal)</th><th>⭐ Melhor Rota (casal)</th></tr></thead>
     <tbody id="tabela-body"></tbody>
   </table>
 </div>
@@ -180,42 +190,56 @@ let chart = null;
 function fmt(v) { return 'R$ ' + v.toLocaleString('pt-BR'); }
 
 function render(hist) {
-  const validos = hist.filter(h => h.preco_minimo_casal != null);
+  // Suporte ao novo formato (com menor_preco/melhor_rota) e formato legado
+  const validos = hist.filter(h => (h.menor_preco?.preco_casal ?? h.preco_minimo_casal) != null);
   if (validos.length === 0) return;
-  
-  const precos = validos.map(h => h.preco_minimo_casal);
+
+  const precos = validos.map(h => h.menor_preco?.preco_casal ?? h.preco_minimo_casal);
   const ultimo = validos[validos.length - 1];
+  const mp  = ultimo.menor_preco  || { preco_casal: ultimo.preco_minimo_casal, detalhes_voo: ultimo.detalhes_voo };
+  const mr  = ultimo.melhor_rota  || null;
 
-  document.getElementById('stat-min').textContent = fmt(Math.min(...precos));
-  document.getElementById('stat-max').textContent = fmt(Math.max(...precos));
-  document.getElementById('stat-avg').textContent = fmt(Math.round(precos.reduce((a,b)=>a+b,0)/precos.length));
+  document.getElementById('stat-min').textContent    = fmt(Math.min(...precos));
+  document.getElementById('stat-max').textContent    = fmt(Math.max(...precos));
+  document.getElementById('stat-avg').textContent    = fmt(Math.round(precos.reduce((a,b)=>a+b,0)/precos.length));
   document.getElementById('stat-checks').textContent = validos.length;
-  
-  document.getElementById('preco-casal').textContent = ultimo.preco_minimo_casal.toLocaleString('pt-BR');
-  
-  const b = document.getElementById('preco-badge');
-  if (ultimo.preco_minimo_casal <= 6500) { b.textContent = '🚨 EXCELENTE'; b.className = 'badge green'; }
-  else if (ultimo.preco_minimo_casal <= 7000) { b.textContent = '✅ BOM'; b.className = 'badge yellow'; }
-  else { b.textContent = '📈 AGUARDANDO'; b.className = 'badge muted'; }
 
-  if (ultimo.detalhes_voo) {
-    const det = ultimo.detalhes_voo.replace(/\|/g, '<br>');
-    document.getElementById('detalhes-voo').innerHTML = `<strong style="color:var(--text)">Resumo da Rota:</strong><br>${det}`;
-  } else {
-    document.getElementById('detalhes-voo').innerHTML = "Detalhes não disponíveis nesta coleta.";
+  // Card 1 — Menor Preço
+  if (mp.preco_casal) {
+    document.getElementById('preco-casal-1').textContent = mp.preco_casal.toLocaleString('pt-BR');
+    const b1 = document.getElementById('preco-badge-1');
+    if (mp.preco_casal <= 6500) { b1.textContent = '🚨 EXCELENTE'; b1.className = 'badge green'; }
+    else if (mp.preco_casal <= 7500) { b1.textContent = '✅ BOM'; b1.className = 'badge yellow'; }
+    else { b1.textContent = '📈 AGUARDANDO'; b1.className = 'badge muted'; }
+    document.getElementById('detalhes-voo-1').innerHTML = mp.detalhes_voo
+      ? `<strong style="color:var(--text)">Resumo:</strong><br>${mp.detalhes_voo.replace(/\|/g,'<br>')}`
+      : 'Detalhes indisponíveis.';
   }
-  
-  // Voltando o botão para a busca geral do Kayak para evitar links fantasmas das agências
-  document.getElementById('link-kayak').href = "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=bestflight_a&fs=stops=~2";
-  document.getElementById('link-kayak').textContent = "🛒 Abrir Kayak (Busca ao vivo)";
+
+  // Card 2 — Melhor Rota
+  if (mr && mr.preco_casal) {
+    document.getElementById('preco-casal-2').textContent = mr.preco_casal.toLocaleString('pt-BR');
+    const b2 = document.getElementById('preco-badge-2');
+    if (mr.preco_casal <= 7000) { b2.textContent = '🚨 EXCELENTE'; b2.className = 'badge green'; }
+    else if (mr.preco_casal <= 8000) { b2.textContent = '✅ BOM'; b2.className = 'badge yellow'; }
+    else { b2.textContent = '📈 AGUARDANDO'; b2.className = 'badge muted'; }
+    document.getElementById('detalhes-voo-2').innerHTML = mr.detalhes_voo
+      ? `<strong style="color:var(--text)">Resumo:</strong><br>${mr.detalhes_voo.replace(/\|/g,'<br>')}`
+      : 'Detalhes indisponíveis.';
+  } else {
+    document.getElementById('preco-casal-2').textContent = '—';
+    document.getElementById('detalhes-voo-2').textContent = 'Nenhum voo com 1 escala encontrado.';
+  }
 
   const tb = document.getElementById('tabela-body');
   tb.innerHTML = '';
   [...validos].reverse().slice(0, 15).forEach(h => {
+    const p1 = h.menor_preco?.preco_casal ?? h.preco_minimo_casal;
+    const p2 = h.melhor_rota?.preco_casal ?? null;
     tb.innerHTML += `<tr>
       <td>${new Date(h.timestamp).toLocaleString('pt-BR')}</td>
-      <td><strong>${fmt(h.preco_minimo_casal)}</strong></td>
-      <td>${fmt(h.preco_minimo_pessoa || Math.round(h.preco_minimo_casal/2))}</td>
+      <td><strong>${p1 ? fmt(p1) : '—'}</strong></td>
+      <td>${p2 ? fmt(p2) : '—'}</td>
     </tr>`;
   });
 

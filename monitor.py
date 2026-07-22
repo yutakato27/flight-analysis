@@ -9,9 +9,16 @@ LOG_FILE        = os.path.join(os.path.dirname(__file__), "data", "historico.jso
 TIMEOUT_KAYAK   = 30
 NUM_ADULTOS     = 2
 
-URL_KAYAK = (
+# Busca 1: Menor preço geral (1 ou 2 paradas, ordenado por melhor voo)
+URL_MENOR_PRECO = (
     "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
     "2adults?sort=bestflight_a&fs=stops=1,2"
+)
+
+# Busca 2: Melhor custo-benefício (máximo 1 parada, ordenado por preço)
+URL_MELHOR_ROTA = (
+    "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
+    "2adults?sort=price_a&fs=stops=1"
 )
 
 def criar_driver():
@@ -48,73 +55,57 @@ def extrair_precos_kayak(texto):
     totais_casal = [p * NUM_ADULTOS for p in precos_pessoa]
     return precos_pessoa, totais_casal
 
-def buscar_kayak():
+def extrair_detalhes_card(card):
+    """Extrai companhia, horários e duração do primeiro card de voo."""
+    linhas_card = [l for l in card.text.split('\n') if l.strip()]
+
+    cia = "—"
+    for i, l in enumerate(linhas_card):
+        if "R$" in l:
+            if i > 0: cia = linhas_card[i-1]
+            break
+
+    horarios = [l for l in linhas_card if "–" in l and ":" in l]
+    duracoes = [l for l in linhas_card if "h" in l and ("min" in l or "m" in l) and "Escala" not in l]
+
+    ida   = f"🛫 Ida: {horarios[0]} ({duracoes[0]})"   if len(horarios)>0 and len(duracoes)>0 else ""
+    volta = f"🛬 Volta: {horarios[1]} ({duracoes[1]})" if len(horarios)>1 and len(duracoes)>1 else ""
+
+    return f"✈️ {cia} | {ida} | {volta}"
+
+def buscar(url, label):
+    """Abre a URL no Kayak e retorna os dados do primeiro resultado."""
     driver = criar_driver()
-    resultado = {
-        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-        "preco_minimo_pessoa": None,
-        "preco_minimo_casal": None,
-        "detalhes_voo": None,
-        "status": "erro",
-    }
+    dados = {"preco_casal": None, "detalhes_voo": None, "status": "erro"}
     try:
-        print(f"🌐 Abrindo Kayak...")
-        driver.get(URL_KAYAK)
+        print(f"🌐 [{label}] Abrindo Kayak...")
+        driver.get(url)
         print(f"⏳ Aguardando {TIMEOUT_KAYAK}s...")
         time.sleep(TIMEOUT_KAYAK)
-        
-        # Tenta pegar os cards de voos
+
         cards = driver.find_elements(By.CSS_SELECTOR, "div.nrc6-wrapper")
         if not cards:
             cards = driver.find_elements(By.CSS_SELECTOR, "div.inner-wrapper")
-            
-        if cards:
-            # Pega link de compra direta se existir
-            links = cards[0].find_elements(By.TAG_NAME, "a")
-            link_direto = URL_KAYAK
-            for a in links:
-                href = a.get_attribute('href')
-                if href and ('/book/' in href or 'flights' in href):
-                    link_direto = href
-                    break
-            resultado["link_direto"] = link_direto
 
-            # Pega detalhes do primeiro card
-            linhas_card = [l for l in cards[0].text.split('\n') if l.strip()]
-            
-            # Limpa as linhas ruins
-            cia = "Companhia"
-            for i, l in enumerate(linhas_card):
-                if "R$" in l:
-                    if i > 0: cia = linhas_card[i-1]
-                    break
-                    
-            horarios = [l for l in linhas_card if "–" in l and ":" in l]
-            duracoes = [l for l in linhas_card if "h" in l and ("min" in l or "m" in l) and "Escala" not in l]
-            
-            ida = f"🛫 Ida: {horarios[0]} ({duracoes[0]})" if len(horarios)>0 and len(duracoes)>0 else ""
-            volta = f"🛬 Volta: {horarios[1]} ({duracoes[1]})" if len(horarios)>1 and len(duracoes)>1 else ""
-            
-            texto_formatado = f"✈️ {cia} | {ida} | {volta}"
-            resultado["detalhes_voo"] = texto_formatado
-            
+        if cards:
+            dados["detalhes_voo"] = extrair_detalhes_card(cards[0])
+
         body = driver.find_element(By.TAG_NAME, "body").text
-        precos_pessoa, totais_casal = extrair_precos_kayak(body)
-        
-        if totais_casal:
-            resultado.update({
-                "preco_minimo_pessoa": min(precos_pessoa),
-                "preco_minimo_casal":  min(precos_pessoa) * NUM_ADULTOS,
-                "status": "ok",
-            })
+        precos_pessoa, _ = extrair_precos_kayak(body)
+
+        if precos_pessoa:
+            dados["preco_casal"] = min(precos_pessoa) * NUM_ADULTOS
+            dados["status"] = "ok"
+            print(f"✅ [{label}] R$ {dados['preco_casal']:,}")
         else:
-            resultado["status"] = "sem_preco"
+            dados["status"] = "sem_preco"
+            print(f"⚠️  [{label}] Nenhum preço encontrado.")
     except Exception as e:
-        resultado["erro"] = str(e)
-        print(f"❌ Erro: {e}")
+        dados["erro"] = str(e)
+        print(f"❌ [{label}] Erro: {e}")
     finally:
         driver.quit()
-    return resultado
+    return dados
 
 def salvar_historico(r):
     os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
@@ -126,16 +117,27 @@ def salvar_historico(r):
         except Exception:
             pass
     hist.append(r)
-    hist = hist[-500:] # Manter ultimos 500
+    hist = hist[-500:]
     with open(LOG_FILE, "w", encoding="utf-8") as f:
         json.dump(hist, f, indent=2, ensure_ascii=False)
     print(f"📝 Histórico salvo com {len(hist)} registros.")
 
 if __name__ == "__main__":
-    print("Iniciando coleta...")
-    r = buscar_kayak()
-    print(json.dumps(r, indent=2, ensure_ascii=False))
-    if r.get("preco_minimo_casal"):
-        salvar_historico(r)
+    print("Iniciando coleta dupla...")
+
+    menor_preco  = buscar(URL_MENOR_PRECO, "Menor Preço")
+    melhor_rota  = buscar(URL_MELHOR_ROTA, "Melhor Rota (1 parada)")
+
+    registro = {
+        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "menor_preco": menor_preco,
+        "melhor_rota": melhor_rota,
+        "status": "ok" if menor_preco["status"] == "ok" or melhor_rota["status"] == "ok" else "erro",
+    }
+
+    print(json.dumps(registro, indent=2, ensure_ascii=False))
+
+    if registro["status"] == "ok":
+        salvar_historico(registro)
     else:
         print("Nenhum preço encontrado. Histórico não modificado.")
