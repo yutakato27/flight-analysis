@@ -22,5 +22,19 @@
     "detalhes_voo": "✈️ Anúncio | 🛫 Ida: 19:35 – 15:30 (21h 55min) | 🛬 Volta: 12:55 – 11:05 (20h 10min)",
     "status": "ok",
     "link_direto": "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=bestflight_a&fs=stops=1,2"
+  },
+  {
+    "timestamp": "2026-07-22T12:57:11.740181+00:00",
+    "menor_preco": {
+      "preco_casal": 6088,
+      "detalhes_voo": "✈️ Anúncio | 🛫 Ida: 19:10 – 9:55 (16h 45min) | 🛬 Volta: 11:20 – 10:10 (20h 50min)",
+      "status": "ok"
+    },
+    "melhor_rota": {
+      "preco_casal": 6088,
+      "detalhes_voo": "✈️ GOL | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:00 – 11:05 (12h 05min)",
+      "status": "ok"
+    },
+    "status": "ok"
   }
 ]
