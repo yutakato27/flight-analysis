@@ -90,16 +90,28 @@ def buscar(url, label):
         if cards:
             dados["detalhes_voo"] = extrair_detalhes_card(cards[0])
 
-        body = driver.find_element(By.TAG_NAME, "body").text
-        precos_pessoa, _ = extrair_precos_kayak(body)
+            # Lê preço SOMENTE do primeiro card, não do body inteiro
+            texto_card = cards[0].text
+            precos_pessoa, _ = extrair_precos_kayak(texto_card)
 
-        if precos_pessoa:
-            dados["preco_casal"] = min(precos_pessoa) * NUM_ADULTOS
-            dados["status"] = "ok"
-            print(f"✅ [{label}] R$ {dados['preco_casal']:,}")
+            if precos_pessoa:
+                dados["preco_casal"] = min(precos_pessoa) * NUM_ADULTOS
+                dados["status"] = "ok"
+                print(f"✅ [{label}] R$ {dados['preco_casal']:,}")
+            else:
+                # Fallback: tenta pegar do body se o card não retornou preço
+                body = driver.find_element(By.TAG_NAME, "body").text
+                precos_pessoa, _ = extrair_precos_kayak(body)
+                if precos_pessoa:
+                    dados["preco_casal"] = min(precos_pessoa) * NUM_ADULTOS
+                    dados["status"] = "ok_fallback"
+                    print(f"⚠️  [{label}] Preço via fallback: R$ {dados['preco_casal']:,}")
+                else:
+                    dados["status"] = "sem_preco"
+                    print(f"⚠️  [{label}] Nenhum preço encontrado.")
         else:
-            dados["status"] = "sem_preco"
-            print(f"⚠️  [{label}] Nenhum preço encontrado.")
+            dados["status"] = "sem_cards"
+            print(f"⚠️  [{label}] Nenhum card encontrado.")
     except Exception as e:
         dados["erro"] = str(e)
         print(f"❌ [{label}] Erro: {e}")
