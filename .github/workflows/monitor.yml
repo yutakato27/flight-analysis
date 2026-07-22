@@ -2,7 +2,7 @@ name: Monitor Flight Prices
 
 on:
   schedule:
-    - cron: '9 12 22 7 *' # TESTE: roda 12:09 UTC (09:09 BRT) dia 22/07
+    - cron: '0 */6 * * *' # Roda a cada 6 horas
   workflow_dispatch: # Permite rodar manualmente pelo site do GitHub
 
 permissions:
