@@ -14,5 +14,13 @@
     "detalhes_voo": "✈️ GOL | 🛫 Ida: 19:25 – 15:30 (22h 05min) | 🛬 Volta: 11:55 – 10:10 (20h 15min)",
     "status": "ok",
     "link_direto": "https://www.kayak.com.br/book/flight?code=0cACSQPyWI.nvCtXeNjH_gEdn9PX-8xhQ.62998.9715e7b9f14f2403baf556b443300293&h=c6597c479406&sub=F8788161267365871020E0c1bd0afda3&viewId=44e124d4-7cd4-45d9-8d42-957c1f8d8822&viewRank=1&adContentId=848ecc7e2e5b4995f1b099830d149dd4&bucket=PO&pageOrigin=F..RP.FE.M1"
+  },
+  {
+    "timestamp": "2026-07-22T12:33:56.091079+00:00",
+    "preco_minimo_pessoa": 3044,
+    "preco_minimo_casal": 6088,
+    "detalhes_voo": "✈️ Anúncio | 🛫 Ida: 19:35 – 15:30 (21h 55min) | 🛬 Volta: 12:55 – 11:05 (20h 10min)",
+    "status": "ok",
+    "link_direto": "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=bestflight_a&fs=stops=1,2"
   }
 ]
