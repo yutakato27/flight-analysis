@@ -296,10 +296,19 @@ async function triggerAction() {
 
 async function loadData() {
   try {
-    const r = await fetch('https://raw.githubusercontent.com/yutakato27/flight-analysis/main/data/historico.json?t=' + new Date().getTime());
+    // Usa a API do GitHub para evitar cache do raw.githubusercontent
+    const r = await fetch('https://api.github.com/repos/yutakato27/flight-analysis/contents/data/historico.json', {
+      headers: { 'Accept': 'application/vnd.github.v3.raw' }
+    });
     if(r.ok) render(await r.json());
   } catch(e) {
-    console.error("Erro ao carregar dados", e);
+    // Fallback para raw se a API falhar
+    try {
+      const r2 = await fetch('https://raw.githubusercontent.com/yutakato27/flight-analysis/main/data/historico.json');
+      if(r2.ok) render(await r2.json());
+    } catch(e2) {
+      console.error("Erro ao carregar dados", e2);
+    }
   }
 }
 
