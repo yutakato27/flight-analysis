@@ -233,7 +233,7 @@ async function triggerAction() {
         "Accept": "application/vnd.github.v3+json",
         "Authorization": `token ${token}`,
       },
-      body: JSON.stringify({ ref: "master" })
+      body: JSON.stringify({ ref: "main" })
     });
 
     if (res.ok) {
