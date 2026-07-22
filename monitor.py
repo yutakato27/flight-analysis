@@ -39,21 +39,25 @@ def criar_driver():
     driver.execute_script("Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
     return driver
 
-def extrair_precos_kayak(texto):
-    padrao = r'R\$\s?([\d]{1,3}(?:\.\d{3})*)'
-    matches = re.findall(padrao, texto)
-    precos_pessoa = []
-    for m in matches:
-        limpo = m.replace(".", "")
-        try:
-            v = int(limpo)
-            if 2_000 <= v <= 15_000:
-                precos_pessoa.append(v)
-        except Exception:
-            pass
-    precos_pessoa = sorted(set(precos_pessoa))
-    totais_casal = [p * NUM_ADULTOS for p in precos_pessoa]
-    return precos_pessoa, totais_casal
+def extrair_preco_card(texto_card):
+    """Extrai o preço TOTAL do casal diretamente do texto do card (ex: 'R$ 10.664 no total')."""
+    import re
+    # Primeiro tenta pegar o preço "no total" que é o mais confiável
+    total = re.search(r'R\$\s?([\d]{1,3}(?:\.[\d]{3})*)\s*no total', texto_card)
+    if total:
+        preco = int(total.group(1).replace(".", ""))
+        if 4_000 <= preco <= 30_000:
+            return preco
+
+    # Fallback: pega o preço por pessoa e multiplica
+    padrao = r'R\$\s?([\d]{1,3}(?:\.[\d]{3})*)\s*\n?\s*/\s*pessoa'
+    pessoa = re.search(padrao, texto_card)
+    if pessoa:
+        preco_pessoa = int(pessoa.group(1).replace(".", ""))
+        if 2_000 <= preco_pessoa <= 15_000:
+            return preco_pessoa * NUM_ADULTOS
+
+    return None
 
 def extrair_detalhes_card(card):
     """Extrai companhia, horários e duração do primeiro card de voo."""
@@ -90,25 +94,15 @@ def buscar(url, label):
         if cards:
             dados["detalhes_voo"] = extrair_detalhes_card(cards[0])
 
-            # Lê preço SOMENTE do primeiro card, não do body inteiro
-            texto_card = cards[0].text
-            precos_pessoa, _ = extrair_precos_kayak(texto_card)
-
-            if precos_pessoa:
-                dados["preco_casal"] = min(precos_pessoa) * NUM_ADULTOS
+            # Lê preço diretamente do card (prioriza "no total", fallback "/pessoa * 2")
+            preco_casal = extrair_preco_card(cards[0].text)
+            if preco_casal:
+                dados["preco_casal"] = preco_casal
                 dados["status"] = "ok"
                 print(f"✅ [{label}] R$ {dados['preco_casal']:,}")
             else:
-                # Fallback: tenta pegar do body se o card não retornou preço
-                body = driver.find_element(By.TAG_NAME, "body").text
-                precos_pessoa, _ = extrair_precos_kayak(body)
-                if precos_pessoa:
-                    dados["preco_casal"] = min(precos_pessoa) * NUM_ADULTOS
-                    dados["status"] = "ok_fallback"
-                    print(f"⚠️  [{label}] Preço via fallback: R$ {dados['preco_casal']:,}")
-                else:
-                    dados["status"] = "sem_preco"
-                    print(f"⚠️  [{label}] Nenhum preço encontrado.")
+                dados["status"] = "sem_preco"
+                print(f"⚠️  [{label}] Preço não encontrado no card.")
         else:
             dados["status"] = "sem_cards"
             print(f"⚠️  [{label}] Nenhum card encontrado.")
