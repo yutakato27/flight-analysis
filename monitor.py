@@ -21,6 +21,12 @@ URL_MELHOR_ROTA = (
     "2adults?sort=price_a&fs=stops=1"
 )
 
+# Busca 3: Mista (1 parada na ida, até 2 na volta, ordenado por preço)
+URL_MISTA = (
+    "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
+    "2adults?sort=price_a&fs=outboundstops=~1;inboundstops=~2"
+)
+
 def criar_driver():
     options = Options()
     options.add_argument("--headless=new")
@@ -133,12 +139,14 @@ if __name__ == "__main__":
 
     menor_preco  = buscar(URL_MENOR_PRECO, "Menor Preço")
     melhor_rota  = buscar(URL_MELHOR_ROTA, "Melhor Rota (1 parada)")
+    mista        = buscar(URL_MISTA, "Mista (1 ida, 2 volta)")
 
     registro = {
         "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "menor_preco": menor_preco,
         "melhor_rota": melhor_rota,
-        "status": "ok" if menor_preco["status"] == "ok" or melhor_rota["status"] == "ok" else "erro",
+        "mista": mista,
+        "status": "ok" if menor_preco["status"] == "ok" or melhor_rota["status"] == "ok" or mista["status"] == "ok" else "erro",
     }
 
     print(json.dumps(registro, indent=2, ensure_ascii=False))
