@@ -22,9 +22,10 @@ URL_MELHOR_ROTA = (
 )
 
 # Busca 3: Mista (1 parada na ida, até 2 na volta, ordenado por preço)
+# Como o Kayak ignora filtros assimétricos na URL, buscamos 1 ou 2 paradas e filtramos no Python
 URL_MISTA = (
     "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
-    "2adults?sort=price_a&fs=outboundstops=~1;inboundstops=~2"
+    "2adults?sort=price_a&fs=stops=1,2"
 )
 
 def criar_driver():
@@ -83,8 +84,8 @@ def extrair_detalhes_card(card):
 
     return f"✈️ {cia} | {ida} | {volta}"
 
-def buscar(url, label):
-    """Abre a URL no Kayak e retorna os dados do primeiro resultado."""
+def buscar(url, label, is_mista=False):
+    """Abre a URL no Kayak e retorna os dados do primeiro resultado que atende ao critério."""
     driver = criar_driver()
     dados = {"preco_casal": None, "detalhes_voo": None, "status": "erro"}
     try:
@@ -98,17 +99,34 @@ def buscar(url, label):
             cards = driver.find_elements(By.CSS_SELECTOR, "div.inner-wrapper")
 
         if cards:
-            dados["detalhes_voo"] = extrair_detalhes_card(cards[0])
-
-            # Lê preço diretamente do card (prioriza "no total", fallback "/pessoa * 2")
-            preco_casal = extrair_preco_card(cards[0].text)
-            if preco_casal:
-                dados["preco_casal"] = preco_casal
-                dados["status"] = "ok"
-                print(f"✅ [{label}] R$ {dados['preco_casal']:,}")
+            card_escolhido = None
+            if is_mista:
+                for c in cards:
+                    linhas = [l.strip() for l in c.text.split('\n') if l.strip()]
+                    escalas = [l for l in linhas if "escala" in l.lower() and "escala de" not in l.lower()]
+                    # escalas[0] = ida, escalas[1] = volta
+                    if len(escalas) >= 2:
+                        if "1 escala" in escalas[0].lower():
+                            card_escolhido = c
+                            break
             else:
-                dados["status"] = "sem_preco"
-                print(f"⚠️  [{label}] Preço não encontrado no card.")
+                card_escolhido = cards[0]
+
+            if card_escolhido:
+                dados["detalhes_voo"] = extrair_detalhes_card(card_escolhido)
+
+                # Lê preço diretamente do card (prioriza "no total", fallback "/pessoa * 2")
+                preco_casal = extrair_preco_card(card_escolhido.text)
+                if preco_casal:
+                    dados["preco_casal"] = preco_casal
+                    dados["status"] = "ok"
+                    print(f"✅ [{label}] R$ {dados['preco_casal']:,}")
+                else:
+                    dados["status"] = "sem_preco"
+                    print(f"⚠️  [{label}] Preço não encontrado no card.")
+            else:
+                dados["status"] = "sem_cards"
+                print(f"⚠️  [{label}] Nenhum card atendeu ao filtro.")
         else:
             dados["status"] = "sem_cards"
             print(f"⚠️  [{label}] Nenhum card encontrado.")
@@ -139,7 +157,7 @@ if __name__ == "__main__":
 
     menor_preco  = buscar(URL_MENOR_PRECO, "Menor Preço")
     melhor_rota  = buscar(URL_MELHOR_ROTA, "Melhor Rota (1 parada)")
-    mista        = buscar(URL_MISTA, "Mista (1 ida, 2 volta)")
+    mista        = buscar(URL_MISTA, "Mista (1 ida, 2 volta)", is_mista=True)
 
     registro = {
         "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
