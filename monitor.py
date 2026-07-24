@@ -5,33 +5,26 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
-# Parâmetros de Data dinâmicos
-DATA_IDA   = os.environ.get("DATA_IDA")
-if not DATA_IDA: DATA_IDA = "2027-02-15"
-
-DATA_VOLTA = os.environ.get("DATA_VOLTA")
-if not DATA_VOLTA: DATA_VOLTA = "2027-02-27"
-
-LOG_FILE        = os.path.join(os.path.dirname(__file__), "data", f"historico_{DATA_IDA}_{DATA_VOLTA}.json")
+LOG_FILE        = os.path.join(os.path.dirname(__file__), "data", "historico.json")
 TIMEOUT_KAYAK   = 30
 NUM_ADULTOS     = 2
 
 # Busca 1: Menor preço geral (1 ou 2 paradas por perna, mais barato primeiro)
 URL_MENOR_PRECO = (
-    f"https://www.kayak.com.br/flights/CWB-MCO/{DATA_IDA}/{DATA_VOLTA}/"
+    "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
     "2adults?sort=price_a&fs=stops=1,2"
 )
 
 # Busca 2: Melhor rota (exatamente 1 parada em CADA perna - ida e volta)
 URL_MELHOR_ROTA = (
-    f"https://www.kayak.com.br/flights/CWB-MCO/{DATA_IDA}/{DATA_VOLTA}/"
+    "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
     "2adults?sort=price_a&fs=stops=1"
 )
 
 # Busca 3: Mista (1 parada na ida, até 2 na volta, ordenado por preço)
 # Como o Kayak ignora filtros assimétricos na URL, buscamos 1 ou 2 paradas e filtramos no Python
 URL_MISTA = (
-    f"https://www.kayak.com.br/flights/CWB-MCO/{DATA_IDA}/{DATA_VOLTA}/"
+    "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
     "2adults?sort=price_a&fs=stops=1,2"
 )
 

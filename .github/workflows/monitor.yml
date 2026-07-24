@@ -4,15 +4,6 @@ on:
   schedule:
     - cron: '0 */6 * * *' # Roda a cada 6 horas
   workflow_dispatch: # Permite rodar manualmente pelo site do GitHub
-    inputs:
-      data_ida:
-        description: 'Data de ida (YYYY-MM-DD)'
-        required: false
-        default: '2027-02-15'
-      data_volta:
-        description: 'Data de volta (YYYY-MM-DD)'
-        required: false
-        default: '2027-02-27'
 
 permissions:
   contents: write
@@ -42,14 +33,11 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Scraping Script
-        env:
-          DATA_IDA: ${{ github.event.inputs.data_ida }}
-          DATA_VOLTA: ${{ github.event.inputs.data_volta }}
         run: python monitor.py
 
       - name: Commit and Push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add data/
+          git add data/historico.json
           git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update: New flight prices [skip ci]" && git push)

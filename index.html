@@ -92,14 +92,14 @@
 <header>
   <div class="logo">
     <span class="logo-icon">✈</span>
-    <h1>Monitor de Passagens <span>CWB → MCO</span></h1>
+    <h1>Monitor de Passagens <span>CWB → MCO · Fev 15–27, 2027</span></h1>
   </div>
   
-  <div class="date-controls">
-    <span style="color:var(--muted); font-size:0.8rem;">Ida</span>
-    <input type="date" id="data_ida" value="2027-02-15" onchange="updateDates()">
-    <span style="color:var(--muted); font-size:0.8rem; margin-left:8px;">Volta</span>
-    <input type="date" id="data_volta" value="2027-02-27" onchange="updateDates()">
+  <div class="date-controls" title="Filtrar período do histórico exibido">
+    <span style="color:var(--muted); font-size:0.8rem;">Histórico de</span>
+    <input type="date" id="filtro_inicial" onchange="applyFilter()">
+    <span style="color:var(--muted); font-size:0.8rem; margin-left:8px;">até</span>
+    <input type="date" id="filtro_final" onchange="applyFilter()">
   </div>
   
   <div class="controls-card">
@@ -226,22 +226,39 @@
 
 <script>
 let chart = null;
+let fullHist = [];
 
-// Configurar limites de data (máximo 12 meses)
+// Configurar limites de data (máximo 12 meses atrás)
 const today = new Date();
-const maxDate = new Date();
-maxDate.setMonth(maxDate.getMonth() + 12);
+const minDate = new Date();
+minDate.setMonth(minDate.getMonth() - 12);
 const todayStr = today.toISOString().split('T')[0];
-const maxDateStr = maxDate.toISOString().split('T')[0];
+const minDateStr = minDate.toISOString().split('T')[0];
 
-document.getElementById('data_ida').setAttribute('min', todayStr);
-document.getElementById('data_ida').setAttribute('max', maxDateStr);
-document.getElementById('data_volta').setAttribute('min', todayStr);
-document.getElementById('data_volta').setAttribute('max', maxDateStr);
+const startStr = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0];
+
+document.getElementById('filtro_inicial').setAttribute('min', minDateStr);
+document.getElementById('filtro_inicial').setAttribute('max', todayStr);
+document.getElementById('filtro_inicial').value = startStr;
+
+document.getElementById('filtro_final').setAttribute('min', minDateStr);
+document.getElementById('filtro_final').setAttribute('max', todayStr);
+document.getElementById('filtro_final').value = todayStr;
 
 function fmt(v) { return 'R$ ' + v.toLocaleString('pt-BR'); }
 
 function render(hist) {
+  // Aplicar filtro de data
+  const fInicial = new Date(document.getElementById('filtro_inicial').value);
+  fInicial.setHours(0,0,0,0);
+  const fFinal = new Date(document.getElementById('filtro_final').value);
+  fFinal.setHours(23,59,59,999);
+  
+  hist = hist.filter(h => {
+    const d = new Date(h.timestamp);
+    return d >= fInicial && d <= fFinal;
+  });
+
   // Reset fields se não houver historico
   if (!hist || hist.length === 0) {
     document.getElementById('stat-min').textContent = '—';
@@ -393,9 +410,6 @@ async function triggerAction() {
   btn.classList.add('loading');
   txt.innerHTML = '⏳';
   
-  const ida = document.getElementById('data_ida').value;
-  const volta = document.getElementById('data_volta').value;
-  
   try {
     const res = await fetch("https://api.github.com/repos/yutakato27/flight-analysis/actions/workflows/monitor.yml/dispatches", {
       method: "POST",
@@ -403,13 +417,7 @@ async function triggerAction() {
         "Accept": "application/vnd.github.v3+json",
         "Authorization": `token ${token}`,
       },
-      body: JSON.stringify({ 
-        ref: "main",
-        inputs: {
-          data_ida: ida,
-          data_volta: volta
-        }
-      })
+      body: JSON.stringify({ ref: "main" })
     });
 
     if (res.ok) {
@@ -428,51 +436,43 @@ async function triggerAction() {
   }
 }
 
-function updateDates() {
-  const ida = document.getElementById('data_ida').value;
-  const volta = document.getElementById('data_volta').value;
-  
-  // Atualiza os links dos botões
-  document.getElementById('link-kayak-1').href = `https://www.kayak.com.br/flights/CWB-MCO/${ida}/${volta}/2adults?sort=price_a&fs=stops=1,2`;
-  document.getElementById('link-kayak-2').href = `https://www.kayak.com.br/flights/CWB-MCO/${ida}/${volta}/2adults?sort=price_a&fs=stops=1`;
-  document.getElementById('link-kayak-3').href = `https://www.kayak.com.br/flights/CWB-MCO/${ida}/${volta}/2adults?sort=price_a&fs=stops=1,2`;
-  
-  // Recarrega os dados
-  loadData();
+function applyFilter() {
+  if (fullHist.length > 0) {
+    render(fullHist);
+  }
 }
 
 async function loadData() {
-  const ida = document.getElementById('data_ida').value;
-  const volta = document.getElementById('data_volta').value;
-  const filename = `historico_${ida}_${volta}.json`;
-  
-  // Update status
-  document.getElementById('status-text').textContent = `Buscando dados para ${ida} a ${volta}...`;
+  document.getElementById('status-text').textContent = 'Buscando dados...';
   
   try {
-    const r = await fetch(`https://api.github.com/repos/yutakato27/flight-analysis/contents/data/${filename}`, {
+    const r = await fetch('https://api.github.com/repos/yutakato27/flight-analysis/contents/data/historico.json', {
       headers: { 'Accept': 'application/vnd.github.v3.raw' }
     });
     if(r.ok) {
-      render(await r.json());
+      fullHist = await r.json();
+      render(fullHist);
       document.getElementById('status-text').textContent = 'Atualizado automaticamente via GitHub Actions';
     } else {
       if(r.status === 404) {
-        render([]); // Nenhum dado ainda
-        document.getElementById('status-text').textContent = 'Nenhum histórico para esta data. Clique em Verificar Agora.';
+        fullHist = [];
+        render(fullHist);
+        document.getElementById('status-text').textContent = 'Nenhum histórico encontrado.';
       } else {
         throw new Error("GitHub API falhou. Usando fallback.");
       }
     }
   } catch(e) {
     try {
-      const r2 = await fetch(`https://raw.githubusercontent.com/yutakato27/flight-analysis/main/data/${filename}?t=` + new Date().getTime());
+      const r2 = await fetch('https://raw.githubusercontent.com/yutakato27/flight-analysis/main/data/historico.json?t=' + new Date().getTime());
       if(r2.ok) {
-        render(await r2.json());
+        fullHist = await r2.json();
+        render(fullHist);
         document.getElementById('status-text').textContent = 'Atualizado via GitHub Actions';
       } else if (r2.status === 404) {
-        render([]);
-        document.getElementById('status-text').textContent = 'Nenhum histórico para esta data. Clique em Verificar Agora.';
+        fullHist = [];
+        render(fullHist);
+        document.getElementById('status-text').textContent = 'Nenhum histórico encontrado.';
       }
     } catch(e2) {
       console.error("Erro ao carregar dados", e2);
@@ -480,8 +480,7 @@ async function loadData() {
   }
 }
 
-// Inicia chamando updateDates para setup inicial
-updateDates();
+loadData();
 </script>
 </body>
 </html>
