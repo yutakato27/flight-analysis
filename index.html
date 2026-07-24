@@ -296,9 +296,44 @@ function render(hist) {
     type: 'line',
     data: {
       labels: validos.map(h => new Date(h.timestamp).toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'})),
-      datasets: [{ data: precos, borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.1)', fill: true, tension: 0.4 }]
+      datasets: [
+        { 
+          label: 'Menor Preço',
+          data: precos, 
+          borderColor: '#8b5cf6', 
+          backgroundColor: 'rgba(139,92,246,0.1)', 
+          fill: true, 
+          tension: 0.4 
+        },
+        {
+          label: 'Melhor Rota',
+          data: validos.map(h => h.melhor_rota?.preco_casal ?? null),
+          borderColor: '#f59e0b',
+          backgroundColor: 'transparent',
+          fill: false,
+          tension: 0.4,
+          borderDash: [5, 5]
+        },
+        {
+          label: 'Mista',
+          data: validos.map(h => h.mista?.preco_casal ?? null),
+          borderColor: '#10b981',
+          backgroundColor: 'transparent',
+          fill: false,
+          tension: 0.4
+        }
+      ]
     },
-    options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { ticks: { color: '#64748b' } }, x: { ticks: { color: '#64748b' } } } }
+    options: { 
+      responsive: true, 
+      plugins: { 
+        legend: { display: true, labels: { color: '#64748b' } } 
+      }, 
+      scales: { 
+        y: { ticks: { color: '#64748b' } }, 
+        x: { ticks: { color: '#64748b' } } 
+      } 
+    }
   });
 }
 
