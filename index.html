@@ -76,6 +76,15 @@
   table { width: 100%; border-collapse: collapse; font-size: .85rem; }
   th { text-align: left; padding: 10px; color: var(--muted); font-size:.7rem; border-bottom: 1px solid var(--border); }
   td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,.04); }
+  
+  .date-controls {
+    display: flex; gap: 8px; align-items: center; background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 10px 16px; backdrop-filter: blur(12px);
+  }
+  .date-controls input {
+    background: transparent; border: none; color: #fff; font-family: 'Inter', sans-serif;
+    outline: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; color-scheme: dark;
+  }
 </style>
 </head>
 <body>
@@ -83,7 +92,14 @@
 <header>
   <div class="logo">
     <span class="logo-icon">✈</span>
-    <h1>Monitor de Passagens <span>CWB → MCO · Fev 15–27, 2027</span></h1>
+    <h1>Monitor de Passagens <span>CWB → MCO</span></h1>
+  </div>
+  
+  <div class="date-controls">
+    <span style="color:var(--muted); font-size:0.8rem;">Ida</span>
+    <input type="date" id="data_ida" value="2027-02-15" onchange="updateDates()">
+    <span style="color:var(--muted); font-size:0.8rem; margin-left:8px;">Volta</span>
+    <input type="date" id="data_volta" value="2027-02-27" onchange="updateDates()">
   </div>
   
   <div class="controls-card">
@@ -139,7 +155,7 @@
       Aguardando dados...
     </div>
     <div style="margin-top:16px; display:flex; flex-direction:column; gap:8px;">
-      <a href="https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=price_a&fs=stops=1,2" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:linear-gradient(135deg,#ff6900,#ff8c38);border-radius:10px;color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;">
+      <a id="link-kayak-1" href="https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=price_a&fs=stops=1,2" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:linear-gradient(135deg,#ff6900,#ff8c38);border-radius:10px;color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;">
         <svg width="16" height="16" viewBox="0 0 64 64" fill="white"><path d="M32 6C17.6 6 6 17.6 6 32s11.6 26 26 26 26-11.6 26-26S46.4 6 32 6zm0 10l6 12H26l6-12zm-14 20l8-4-8-4v8zm28 0v-8l-8 4 8 4zm-14 12l-6-12h12l-6 12z"/></svg>
         Kayak
       </a>
@@ -163,7 +179,7 @@
       Aguardando dados...
     </div>
     <div style="margin-top:16px; display:flex; flex-direction:column; gap:8px;">
-      <a href="https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=price_a&fs=stops=1" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:linear-gradient(135deg,#ff6900,#ff8c38);border-radius:10px;color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;">
+      <a id="link-kayak-2" href="https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=price_a&fs=stops=1" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:linear-gradient(135deg,#ff6900,#ff8c38);border-radius:10px;color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;">
         <svg width="16" height="16" viewBox="0 0 64 64" fill="white"><path d="M32 6C17.6 6 6 17.6 6 32s11.6 26 26 26 26-11.6 26-26S46.4 6 32 6zm0 10l6 12H26l6-12zm-14 20l8-4-8-4v8zm28 0v-8l-8 4 8 4zm-14 12l-6-12h12l-6 12z"/></svg>
         Kayak (1 escala)
       </a>
@@ -187,7 +203,7 @@
       Aguardando dados...
     </div>
     <div style="margin-top:16px; display:flex; flex-direction:column; gap:8px;">
-      <a href="https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=price_a&fs=outboundstops=~1;inboundstops=~2" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:linear-gradient(135deg,#ff6900,#ff8c38);border-radius:10px;color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;">
+      <a id="link-kayak-3" href="https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/2adults?sort=price_a&fs=stops=1,2" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:linear-gradient(135deg,#ff6900,#ff8c38);border-radius:10px;color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;">
         <svg width="16" height="16" viewBox="0 0 64 64" fill="white"><path d="M32 6C17.6 6 6 17.6 6 32s11.6 26 26 26 26-11.6 26-26S46.4 6 32 6zm0 10l6 12H26l6-12zm-14 20l8-4-8-4v8zm28 0v-8l-8 4 8 4zm-14 12l-6-12h12l-6 12z"/></svg>
         Kayak (Mista)
       </a>
@@ -211,9 +227,36 @@
 <script>
 let chart = null;
 
+// Configurar limites de data (máximo 12 meses)
+const today = new Date();
+const maxDate = new Date();
+maxDate.setMonth(maxDate.getMonth() + 12);
+const todayStr = today.toISOString().split('T')[0];
+const maxDateStr = maxDate.toISOString().split('T')[0];
+
+document.getElementById('data_ida').setAttribute('min', todayStr);
+document.getElementById('data_ida').setAttribute('max', maxDateStr);
+document.getElementById('data_volta').setAttribute('min', todayStr);
+document.getElementById('data_volta').setAttribute('max', maxDateStr);
+
 function fmt(v) { return 'R$ ' + v.toLocaleString('pt-BR'); }
 
 function render(hist) {
+  // Reset fields se não houver historico
+  if (!hist || hist.length === 0) {
+    document.getElementById('stat-min').textContent = '—';
+    document.getElementById('stat-max').textContent = '—';
+    document.getElementById('stat-avg').textContent = '—';
+    document.getElementById('stat-checks').textContent = '0';
+    ['1','2','3'].forEach(id => {
+      if(document.getElementById('preco-casal-'+id)) document.getElementById('preco-casal-'+id).textContent = '—';
+      if(document.getElementById('preco-badge-'+id)) { document.getElementById('preco-badge-'+id).textContent = '—'; document.getElementById('preco-badge-'+id).className = 'badge muted'; }
+      if(document.getElementById('detalhes-voo-'+id)) document.getElementById('detalhes-voo-'+id).textContent = 'Nenhum dado encontrado para estas datas.';
+    });
+    document.getElementById('tabela-body').innerHTML = '';
+    if(chart) chart.destroy(); chart=null;
+    return;
+  }
   // Suporte ao novo formato (com menor_preco/melhor_rota) e formato legado
   const validos = hist.filter(h => (h.menor_preco?.preco_casal ?? h.preco_minimo_casal) != null);
   if (validos.length === 0) return;
@@ -350,6 +393,9 @@ async function triggerAction() {
   btn.classList.add('loading');
   txt.innerHTML = '⏳';
   
+  const ida = document.getElementById('data_ida').value;
+  const volta = document.getElementById('data_volta').value;
+  
   try {
     const res = await fetch("https://api.github.com/repos/yutakato27/flight-analysis/actions/workflows/monitor.yml/dispatches", {
       method: "POST",
@@ -357,7 +403,13 @@ async function triggerAction() {
         "Accept": "application/vnd.github.v3+json",
         "Authorization": `token ${token}`,
       },
-      body: JSON.stringify({ ref: "main" })
+      body: JSON.stringify({ 
+        ref: "main",
+        inputs: {
+          data_ida: ida,
+          data_volta: volta
+        }
+      })
     });
 
     if (res.ok) {
@@ -376,29 +428,60 @@ async function triggerAction() {
   }
 }
 
+function updateDates() {
+  const ida = document.getElementById('data_ida').value;
+  const volta = document.getElementById('data_volta').value;
+  
+  // Atualiza os links dos botões
+  document.getElementById('link-kayak-1').href = `https://www.kayak.com.br/flights/CWB-MCO/${ida}/${volta}/2adults?sort=price_a&fs=stops=1,2`;
+  document.getElementById('link-kayak-2').href = `https://www.kayak.com.br/flights/CWB-MCO/${ida}/${volta}/2adults?sort=price_a&fs=stops=1`;
+  document.getElementById('link-kayak-3').href = `https://www.kayak.com.br/flights/CWB-MCO/${ida}/${volta}/2adults?sort=price_a&fs=stops=1,2`;
+  
+  // Recarrega os dados
+  loadData();
+}
+
 async function loadData() {
+  const ida = document.getElementById('data_ida').value;
+  const volta = document.getElementById('data_volta').value;
+  const filename = `historico_${ida}_${volta}.json`;
+  
+  // Update status
+  document.getElementById('status-text').textContent = `Buscando dados para ${ida} a ${volta}...`;
+  
   try {
-    // Usa a API do GitHub para evitar cache do raw.githubusercontent
-    const r = await fetch('https://api.github.com/repos/yutakato27/flight-analysis/contents/data/historico.json', {
+    const r = await fetch(`https://api.github.com/repos/yutakato27/flight-analysis/contents/data/${filename}`, {
       headers: { 'Accept': 'application/vnd.github.v3.raw' }
     });
     if(r.ok) {
       render(await r.json());
+      document.getElementById('status-text').textContent = 'Atualizado automaticamente via GitHub Actions';
     } else {
-      throw new Error("GitHub API falhou (provavelmente limite de taxa). Usando fallback.");
+      if(r.status === 404) {
+        render([]); // Nenhum dado ainda
+        document.getElementById('status-text').textContent = 'Nenhum histórico para esta data. Clique em Verificar Agora.';
+      } else {
+        throw new Error("GitHub API falhou. Usando fallback.");
+      }
     }
   } catch(e) {
-    // Fallback para raw se a API falhar ou der erro
     try {
-      const r2 = await fetch('https://raw.githubusercontent.com/yutakato27/flight-analysis/main/data/historico.json?t=' + new Date().getTime());
-      if(r2.ok) render(await r2.json());
+      const r2 = await fetch(`https://raw.githubusercontent.com/yutakato27/flight-analysis/main/data/${filename}?t=` + new Date().getTime());
+      if(r2.ok) {
+        render(await r2.json());
+        document.getElementById('status-text').textContent = 'Atualizado via GitHub Actions';
+      } else if (r2.status === 404) {
+        render([]);
+        document.getElementById('status-text').textContent = 'Nenhum histórico para esta data. Clique em Verificar Agora.';
+      }
     } catch(e2) {
       console.error("Erro ao carregar dados", e2);
     }
   }
 }
 
-loadData();
+// Inicia chamando updateDates para setup inicial
+updateDates();
 </script>
 </body>
 </html>
