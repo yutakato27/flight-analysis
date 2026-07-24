@@ -248,11 +248,12 @@ document.getElementById('filtro_final').value = todayStr;
 function fmt(v) { return 'R$ ' + v.toLocaleString('pt-BR'); }
 
 function render(hist) {
-  // Aplicar filtro de data
-  const fInicial = new Date(document.getElementById('filtro_inicial').value);
-  fInicial.setHours(0,0,0,0);
-  const fFinal = new Date(document.getElementById('filtro_final').value);
-  fFinal.setHours(23,59,59,999);
+  // Aplicar filtro de data com fuso local
+  const strInicial = document.getElementById('filtro_inicial').value;
+  const strFinal = document.getElementById('filtro_final').value;
+  
+  const fInicial = new Date(strInicial + 'T00:00:00');
+  const fFinal = new Date(strFinal + 'T23:59:59');
   
   hist = hist.filter(h => {
     const d = new Date(h.timestamp);
