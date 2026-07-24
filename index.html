@@ -76,15 +76,6 @@
   table { width: 100%; border-collapse: collapse; font-size: .85rem; }
   th { text-align: left; padding: 10px; color: var(--muted); font-size:.7rem; border-bottom: 1px solid var(--border); }
   td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,.04); }
-  
-  .date-controls {
-    display: flex; gap: 8px; align-items: center; background: var(--card); border: 1px solid var(--border);
-    border-radius: 12px; padding: 10px 16px; backdrop-filter: blur(12px);
-  }
-  .date-controls input {
-    background: transparent; border: none; color: #fff; font-family: 'Inter', sans-serif;
-    outline: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; color-scheme: dark;
-  }
 </style>
 </head>
 <body>
@@ -95,12 +86,6 @@
     <h1>Monitor de Passagens <span>CWB → MCO · Fev 15–27, 2027</span></h1>
   </div>
   
-  <div class="date-controls" title="Filtrar período do histórico exibido">
-    <span style="color:var(--muted); font-size:0.8rem;">Histórico de</span>
-    <input type="date" id="filtro_inicial" onchange="applyFilter()">
-    <span style="color:var(--muted); font-size:0.8rem; margin-left:8px;">até</span>
-    <input type="date" id="filtro_final" onchange="applyFilter()">
-  </div>
   
   <div class="controls-card">
     <a href="https://github.com/yutakato27/flight-analysis/actions" class="github-link" target="_blank">
@@ -228,42 +213,9 @@
 let chart = null;
 let fullHist = [];
 
-// Configurar limites de data (máximo 12 meses atrás)
-const today = new Date();
-const minDate = new Date();
-minDate.setMonth(minDate.getMonth() - 12);
-const todayStr = today.toISOString().split('T')[0];
-const minDateStr = minDate.toISOString().split('T')[0];
-
-const startStr = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0];
-
-document.getElementById('filtro_inicial').setAttribute('min', minDateStr);
-document.getElementById('filtro_inicial').setAttribute('max', todayStr);
-document.getElementById('filtro_inicial').value = startStr;
-
-document.getElementById('filtro_final').setAttribute('min', minDateStr);
-document.getElementById('filtro_final').setAttribute('max', todayStr);
-document.getElementById('filtro_final').value = todayStr;
-
 function fmt(v) { return 'R$ ' + v.toLocaleString('pt-BR'); }
 
 function render(hist) {
-  // Aplicar filtro de data com parsing explícito para evitar problemas de fuso
-  const strI = document.getElementById('filtro_inicial').value;
-  const strF = document.getElementById('filtro_final').value;
-  
-  if (!strI || !strF) return;
-  
-  const pI = strI.split('-');
-  const fInicial = new Date(pI[0], pI[1] - 1, pI[2], 0, 0, 0);
-  
-  const pF = strF.split('-');
-  const fFinal = new Date(pF[0], pF[1] - 1, pF[2], 23, 59, 59, 999);
-
-  hist = hist.filter(h => {
-    const d = new Date(h.timestamp);
-    return d >= fInicial && d <= fFinal;
-  });
 
   // Reset fields se não houver historico
   if (!hist || hist.length === 0) {
@@ -442,11 +394,6 @@ async function triggerAction() {
   }
 }
 
-function applyFilter() {
-  if (fullHist.length > 0) {
-    render(fullHist);
-  }
-}
 
 async function loadData() {
   document.getElementById('status-text').textContent = 'Buscando dados...';
