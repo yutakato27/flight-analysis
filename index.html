@@ -296,7 +296,7 @@ function render(hist) {
     type: 'line',
     data: {
       labels: validos.map(h => new Date(h.timestamp).toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'})),
-      datasets: [{ data: validos.map(h => h.preco_minimo_casal), borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.1)', fill: true, tension: 0.4 }]
+      datasets: [{ data: precos, borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.1)', fill: true, tension: 0.4 }]
     },
     options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { ticks: { color: '#64748b' } }, x: { ticks: { color: '#64748b' } } } }
   });
@@ -347,11 +347,15 @@ async function loadData() {
     const r = await fetch('https://api.github.com/repos/yutakato27/flight-analysis/contents/data/historico.json', {
       headers: { 'Accept': 'application/vnd.github.v3.raw' }
     });
-    if(r.ok) render(await r.json());
+    if(r.ok) {
+      render(await r.json());
+    } else {
+      throw new Error("GitHub API falhou (provavelmente limite de taxa). Usando fallback.");
+    }
   } catch(e) {
-    // Fallback para raw se a API falhar
+    // Fallback para raw se a API falhar ou der erro
     try {
-      const r2 = await fetch('https://raw.githubusercontent.com/yutakato27/flight-analysis/main/data/historico.json');
+      const r2 = await fetch('https://raw.githubusercontent.com/yutakato27/flight-analysis/main/data/historico.json?t=' + new Date().getTime());
       if(r2.ok) render(await r2.json());
     } catch(e2) {
       console.error("Erro ao carregar dados", e2);
