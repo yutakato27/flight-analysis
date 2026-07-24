@@ -230,7 +230,7 @@ function render(hist) {
   document.getElementById('stat-checks').textContent = validos.length;
 
   // Card 1 — Menor Preço
-  if (mp.preco_casal) {
+  if (mp && mp.preco_casal) {
     document.getElementById('preco-casal-1').textContent = mp.preco_casal.toLocaleString('pt-BR');
     const b1 = document.getElementById('preco-badge-1');
     if (mp.preco_casal <= 6500) { b1.textContent = '🚨 EXCELENTE'; b1.className = 'badge green'; }
@@ -239,6 +239,9 @@ function render(hist) {
     document.getElementById('detalhes-voo-1').innerHTML = mp.detalhes_voo
       ? `<strong style="color:var(--text)">Resumo:</strong><br>${mp.detalhes_voo.replace(/\|/g,'<br>')}`
       : 'Detalhes indisponíveis.';
+  } else {
+    document.getElementById('preco-casal-1').textContent = '—';
+    document.getElementById('detalhes-voo-1').textContent = 'Nenhum voo encontrado.';
   }
 
   // Card 2 — Melhor Rota
@@ -275,7 +278,7 @@ function render(hist) {
 
   const tb = document.getElementById('tabela-body');
   tb.innerHTML = '';
-  [...validos].reverse().slice(0, 15).forEach(h => {
+  [...validos].reverse().forEach(h => {
     const p1 = h.menor_preco?.preco_casal ?? h.preco_minimo_casal;
     const p2 = h.melhor_rota?.preco_casal ?? null;
     const p3 = h.mista?.preco_casal ?? null;
