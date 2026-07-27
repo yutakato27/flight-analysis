@@ -391,5 +391,24 @@
       "status": "ok"
     },
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-07-27T14:31:29.500773+00:00",
+    "menor_preco": {
+      "preco_casal": 6358,
+      "detalhes_voo": "✈️ GOL | 🛫 Ida: 19:35 – 15:30 (21h 55min) | 🛬 Volta: 12:55 – 11:05 (20h 10min)",
+      "status": "ok"
+    },
+    "melhor_rota": {
+      "preco_casal": 10291,
+      "detalhes_voo": "✈️ Azul | 🛫 Ida: 20:55 – 17:00 (22h 05min) | 🛬 Volta: 19:00 – 10:50 (13h 50min)",
+      "status": "ok"
+    },
+    "mista": {
+      "preco_casal": 6707,
+      "detalhes_voo": "✈️ GOL | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 12:55 – 11:05 (20h 10min)",
+      "status": "ok"
+    },
+    "status": "ok"
   }
 ]
