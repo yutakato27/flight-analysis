@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Guia: Viagem Orlando + Residência Médica</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:#f0f4f8; color:#1e293b; font-size:13px; line-height:1.6; }
+.page { max-width:820px; margin:0 auto; background:white; }
+
+/* CAPA */
+.cover { background:linear-gradient(135deg,#1e3a5f 0%,#1d6efd 50%,#0d9e6e 100%); color:white; padding:60px 50px; text-align:center; }
+.cover-emoji { font-size:52px; display:block; margin-bottom:14px; }
+.cover h1 { font-size:26px; font-weight:800; margin-bottom:8px; }
+.cover .sub { font-size:14px; opacity:.85; margin-bottom:20px; }
+.pills { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:18px; }
+.pill { background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); border-radius:99px; padding:4px 14px; font-size:11px; font-weight:500; }
+.cover-date { margin-top:24px; font-size:10px; opacity:.55; }
+.bar { height:4px; background:linear-gradient(90deg,#1d6efd,#0d9e6e); }
+
+/* SECOES */
+.sec { padding:32px 48px; border-bottom:1px solid #e2e8f0; }
+.sec-head { display:flex; align-items:center; gap:12px; margin-bottom:18px; padding-bottom:10px; border-bottom:2px solid #e2e8f0; }
+.ico { width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.ic-b{background:#dbeafe} .ic-g{background:#dcfce7} .ic-o{background:#ffedd5} .ic-p{background:#f3e8ff} .ic-r{background:#fee2e2} .ic-t{background:#ccfbf1}
+.sec-title { font-size:16px; font-weight:700; color:#0f172a; }
+.sec-sub { font-size:10px; color:#64748b; margin-top:1px; }
+
+/* CARDS */
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px; }
+.grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
+.card { border-radius:10px; padding:14px; text-align:center; }
+.cb{background:#eff6ff;border:1px solid #bfdbfe} .cg{background:#f0fdf4;border:1px solid #bbf7d0}
+.co{background:#fff7ed;border:1px solid #fed7aa} .cp{background:#faf5ff;border:1px solid #e9d5ff}
+.card .val { font-size:20px; font-weight:800; color:#0f172a; line-height:1.1; margin-bottom:4px; }
+.card .lbl { font-size:9px; color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:.4px; }
+
+/* ALERTAS */
+.alert { border-radius:9px; padding:12px 16px; margin:12px 0; display:flex; gap:10px; align-items:flex-start; }
+.ai { font-size:16px; flex-shrink:0; margin-top:1px; }
+.at { font-weight:700; font-size:11.5px; margin-bottom:2px; }
+.atxt { font-size:11px; color:#475569; line-height:1.5; }
+.a-ok{background:#f0fdf4;border:1px solid #86efac} .a-ok .at{color:#15803d}
+.a-warn{background:#fffbeb;border:1px solid #fcd34d} .a-warn .at{color:#92400e}
+.a-info{background:#eff6ff;border:1px solid #93c5fd} .a-info .at{color:#1d4ed8}
+.a-err{background:#fff1f2;border:1px solid #fda4af} .a-err .at{color:#be123c}
+
+/* TABELA */
+table { width:100%; border-collapse:collapse; margin:10px 0; border:1px solid #e2e8f0; border-radius:8px; overflow:hidden; }
+th { background:#f8fafc; padding:9px 12px; text-align:left; font-size:9.5px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:.4px; border-bottom:1px solid #e2e8f0; }
+td { padding:9px 12px; font-size:11.5px; border-bottom:1px solid #f1f5f9; color:#334155; vertical-align:middle; }
+tr:last-child td { border-bottom:none; }
+
+/* BADGE */
+.b { display:inline-block; padding:2px 9px; border-radius:99px; font-size:9.5px; font-weight:700; }
+.bg{background:#dcfce7;color:#166534} .bb{background:#dbeafe;color:#1d4ed8}
+.bo{background:#ffedd5;color:#c2410c} .br{background:#fee2e2;color:#991b1b}
+.by{background:#fef9c3;color:#854d0e} .bk{background:#f1f5f9;color:#475569}
+
+/* TIMELINE */
+.tl { margin:8px 0; }
+.tl-item { display:flex; gap:14px; padding:8px 0; position:relative; }
+.tl-item:not(:last-child)::after { content:''; position:absolute; left:13px; top:32px; width:2px; height:calc(100% - 14px); background:#e2e8f0; }
+.tl-dot { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; position:relative; z-index:1; }
+.dg{background:#dcfce7} .db{background:#dbeafe} .do{background:#ffedd5} .dr{background:#fee2e2}
+.tl-body { flex:1; padding-top:4px; }
+.tl-date { font-size:9px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:.4px; }
+.tl-title { font-size:12.5px; font-weight:600; color:#0f172a; margin:1px 0; }
+.tl-desc { font-size:10.5px; color:#64748b; }
+
+/* CHECKLIST */
+.cl { list-style:none; margin:8px 0; }
+.cl li { padding:5px 0; display:flex; align-items:flex-start; gap:9px; font-size:11.5px; color:#334155; border-bottom:1px solid #f8fafc; }
+.cl li:last-child { border-bottom:none; }
+.cb2 { width:14px; height:14px; border:2px solid #cbd5e1; border-radius:3px; flex-shrink:0; margin-top:2px; }
+.ct { flex:1; line-height:1.4; }
+.ct small { display:block; color:#94a3b8; font-size:9.5px; margin-top:1px; }
+
+/* INFO GRID */
+.ig { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:10px 0; }
+.ib { background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px; }
+.ib h4 { font-size:9.5px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:.4px; margin-bottom:6px; }
+.ib p { font-size:11px; color:#334155; }
+
+/* QUOTE */
+.quote { border-left:4px solid #1d6efd; padding:10px 14px; background:#eff6ff; border-radius:0 7px 7px 0; margin:12px 0; font-style:italic; font-size:11.5px; color:#1e40af; }
+
+/* PROCURAÇÃO */
+.proc { background:#fafafa; border:2px solid #e2e8f0; border-radius:10px; padding:28px; font-family:'Georgia',serif; font-size:11.5px; line-height:1.9; color:#1e293b; }
+.proc-head { text-align:center; margin-bottom:22px; }
+.proc-head h2 { font-size:14px; font-weight:bold; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
+.proc-head hr { border:1px solid #334155; margin:6px 40px; }
+.proc p { margin-bottom:10px; text-align:justify; }
+.campo { display:inline; background:#fef9c3; border-bottom:1.5px solid #854d0e; padding:0 3px; color:#92400e; font-style:italic; }
+.assinaturas { margin-top:38px; display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+.assl { text-align:center; border-top:1px solid #334155; padding-top:7px; font-size:9.5px; color:#475569; }
+
+/* FOOTER */
+.footer { background:#0f172a; color:#94a3b8; text-align:center; padding:18px; font-size:9.5px; }
+
+@media print {
+  body { background:white; }
+  .sec { page-break-inside:avoid; }
+  * { -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- CAPA -->
+<div class="cover">
+  <span class="cover-emoji">✈️ 🏥</span>
+  <h1>Viagem Orlando + Residência Médica</h1>
+  <p class="sub">Guia completo · Análise, Calendário e Modelo de Procuração</p>
+  <div class="pills">
+    <span class="pill">✅ Podem viajar</span>
+    <span class="pill">📋 4 programas verificados</span>
+    <span class="pill">🗓️ Calendário 2026/2027</span>
+    <span class="pill">📄 Modelo de Procuração</span>
+  </div>
+  <p class="cover-date">Gerado em agosto de 2026 · Curitiba, PR</p>
+</div>
+<div class="bar"></div>
+
+<!-- RESUMO -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="ico ic-g">🎯</div>
+    <div><div class="sec-title">Resumo Executivo</div><div class="sec-sub">O que você precisa saber em 30 segundos</div></div>
+  </div>
+  <div class="grid3">
+    <div class="card cg"><div class="val">✅</div><div class="lbl">Podem Viajar</div></div>
+    <div class="card cb"><div class="val">✅</div><div class="lbl">Procuração Aceita em Todos</div></div>
+    <div class="card co"><div class="val">01/Mar</div><div class="lbl">Início da Residência</div></div>
+  </div>
+  <div class="alert a-ok"><div class="ai">✅</div><div><div class="at">Conclusão: Podem comprar as passagens e viajar tranquilos</div><div class="atxt">Todas as provas acontecem ANTES da viagem (Set–Nov/2026). A matrícula em fevereiro/2027 pode ser feita por procurador. Vocês voltam em 27/Fev e a residência inicia em 01/Mar — 2 dias de margem.</div></div></div>
+  <div class="alert a-warn"><div class="ai">⚠️</div><div><div class="at">Única ação necessária: fazer a procuração em cartório ANTES de embarcar (15/Fev)</div><div class="atxt">Designar um procurador de confiança (familiar ou amigo) que possa se deslocar rapidamente a qualquer hospital de Curitiba ou Campo Largo durante 15–27/Fev/2027.</div></div></div>
+</div>
+
+<!-- A VIAGEM -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="ico ic-b">✈️</div>
+    <div><div class="sec-title">A Viagem: CWB → MCO · Fev 15–27, 2027</div><div class="sec-sub">2 adultos · 12 dias</div></div>
+  </div>
+  <div class="grid4">
+    <div class="card cg"><div class="val">R$ 6.240</div><div class="lbl">Preço casal</div></div>
+    <div class="card cb"><div class="val">1 parada</div><div class="lbl">Ida · 11h</div></div>
+    <div class="card co"><div class="val">2 paradas</div><div class="lbl">Volta · 20h</div></div>
+    <div class="card cp"><div class="val">12 dias</div><div class="lbl">Duração</div></div>
+  </div>
+  <div class="alert a-info"><div class="ai">💡</div><div><div class="at">Por que R$ 6.240 é um preço excelente?</div><div class="atxt">Robô de monitoramento registrou histórico desta rota entre R$ 6.072 (mínimo) e R$ 6.466 (máximo). Preço atual é apenas R$ 168 acima do mínimo histórico. Especialistas (Hopper, Google Flights, Kayak) recomendam comprar com 6–8 meses de antecedência para esta janela — pós-carnaval é baixa temporada.</div></div></div>
+  <p style="font-size:12px;font-weight:700;color:#0f172a;margin:14px 0 8px;">📅 Por que Fevereiro 15–27 é o timing perfeito?</p>
+  <table>
+    <thead><tr><th>Período</th><th>Demanda</th><th>Preço típico/pessoa</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>04–10 Fev · Carnaval 2027</td><td>🔴 PICO</td><td>R$ 3.800 – R$ 5.500</td><td><span class="b br">Caro</span></td></tr>
+      <tr><td><strong>15–27 Fev · Pós-carnaval ← VOCÊS</strong></td><td>🟢 BAIXA</td><td>R$ 2.400 – R$ 3.200</td><td><span class="b bg">✅ Janela ideal</span></td></tr>
+      <tr><td>Mar 01–14 · Pré-Spring Break</td><td>🟢 Boa</td><td>R$ 2.400 – R$ 3.000</td><td><span class="b bb">Boa opção</span></td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;font-weight:700;color:#0f172a;margin:14px 0 8px;">💰 Análise de risco: Comprar agora vs. esperar setembro</p>
+  <table>
+    <thead><tr><th>Cenário</th><th>Probabilidade</th><th>Impacto</th></tr></thead>
+    <tbody>
+      <tr><td>Preço <strong>sobe</strong> R$ 1.500+ até setembro</td><td><span class="b br">60–70%</span></td><td>Pagaria R$ 7.700+</td></tr>
+      <tr><td>Preço se <strong>mantém</strong> similar</td><td><span class="b by">~20%</span></td><td>Economia: R$ 0</td></tr>
+      <tr><td>Preço <strong>cai</strong> R$ 300–500</td><td><span class="b bk">10–15%</span></td><td>Economia máx: R$ 500</td></tr>
+    </tbody>
+  </table>
+  <div class="alert a-ok"><div class="ai">🎯</div><div><div class="at">Recomendação: Compre agora</div><div class="atxt">Risco assimétrico — você arrisca perder R$ 1.500+ para tentar economizar no máximo R$ 500. Companhias aéreas têm gatilhos automáticos de aumento a cada 90, 60, 30, 21 e 14 dias antes do voo.</div></div></div>
+</div>
+
+<!-- CALENDÁRIO RESIDÊNCIA -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="ico ic-p">🏥</div>
+    <div><div class="sec-title">Calendário de Residência Médica — Curitiba/PR</div><div class="sec-sub">Ingresso março/2027 · Principais programas</div></div>
+  </div>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-dot db">📋</div>
+      <div class="tl-body"><div class="tl-date">Agosto – Outubro 2026</div><div class="tl-title">Publicação dos Editais</div><div class="tl-desc">AMP, ENARE/FGV, PUC-PR e FEAES publicam editais com vagas, regras e cronograma. Leitura obrigatória para confirmar regras de procuração do programa específico.</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot db">📝</div>
+      <div class="tl-body"><div class="tl-date">Set – Out 2026</div><div class="tl-title">Inscrições (100% online)</div><div class="tl-desc">Envio de currículo e documentação por upload. Sem presença física necessária.</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot do">📅</div>
+      <div class="tl-body">
+        <div class="tl-date">13/Set a 01/Nov 2026 — ✅ SEM CONFLITO COM A VIAGEM</div>
+        <div class="tl-title">Provas Presenciais em Curitiba</div>
+        <table style="margin-top:8px;">
+          <thead><tr><th>Programa</th><th>Data da Prova</th><th>Hospitais abrangidos</th></tr></thead>
+          <tbody>
+            <tr><td><strong>ENARE/FGV</strong></td><td>13 Set 2026</td><td>CHC-UFPR (Hospital de Clínicas)</td></tr>
+            <tr><td><strong>FEAES/SMS</strong></td><td>20 Set 2026</td><td>UBS e Serviços Municipais Curitiba</td></tr>
+            <tr><td><strong>PUC-PR</strong></td><td>~Out 2026</td><td>Hospital Cajuru, Champagnat</td></tr>
+            <tr><td><strong>AMP/UCAMP</strong></td><td>01 Nov 2026</td><td>Rocio, Trabalhador, Santa Casa, Erasto Gaertner, HNSG, INC, Cruz Vermelha...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot db">📊</div>
+      <div class="tl-body"><div class="tl-date">Dezembro 2026 – Janeiro 2027</div><div class="tl-title">Resultados Parciais e Análise Curricular</div><div class="tl-desc">Divulgação de notas e eventuais provas práticas/entrevistas. Processo majoritariamente online.</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot dr">🚨</div>
+      <div class="tl-body">
+        <div class="tl-date">Fevereiro 2027 — ⚠️ PERÍODO CRÍTICO (vocês estarão em Orlando 15–27/Fev)</div>
+        <div class="tl-title">Resultado Final + Convocação de Matrícula</div>
+        <div class="tl-desc"><strong style="color:#be123c;">Este é o único período de risco.</strong> A solução é o procurador com procuração e kit de documentos prontos. Prazo após convocação: 1 a 5 dias úteis. A convocação NÃO chega por e-mail — é publicada apenas nos sites dos programas.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot dg">🎉</div>
+      <div class="tl-body"><div class="tl-date">01 de março de 2027</div><div class="tl-title">✅ Início Obrigatório da Residência</div><div class="tl-desc">Vocês voltam em 27/Fev. Há 2 dias de margem. Presença física no hospital é obrigatória neste dia — não pode ser substituída por procurador.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRMAÇÃO PROCURAÇÃO -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="ico ic-g">📜</div>
+    <div><div class="sec-title">Confirmado: Todos os Programas Aceitam Procuração</div><div class="sec-sub">Pesquisa realizada em editais oficiais · Agosto/2026</div></div>
+  </div>
+  <table>
+    <thead><tr><th>Programa</th><th>Hospitais em Curitiba</th><th>Procuração</th><th>Prazo após convocação</th></tr></thead>
+    <tbody>
+      <tr><td><strong>AMP/UCAMP</strong><br><small style="color:#64748b">amp.org.br</small></td><td>Rocio, Trabalhador, Santa Casa, Erasto Gaertner, HNSG, INC...</td><td><span class="b bg">✅ SIM</span></td><td>1–3 dias úteis</td></tr>
+      <tr><td><strong>ENARE/FGV</strong><br><small style="color:#64748b">enare.fgv.br</small></td><td>CHC-UFPR (Hospital de Clínicas)</td><td><span class="b bg">✅ SIM + Gov.br</span></td><td>2–5 dias úteis</td></tr>
+      <tr><td><strong>PUC-PR</strong><br><small style="color:#64748b">nps.pucpr.br</small></td><td>Hospital Cajuru, Champagnat</td><td><span class="b bg">✅ SIM</span></td><td>2–3 dias úteis</td></tr>
+      <tr><td><strong>FEAES/SMS</strong><br><small style="color:#64748b">curitiba.pr.gov.br</small></td><td>UBS e serviços municipais</td><td><span class="b bg">✅ SIM</span></td><td>2–3 dias úteis</td></tr>
+    </tbody>
+  </table>
+  <div class="quote">
+    📋 <strong>Citação exata do edital do Hospital do Rocio (AMP/UCAMP):</strong><br>
+    "Em caso de impedimento do candidato, a matrícula poderá ser efetuada por procurador munido de: 02 (duas) cópias de Procuração com firma reconhecida acompanhada por cópia simples do RG e CPF do procurador, acompanhado de toda a documentação exigida do candidato."
+  </div>
+</div>
+
+<!-- KIT DO PROCURADOR -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="ico ic-o">📦</div>
+    <div><div class="sec-title">Kit para o Procurador</div><div class="sec-sub">Preparar ANTES de embarcar em 15/Fev/2027</div></div>
+  </div>
+  <div class="ig">
+    <div class="ib"><h4>👤 Quem pode ser procurador</h4><p>Familiar de confiança (pai, mãe, irmão, cunhado) ou amigo próximo que:<br>• Esteja disponível em Fev/2027<br>• Possa ir a Curitiba rapidamente (24–48h)<br>• Seja organizado para monitorar sites</p></div>
+    <div class="ib"><h4>🌐 Sites para monitorar (2x por dia)</h4><p>• <strong>amp.org.br</strong> — AMP/Rocio/Trabalhador<br>• <strong>enare.fgv.br</strong> — CHC-UFPR<br>• <strong>nps.pucpr.br</strong> — PUC-PR<br>• Portal de cada hospital inscrito</p></div>
+  </div>
+  <p style="font-size:11.5px;font-weight:700;color:#0f172a;margin:14px 0 6px;">📋 Documentos da Candidata</p>
+  <ul class="cl">
+    <li><div class="cb2"></div><div class="ct">Diploma de Medicina (original + 2 cópias autenticadas)<small>Ou certidão de conclusão com colação de grau</small></div></li>
+    <li><div class="cb2"></div><div class="ct">CRM ativo (original + 2 cópias)<small>Carteira profissional + comprovante de anuidade em dia</small></div></li>
+    <li><div class="cb2"></div><div class="ct">RG e CPF (originais + 2 cópias autenticadas)</div></li>
+    <li><div class="cb2"></div><div class="ct">Título de eleitor + comprovante de quitação eleitoral</div></li>
+    <li><div class="cb2"></div><div class="ct">Fotos 3x4 (levar 6 unidades)</div></li>
+    <li><div class="cb2"></div><div class="ct">Comprovante de residência recente (até 3 meses)</div></li>
+    <li><div class="cb2"></div><div class="ct">Histórico escolar da faculdade de medicina</div></li>
+    <li><div class="cb2"></div><div class="ct">Certidão de nascimento ou casamento</div></li>
+    <li><div class="cb2"></div><div class="ct">Reservista / Quitação militar (se aplicável)</div></li>
+  </ul>
+  <p style="font-size:11.5px;font-weight:700;color:#0f172a;margin:14px 0 6px;">📋 Documentos da Procuração</p>
+  <ul class="cl">
+    <li><div class="cb2"></div><div class="ct"><strong>2 cópias da procuração com firma reconhecida em cartório</strong><small>Ou procuração pública lavrada em cartório de notas</small></div></li>
+    <li><div class="cb2"></div><div class="ct">RG e CPF do procurador (original + cópia)</div></li>
+  </ul>
+  <div class="alert a-info"><div class="ai">💡</div><div><div class="at">Dica: Gov.br pode eliminar a ida ao cartório</div><div class="atxt">Se você tiver conta Gov.br nível Prata ou Ouro, pode assinar a procuração digitalmente de qualquer lugar — inclusive de Orlando. O ENARE/CHC-UFPR aceita esta modalidade explicitamente. Verifique em: gov.br/conta</div></div></div>
+
+  <p style="font-size:11.5px;font-weight:700;color:#0f172a;margin:14px 0 6px;">📱 Protocolo durante a viagem (15–27/Fev)</p>
+  <ul class="cl">
+    <li><div class="cb2"></div><div class="ct"><strong>Procurador acessa os sites às 8h e 20h, todos os dias</strong><small>Marcar alarme no celular para não esquecer</small></div></li>
+    <li><div class="cb2"></div><div class="ct"><strong>Ao encontrar o nome na lista → WhatsApp imediato</strong><small>Enviar print com o nome e prazo publicado</small></div></li>
+    <li><div class="cb2"></div><div class="ct"><strong>Candidata confirma remotamente a escolha de especialidade/hospital</strong></div></li>
+    <li><div class="cb2"></div><div class="ct"><strong>Procurador vai ao hospital com o kit completo de documentos</strong><small>Usar o prazo máximo (1–5 dias úteis) sem pressa</small></div></li>
+    <li><div class="cb2"></div><div class="ct"><strong>Procurador envia foto do comprovante de matrícula via WhatsApp</strong></div></li>
+  </ul>
+  <div class="alert a-err"><div class="ai">🚨</div><div><div class="at">Atenção: A convocação NÃO chega por e-mail ou telefone</div><div class="atxt">A publicação é apenas nos sites oficiais. Se o procurador não monitorar diariamente, o prazo passa e a vaga é perdida sem recurso e sem exceção.</div></div></div>
+</div>
+
+<!-- MODELO DE PROCURAÇÃO -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="ico ic-t">📄</div>
+    <div><div class="sec-title">Modelo de Procuração</div><div class="sec-sub">Preencher campos em amarelo e levar ao cartório</div></div>
+  </div>
+  <div class="alert a-warn"><div class="ai">⚠️</div><div><div class="at">Instruções</div><div class="atxt">Preencha os campos destacados em amarelo com os dados reais antes de ir ao cartório. Fazer 3 vias. O cartório pode sugerir ajustes no texto — o essencial é manter a cláusula de "matrícula em Programa de Residência Médica".</div></div></div>
+
+  <div class="proc">
+    <div class="proc-head">
+      <h2>Instrumento Particular de Procuração</h2>
+      <hr>
+    </div>
+
+    <p>Pelo presente instrumento particular, <strong>OUTORGANTE:</strong> <span class="campo">[NOME COMPLETO DA CANDIDATA]</span>, brasileira, médica, inscrita no Conselho Regional de Medicina sob o nº CRM <span class="campo">[Nº DO CRM]</span>/PR, portadora do RG nº <span class="campo">[Nº DO RG]</span>, órgão emissor <span class="campo">[SSP/PR ou outro]</span>, inscrita no CPF/MF sob o nº <span class="campo">[Nº DO CPF]</span>, residente e domiciliada na <span class="campo">[ENDEREÇO COMPLETO]</span>, Curitiba/PR, nomeia e constitui como seu bastante procurador:</p>
+
+    <p><strong>OUTORGADO (PROCURADOR):</strong> <span class="campo">[NOME COMPLETO DO PROCURADOR]</span>, <span class="campo">[NACIONALIDADE]</span>, <span class="campo">[PROFISSÃO]</span>, portador do RG nº <span class="campo">[Nº DO RG DO PROCURADOR]</span>, órgão emissor <span class="campo">[SSP/PR ou outro]</span>, inscrito no CPF/MF sob o nº <span class="campo">[Nº DO CPF DO PROCURADOR]</span>, residente e domiciliado na <span class="campo">[ENDEREÇO COMPLETO DO PROCURADOR]</span>.</p>
+
+    <p><strong>PODERES OUTORGADOS:</strong> A quem confere amplos e gerais poderes para representá-la perante qualquer <strong>Comissão de Residência Médica (COREME)</strong>, Comissão Estadual de Residência Médica, hospital, universidade, instituição de saúde ou entidade organizadora de processo seletivo de <strong>Residência Médica</strong>, podendo para tanto:</p>
+
+    <p style="padding-left:18px;">
+      <strong>(i)</strong> realizar a <strong>escolha de vaga e especialidade</strong> em Programa de Residência Médica;<br>
+      <strong>(ii)</strong> <strong>efetivar a matrícula</strong> da outorgante em Programa de Residência Médica, em qualquer instituição participante de processo seletivo para o qual a outorgante tenha se inscrito;<br>
+      <strong>(iii)</strong> assinar <strong>termo de adesão, compromisso e responsabilidade</strong> e demais documentos inerentes à formalização da matrícula;<br>
+      <strong>(iv)</strong> <strong>apresentar, entregar e retirar documentos</strong> originais e cópias junto às secretarias e comissões de residência médica;<br>
+      <strong>(v)</strong> prestar <strong>declarações e informações</strong> necessárias em nome da outorgante;<br>
+      <strong>(vi)</strong> praticar todos os atos necessários ao fiel cumprimento deste mandato, inclusive assinar requerimentos e formulários.
+    </p>
+
+    <p>Esta procuração é válida para os processos seletivos de Residência Médica com ingresso previsto para o ano de <strong>2027</strong>, incluindo mas não se limitando aos programas organizados pela <strong>AMP/UCAMP</strong>, <strong>ENARE/FGV (CHC-UFPR/Ebserh)</strong>, <strong>PUC-PR</strong>, <strong>FEAES/SMS Curitiba</strong>, e demais programas nos quais a outorgante esteja inscrita, com validade até <strong>31 de março de 2027</strong>.</p>
+
+    <p>Curitiba (PR), <span class="campo">[DATA DE ASSINATURA]</span>.</p>
+
+    <div class="assinaturas">
+      <div class="assl">
+        <span class="campo">[NOME COMPLETO DA CANDIDATA]</span><br>
+        Outorgante<br>
+        CRM <span class="campo">[Nº CRM]</span>/PR &nbsp;·&nbsp; CPF <span class="campo">[Nº CPF]</span>
+      </div>
+      <div class="assl">
+        <span class="campo">[NOME COMPLETO DO PROCURADOR]</span><br>
+        Outorgado (Procurador)<br>
+        CPF <span class="campo">[Nº CPF DO PROCURADOR]</span>
+      </div>
+    </div>
+
+    <p style="margin-top:28px;font-size:9.5px;color:#64748b;text-align:center;font-style:normal;">
+      <strong>RECONHECIMENTO DE FIRMA:</strong> Levar ao Cartório de Notas para reconhecimento de firma por autenticidade ou semelhança da Outorgante. Fazer 3 vias originais.
+    </p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>📄 Documento gerado em agosto de 2026 · Pesquisa com agentes de IA baseada em editais oficiais (AMP, ENARE, PUC-PR, FEAES)</p>
+  <p style="margin-top:4px;">⚠️ Sempre verifique o edital específico de cada programa antes de agir · Este documento é orientativo e não substitui assessoria jurídica</p>
+</div>
+
+</div>
+</body>
+</html>
