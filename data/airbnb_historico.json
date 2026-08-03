@@ -726,5 +726,58 @@
       }
     ],
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-08-03T23:39:09.488358+00:00",
+    "buscas": [
+      {
+        "id": "semana1_5pax",
+        "label": "Semana 1 - 5 pessoas",
+        "adultos": 5,
+        "checkin": "2027-02-15",
+        "checkout": "2027-02-22",
+        "precos": [
+          3301,
+          3598,
+          3618,
+          3667,
+          4063,
+          4076,
+          4102,
+          4194,
+          4366,
+          4545,
+          4579,
+          4718
+        ],
+        "minimo": 3301,
+        "mediana": 4102,
+        "media": 4068,
+        "maximo": 4718,
+        "total_listagens": 12,
+        "status": "ok"
+      },
+      {
+        "id": "semana2_7pax",
+        "label": "Semana 2 - 7 pessoas",
+        "adultos": 7,
+        "checkin": "2027-02-22",
+        "checkout": "2027-02-27",
+        "precos": [
+          2808,
+          3132,
+          3778,
+          3809,
+          3877
+        ],
+        "minimo": 2808,
+        "mediana": 3778,
+        "media": 3480,
+        "maximo": 3877,
+        "total_listagens": 5,
+        "status": "ok"
+      }
+    ],
+    "status": "ok"
   }
 ]
