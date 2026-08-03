@@ -1,0 +1,44 @@
+name: Airbnb Monitor - Orlando 2027
+
+on:
+  schedule:
+    # Roda 2x por dia: 8h e 20h horario de Brasilia (11h e 23h UTC)
+    - cron: '0 11 * * *'
+    - cron: '0 23 * * *'
+  workflow_dispatch:  # permite rodar manualmente pelo GitHub
+
+jobs:
+  airbnb-scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: |
+          pip install selenium==4.16.0
+
+      - name: Setup Chrome e ChromeDriver
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Rodar Airbnb Monitor
+        run: python airbnb_monitor.py
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: Commit e push dos dados
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/airbnb_historico.json
+          git diff --staged --quiet || git commit -m "chore: airbnb data $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push

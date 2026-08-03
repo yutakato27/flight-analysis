@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airbnb Monitor - Orlando 2027</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+:root{--bg:#0b1120;--card:#141d2e;--card2:#1a2540;--border:#1e3050;--text:#e2e8f0;--muted:#64748b;--a1:#f97316;--a2:#3b82f6;--gr:#10b981;--re:#ef4444;--ye:#f59e0b;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.nav{background:rgba(11,17,32,.96);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:9px;height:9px;background:var(--gr);border-radius:50%;animation:pulse 2s infinite}
+.brand h1{font-size:14px;font-weight:700}
+.brand-sub{font-size:10px;color:var(--muted)}
+.tabs{display:flex;gap:4px}
+.tb{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:7px;cursor:pointer;font-size:11px;font-family:'Inter',sans-serif;transition:.2s}
+.tb.on,.tb:hover{background:var(--card2);color:var(--text);border-color:var(--a2)}
+.nav-r{font-size:10px;color:var(--muted)}
+.hero{padding:22px 28px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.hc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+.hc-ico{font-size:18px;margin-bottom:6px}
+.hc-v{font-size:20px;font-weight:800;line-height:1;margin-bottom:3px}
+.hc-l{font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.hc-s{font-size:9.5px;color:var(--muted);margin-top:3px}
+.main{padding:0 28px 40px}
+.st{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin:24px 0 12px;display:flex;align-items:center;gap:8px}
+.st::after{content:'';flex:1;height:1px;background:var(--border)}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.ct{font-size:12px;font-weight:700;margin-bottom:2px}
+.cs{font-size:10px;color:var(--muted);margin-bottom:14px}
+.cw{position:relative;height:240px}
+.cw2{position:relative;height:200px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g2f{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.tp{display:none}.tp.on{display:block}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{background:var(--card2);padding:8px 10px;text-align:left;font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
+td{padding:8px 10px;border-bottom:1px solid rgba(30,48,80,.5);color:var(--text)}
+tr:hover td{background:var(--card2)}
+tr:last-child td{border-bottom:none}
+.cv{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.cr{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:11.5px}
+.cr:last-child{border-bottom:none;padding-top:10px}
+.cl{color:var(--muted)}
+.vg{color:var(--gr)}.va{color:var(--a1)}.vb{color:var(--a2)}.vy{color:var(--ye)}.vr{color:var(--re)}
+.ib{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:9px;padding:12px 16px;margin-top:12px;font-size:11px;color:var(--text);line-height:1.5}
+.ib strong{color:var(--a2)}
+.spin{width:28px;height:28px;border:3px solid var(--border);border-top:3px solid var(--a1);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 10px}
+.ld{text-align:center;padding:40px;color:var(--muted)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.fi{animation:fi .4s ease}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="brand">
+    <div class="dot"></div>
+    <div><h1>&#127968; Airbnb Monitor &mdash; Orlando 2027</h1><div class="brand-sub">Tendencia de precos &#8226; 5 e 7 pessoas &#8226; Fev 2027</div></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:14px">
+    <div class="tabs">
+      <button class="tb on" onclick="tab('tendencia',this)">&#128200; Tendencia</button>
+      <button class="tb" onclick="tab('comparacao',this)">&#9878;&#65039; Comparacao</button>
+      <button class="tb" onclick="tab('historico',this)">&#128451;&#65039; Historico</button>
+    </div>
+    <div class="nav-r" id="lu">Carregando...</div>
+  </div>
+</nav>
+
+<div class="hero" id="hero"><div class="ld" style="grid-column:1/-1"><div class="spin"></div>Carregando...</div></div>
+
+<div class="main">
+
+  <div id="tp-tendencia" class="tp on">
+    <div class="st">&#128200; Tendencia de Preco por Noite (BRL)</div>
+    <div class="cc">
+      <div class="ct">Evolucao do Preco Mediano por Coleta</div>
+      <div class="cs">S1 = 5 pessoas (15-22 Fev) &bull; S2 = 7 pessoas (22-27 Fev) &bull; Preco por noite em reais</div>
+      <div class="cw"><canvas id="cTrend"></canvas></div>
+    </div>
+    <div class="g2f">
+      <div class="cc">
+        <div class="ct">&#127968; Semana 1 &mdash; 5 pessoas</div>
+        <div class="cs">Min / Mediana / Max por coleta</div>
+        <div class="cw2"><canvas id="cS1"></canvas></div>
+      </div>
+      <div class="cc">
+        <div class="ct">&#127969; Semana 2 &mdash; 7 pessoas</div>
+        <div class="cs">Min / Mediana / Max por coleta</div>
+        <div class="cw2"><canvas id="cS2"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tp-comparacao" class="tp">
+    <div class="st">&#9878;&#65039; Comparacao das Semanas</div>
+    <div class="g2" id="cmp-cards"><div class="ld"><div class="spin"></div></div></div>
+    <div class="st">&#128176; Custo Total Estimado</div>
+    <div id="cmp-total"></div>
+  </div>
+
+  <div id="tp-historico" class="tp">
+    <div class="st">&#128451;&#65039; Historico de Coletas</div>
+    <div class="cc" style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Data/Hora</th><th>S1 Min</th><th>S1 Mediana</th><th>S1 Max</th><th>S2 Min</th><th>S2 Mediana</th><th>S2 Max</th><th>Listas S1</th><th>Listas S2</th></tr></thead>
+        <tbody id="htb"><tr><td colspan="9" style="text-align:center;color:var(--muted);padding:20px">Carregando...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const URL_DATA = "data/airbnb_historico.json";
+let G = [], CH = {};
+Chart.defaults.color = "#64748b";
+Chart.defaults.borderColor = "rgba(30,48,80,.6)";
+
+function fmt(v){ return v != null ? "R$ " + Number(v).toLocaleString("pt-BR") : "—"; }
+function fd(ts){ const d=new Date(ts); return d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"})+" "+d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}); }
+function s1(d){ return d.buscas.find(b=>b.id==="semana1_5pax"); }
+function s2(d){ return d.buscas.find(b=>b.id==="semana2_7pax"); }
+
+function tab(id, el){
+  document.querySelectorAll(".tp").forEach(p=>p.classList.remove("on"));
+  document.querySelectorAll(".tb").forEach(b=>b.classList.remove("on"));
+  document.getElementById("tp-"+id).classList.add("on");
+  el.classList.add("on");
+}
+
+function mkChart(id, cfg){
+  if(CH[id]) CH[id].destroy();
+  CH[id] = new Chart(document.getElementById(id).getContext("2d"), cfg);
+}
+
+function renderHero(){
+  const u = G[G.length-1];
+  const a=s1(u), b=s2(u);
+  const t1 = a?.mediana ? a.mediana*7 : null;
+  const t2 = b?.mediana ? b.mediana*5 : null;
+  document.getElementById("hero").innerHTML = `
+    <div class="hc fi"><div class="hc-ico">&#127968;</div><div class="hc-v" style="color:var(--a1)">${fmt(a?.mediana)}<span style="font-size:11px;font-weight:400;color:var(--muted)">/nt</span></div><div class="hc-l">S1 Mediana &bull; 5 pax</div><div class="hc-s">Min ${fmt(a?.minimo)} &bull; Max ${fmt(a?.maximo)}</div></div>
+    <div class="hc fi"><div class="hc-ico">&#127969;</div><div class="hc-v" style="color:var(--a2)">${fmt(b?.mediana)}<span style="font-size:11px;font-weight:400;color:var(--muted)">/nt</span></div><div class="hc-l">S2 Mediana &bull; 7 pax</div><div class="hc-s">Min ${fmt(b?.minimo)} &bull; Max ${fmt(b?.maximo)}</div></div>
+    <div class="hc fi"><div class="hc-ico">&#128176;</div><div class="hc-v" style="color:var(--ye)">${(t1&&t2)?fmt(t1+t2):"—"}</div><div class="hc-l">Total 12 noites</div><div class="hc-s">S1: ${fmt(t1)} &bull; S2: ${fmt(t2)}</div></div>
+    <div class="hc fi"><div class="hc-ico">&#128202;</div><div class="hc-v">${G.length}</div><div class="hc-l">Coletas</div><div class="hc-s">Ult: ${fd(u.timestamp)}</div></div>
+  `;
+  document.getElementById("lu").textContent = "Ult. coleta: " + fd(u.timestamp);
+}
+
+function renderTrend(){
+  const lbs = G.map(d=>fd(d.timestamp));
+  const a1d = G.map(d=>s1(d)?.mediana), a1mn = G.map(d=>s1(d)?.minimo), a1mx = G.map(d=>s1(d)?.maximo);
+  const b1d = G.map(d=>s2(d)?.mediana), b1mn = G.map(d=>s2(d)?.minimo), b1mx = G.map(d=>s2(d)?.maximo);
+  const base = {tension:.35, pointRadius:4, pointHoverRadius:7, fill:false};
+  mkChart("cTrend",{type:"line",data:{labels:lbs,datasets:[
+    {...base,label:"S1 Mediana",data:a1d,borderColor:"#f97316",backgroundColor:"rgba(249,115,22,.07)",borderWidth:2.5,fill:true},
+    {...base,label:"S1 Minimo", data:a1mn,borderColor:"#f97316",borderWidth:1,borderDash:[4,4],pointRadius:2},
+    {...base,label:"S2 Mediana",data:b1d,borderColor:"#3b82f6",backgroundColor:"rgba(59,130,246,.06)",borderWidth:2.5,fill:true},
+    {...base,label:"S2 Minimo", data:b1mn,borderColor:"#3b82f6",borderWidth:1,borderDash:[4,4],pointRadius:2},
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+    plugins:{legend:{position:"top",labels:{boxWidth:10,font:{size:10}}},tooltip:{callbacks:{label:c=>c.dataset.label+": "+fmt(c.raw)}}},
+    scales:{y:{ticks:{callback:v=>"R$"+v},grid:{color:"rgba(30,48,80,.5)"}},x:{ticks:{maxRotation:45,font:{size:9}},grid:{color:"rgba(30,48,80,.25)"}}}
+  }});
+  const bOpts = {responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+    plugins:{legend:{position:"top",labels:{boxWidth:8,font:{size:9}}}},
+    scales:{y:{ticks:{callback:v=>"R$"+v},grid:{color:"rgba(30,48,80,.5)"}},x:{ticks:{maxRotation:45,font:{size:8}},grid:{display:false}}}};
+  mkChart("cS1",{type:"bar",data:{labels:lbs,datasets:[
+    {label:"Min",data:a1mn,backgroundColor:"rgba(16,185,129,.75)",borderRadius:4},
+    {label:"Med",data:a1d, backgroundColor:"rgba(249,115,22,.85)",borderRadius:4},
+    {label:"Max",data:a1mx,backgroundColor:"rgba(239,68,68,.65)",borderRadius:4},
+  ]},options:bOpts});
+  mkChart("cS2",{type:"bar",data:{labels:lbs,datasets:[
+    {label:"Min",data:b1mn,backgroundColor:"rgba(16,185,129,.75)",borderRadius:4},
+    {label:"Med",data:b1d, backgroundColor:"rgba(59,130,246,.85)",borderRadius:4},
+    {label:"Max",data:b1mx,backgroundColor:"rgba(239,68,68,.65)",borderRadius:4},
+  ]},options:bOpts});
+}
+
+function renderComparacao(){
+  const u=G[G.length-1], a=s1(u), b=s2(u);
+  const pp1 = a?.mediana ? Math.round(a.mediana*7/5) : null;
+  const pp2 = b?.mediana ? Math.round(b.mediana*5/7) : null;
+  const t1 = a?.mediana ? a.mediana*7 : null;
+  const t2 = b?.mediana ? b.mediana*5 : null;
+  document.getElementById("cmp-cards").innerHTML = `
+    <div class="cv">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span style="font-size:22px">&#127968;</span><div><div style="font-size:13px;font-weight:700">Semana 1 &mdash; 5 pessoas</div><div style="font-size:10px;color:var(--muted)">15 a 22 de fevereiro &bull; 7 noites</div></div></div>
+      <div class="cr"><span class="cl">Minimo/noite</span><span class="vg" style="font-weight:700">${fmt(a?.minimo)}</span></div>
+      <div class="cr"><span class="cl">Mediana/noite</span><span class="va" style="font-weight:700">${fmt(a?.mediana)}</span></div>
+      <div class="cr"><span class="cl">Maximo/noite</span><span class="vr" style="font-weight:700">${fmt(a?.maximo)}</span></div>
+      <div class="cr"><span class="cl">Listagens</span><span class="vb" style="font-weight:700">${a?.total_listagens??'—'}</span></div>
+      <div class="cr"><span class="cl">Total 7 noites (med.)</span><span class="vy" style="font-weight:700">${fmt(t1)}</span></div>
+      <div class="cr"><span class="cl">Custo por pessoa</span><span style="font-weight:700">${fmt(pp1)}</span></div>
+    </div>
+    <div class="cv">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span style="font-size:22px">&#127969;</span><div><div style="font-size:13px;font-weight:700">Semana 2 &mdash; 7 pessoas</div><div style="font-size:10px;color:var(--muted)">22 a 27 de fevereiro &bull; 5 noites</div></div></div>
+      <div class="cr"><span class="cl">Minimo/noite</span><span class="vg" style="font-weight:700">${fmt(b?.minimo)}</span></div>
+      <div class="cr"><span class="cl">Mediana/noite</span><span class="vb" style="font-weight:700">${fmt(b?.mediana)}</span></div>
+      <div class="cr"><span class="cl">Maximo/noite</span><span class="vr" style="font-weight:700">${fmt(b?.maximo)}</span></div>
+      <div class="cr"><span class="cl">Listagens</span><span class="vb" style="font-weight:700">${b?.total_listagens??'—'}</span></div>
+      <div class="cr"><span class="cl">Total 5 noites (med.)</span><span class="vy" style="font-weight:700">${fmt(t2)}</span></div>
+      <div class="cr"><span class="cl">Custo por pessoa</span><span style="font-weight:700">${fmt(pp2)}</span></div>
+    </div>
+  `;
+  document.getElementById("cmp-total").innerHTML = `
+    <div class="cv" style="background:rgba(249,115,22,.05);border-color:rgba(249,115,22,.2)">
+      <div class="cr"><span class="cl">Semana 1 &mdash; 7 noites x mediana</span><span class="va" style="font-weight:700">${fmt(t1)}</span></div>
+      <div class="cr"><span class="cl">Semana 2 &mdash; 5 noites x mediana</span><span class="vb" style="font-weight:700">${fmt(t2)}</span></div>
+      <div class="cr"><span class="cl" style="font-weight:700;color:var(--text);font-size:13px">TOTAL GERAL (12 noites)</span><span style="font-weight:800;font-size:18px;color:var(--ye)">${(t1&&t2)?fmt(t1+t2):"—"}</span></div>
+    </div>
+    <div class="ib">&#128161; Valores baseados na <strong>mediana das listagens</strong> encontradas. Preco real varia conforme disponibilidade. Recomenda-se reservar com antecedencia.</div>
+  `;
+}
+
+function renderHistorico(){
+  const rows = [...G].reverse().map(d=>{
+    const a=s1(d),b=s2(d);
+    return `<tr>
+      <td>${fd(d.timestamp)}</td>
+      <td class="vg">${fmt(a?.minimo)}</td><td class="va">${fmt(a?.mediana)}</td><td class="vr">${fmt(a?.maximo)}</td>
+      <td class="vg">${fmt(b?.minimo)}</td><td class="vb">${fmt(b?.mediana)}</td><td class="vr">${fmt(b?.maximo)}</td>
+      <td>${a?.total_listagens??'—'}</td><td>${b?.total_listagens??'—'}</td>
+    </tr>`;
+  }).join("");
+  document.getElementById("htb").innerHTML = rows;
+}
+
+async function init(){
+  try{
+    const r = await fetch(URL_DATA+"?t="+Date.now());
+    G = await r.json();
+    renderHero(); renderTrend(); renderComparacao(); renderHistorico();
+  }catch(e){
+    document.getElementById("hero").innerHTML=`<div style="grid-column:1/-1;text-align:center;color:var(--re);padding:30px">Erro ao carregar dados: ${e.message}</div>`;
+  }
+}
+init();
+</script>
+</body>
+</html>
