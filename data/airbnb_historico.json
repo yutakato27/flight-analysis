@@ -357,5 +357,92 @@
       }
     ],
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-08-04T13:33:33.957469+00:00",
+    "buscas": [
+      {
+        "id": "semana1_5pax",
+        "label": "Semana 1 - 5 pessoas",
+        "adultos": 5,
+        "noites": 7,
+        "checkin": "2027-02-15",
+        "checkout": "2027-02-22",
+        "precos": [
+          3317,
+          3673
+        ],
+        "destaques": [
+          {
+            "titulo": "Condomínio ⋅ Osceola",
+            "preco_noite": 3317,
+            "preco_total": 23219,
+            "avaliacao": "4,9 (127)",
+            "detalhes": "3 quartos/2 banheiros, animais de estimação OK",
+            "link": "https://www.airbnb.com.br/rooms/53112246?check_in=2027-02-15&check_out=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Townhouse ⋅ Kissimmee",
+            "preco_noite": 3673,
+            "preco_total": 25711,
+            "avaliacao": "4,92 (12)",
+            "detalhes": "3 quartos perto da Disney / Piscinas / Animais de estimação / Four Corners e Wi-Fi",
+            "link": "https://www.airbnb.com.br/rooms/1420618035679331536?check_in=2027-02-15&check_out=2027-02-22&adults=5"
+          }
+        ],
+        "minimo": 3317,
+        "mediana": 3495,
+        "media": 3495,
+        "maximo": 3673,
+        "total_listagens": 2,
+        "status": "ok"
+      },
+      {
+        "id": "semana2_7pax",
+        "label": "Semana 2 - 7 pessoas",
+        "adultos": 7,
+        "noites": 5,
+        "checkin": "2027-02-22",
+        "checkout": "2027-02-27",
+        "precos": [
+          2821,
+          3792,
+          3899
+        ],
+        "destaques": [
+          {
+            "titulo": "Casa ⋅ Kissimmee",
+            "preco_noite": 2821,
+            "preco_total": 14105,
+            "avaliacao": "4,8 (179)",
+            "detalhes": "4 quartos/3,5 banheiros | 2 quartos principais | Resort fechado",
+            "link": "https://www.airbnb.com.br/rooms/605289389253714426?check_in=2027-02-22&check_out=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Casa ⋅ Clermont",
+            "preco_noite": 3792,
+            "preco_total": 18960,
+            "avaliacao": "4,89 (9)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1692495360211590158?check_in=2027-02-22&check_out=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Casa ⋅ Kissimmee",
+            "preco_noite": 3899,
+            "preco_total": 19495,
+            "avaliacao": "4,99 (151)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1153101694434369238?check_in=2027-02-22&check_out=2027-02-27&adults=7"
+          }
+        ],
+        "minimo": 2821,
+        "mediana": 3792,
+        "media": 3504,
+        "maximo": 3899,
+        "total_listagens": 3,
+        "status": "ok"
+      }
+    ],
+    "status": "ok"
   }
 ]
