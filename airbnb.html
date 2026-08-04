@@ -46,8 +46,21 @@ tr:last-child td{border-bottom:none}
 .cr:last-child{border-bottom:none;padding-top:10px}
 .cl{color:var(--muted)}
 .vg{color:var(--gr)}.va{color:var(--a1)}.vb{color:var(--a2)}.vy{color:var(--ye)}.vr{color:var(--re)}
-.ib{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:9px;padding:12px 16px;margin-top:12px;font-size:11px;color:var(--text);line-height:1.5}
-.ib strong{color:var(--a2)}
+.ib{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:99px;padding:12px 16px;margin-top:12px;font-size:11px;color:var(--text);line-height:1.5}
+
+/* CARDS DE CASAS EM DESTAQUE */
+.destaques-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:14px;margin-top:10px}
+.casa-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;transition:transform 0.2s, border-color 0.2s}
+.casa-card:hover{transform:translateY(-2px);border-color:var(--a2)}
+.casa-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3}
+.casa-meta{display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--muted);margin-bottom:12px}
+.casa-rating{background:rgba(245,158,11,.15);color:var(--ye);padding:2px 6px;border-radius:4px;font-weight:700;font-size:10px}
+.casa-price-tag{display:flex;justify-content:space-between;align-items:baseline;padding-top:10px;border-top:1px dashed var(--border);margin-top:8px}
+.casa-price-night{font-size:16px;font-weight:800;color:var(--gr)}
+.casa-price-total{font-size:10.5px;color:var(--muted)}
+.casa-btn{display:inline-block;width:100%;text-align:center;background:var(--a2);color:#fff;text-decoration:none;font-size:11.5px;font-weight:700;padding:8px 12px;border-radius:6px;margin-top:12px;transition:background 0.2s}
+.casa-btn:hover{background:#2563eb}
+
 .spin{width:28px;height:28px;border:3px solid var(--border);border-top:3px solid var(--a1);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 10px}
 .ld{text-align:center;padding:40px;color:var(--muted)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
@@ -60,13 +73,14 @@ tr:last-child td{border-bottom:none}
 <nav class="nav">
   <div class="brand">
     <div class="dot"></div>
-    <div><h1>&#127968; Airbnb Monitor &mdash; Orlando 2027</h1><div class="brand-sub">Tendencia de precos &#8226; 5 e 7 pessoas &#8226; Fev 2027</div></div>
+    <div><h1>🏠 Airbnb Monitor &mdash; Orlando 2027</h1><div class="brand-sub">Tendência de preços &bull; 5 e 7 pessoas &bull; Fev 2027</div></div>
   </div>
   <div style="display:flex;align-items:center;gap:14px">
     <div class="tabs">
-      <button class="tb on" onclick="tab('tendencia',this)">&#128200; Tendencia</button>
-      <button class="tb" onclick="tab('comparacao',this)">&#9878;&#65039; Comparacao</button>
-      <button class="tb" onclick="tab('historico',this)">&#128451;&#65039; Historico</button>
+      <button class="tb on" onclick="tab('tendencia',this)">📈 Tendência</button>
+      <button class="tb" onclick="tab('destaques',this)">⭐ Casas em Destaque</button>
+      <button class="tb" onclick="tab('comparacao',this)">⚖️ Comparação</button>
+      <button class="tb" onclick="tab('historico',this)">🗃️ Histórico</button>
     </div>
     <div class="nav-r" id="lu">Carregando...</div>
   </div>
@@ -76,36 +90,52 @@ tr:last-child td{border-bottom:none}
 
 <div class="main">
 
+  <!-- TAB TENDENCIA -->
   <div id="tp-tendencia" class="tp on">
-    <div class="st">&#128200; Tendencia de Preco por Noite (BRL)</div>
+    <div class="st">📈 Tendência de Preço por Noite (BRL)</div>
     <div class="cc">
-      <div class="ct">Evolucao do Preco Mediano por Coleta</div>
-      <div class="cs">S1 = 5 pessoas (15-22 Fev) &bull; S2 = 7 pessoas (22-27 Fev) &bull; Preco por noite em reais</div>
+      <div class="ct">Evolução do Preço Mediano por Coleta</div>
+      <div class="cs">S1 = 5 pessoas (15-22 Fev) &bull; S2 = 7 pessoas (22-27 Fev) &bull; Preço por noite em reais</div>
       <div class="cw"><canvas id="cTrend"></canvas></div>
     </div>
     <div class="g2f">
       <div class="cc">
-        <div class="ct">&#127968; Semana 1 &mdash; 5 pessoas</div>
+        <div class="ct">🏠 Semana 1 &mdash; 5 pessoas</div>
         <div class="cs">Min / Mediana / Max por coleta</div>
         <div class="cw2"><canvas id="cS1"></canvas></div>
       </div>
       <div class="cc">
-        <div class="ct">&#127969; Semana 2 &mdash; 7 pessoas</div>
+        <div class="ct">🏡 Semana 2 &mdash; 7 pessoas</div>
         <div class="cs">Min / Mediana / Max por coleta</div>
         <div class="cw2"><canvas id="cS2"></canvas></div>
       </div>
     </div>
   </div>
 
+  <!-- TAB DESTAQUES COM LINKS -->
+  <div id="tp-destaques" class="tp">
+    <div class="st">🏠 Melhores Opções Encontradas &mdash; Semana 1 (5 pessoas)</div>
+    <div class="destaques-grid" id="grid-destaques-s1">
+      <div class="ld"><div class="spin"></div>Carregando opções...</div>
+    </div>
+
+    <div class="st" style="margin-top:32px">🏡 Melhores Opções Encontradas &mdash; Semana 2 (7 pessoas)</div>
+    <div class="destaques-grid" id="grid-destaques-s2">
+      <div class="ld"><div class="spin"></div>Carregando opções...</div>
+    </div>
+  </div>
+
+  <!-- TAB COMPARACAO -->
   <div id="tp-comparacao" class="tp">
-    <div class="st">&#9878;&#65039; Comparacao das Semanas</div>
+    <div class="st">⚖️ Comparação das Semanas</div>
     <div class="g2" id="cmp-cards"><div class="ld"><div class="spin"></div></div></div>
-    <div class="st">&#128176; Custo Total Estimado</div>
+    <div class="st">💰 Custo Total Estimado</div>
     <div id="cmp-total"></div>
   </div>
 
+  <!-- TAB HISTORICO -->
   <div id="tp-historico" class="tp">
-    <div class="st">&#128451;&#65039; Historico de Coletas</div>
+    <div class="st">🗃️ Histórico de Coletas</div>
     <div class="cc" style="overflow-x:auto">
       <table>
         <thead><tr><th>Data/Hora</th><th>S1 Min</th><th>S1 Mediana</th><th>S1 Max</th><th>S2 Min</th><th>S2 Mediana</th><th>S2 Max</th><th>Listas S1</th><th>Listas S2</th></tr></thead>
@@ -145,12 +175,49 @@ function renderHero(){
   const t1 = a?.mediana ? a.mediana*7 : null;
   const t2 = b?.mediana ? b.mediana*5 : null;
   document.getElementById("hero").innerHTML = `
-    <div class="hc fi"><div class="hc-ico">&#127968;</div><div class="hc-v" style="color:var(--a1)">${fmt(a?.mediana)}<span style="font-size:11px;font-weight:400;color:var(--muted)">/nt</span></div><div class="hc-l">S1 Mediana &bull; 5 pax</div><div class="hc-s">Min ${fmt(a?.minimo)} &bull; Max ${fmt(a?.maximo)}</div></div>
-    <div class="hc fi"><div class="hc-ico">&#127969;</div><div class="hc-v" style="color:var(--a2)">${fmt(b?.mediana)}<span style="font-size:11px;font-weight:400;color:var(--muted)">/nt</span></div><div class="hc-l">S2 Mediana &bull; 7 pax</div><div class="hc-s">Min ${fmt(b?.minimo)} &bull; Max ${fmt(b?.maximo)}</div></div>
-    <div class="hc fi"><div class="hc-ico">&#128176;</div><div class="hc-v" style="color:var(--ye)">${(t1&&t2)?fmt(t1+t2):"—"}</div><div class="hc-l">Total 12 noites</div><div class="hc-s">S1: ${fmt(t1)} &bull; S2: ${fmt(t2)}</div></div>
-    <div class="hc fi"><div class="hc-ico">&#128202;</div><div class="hc-v">${G.length}</div><div class="hc-l">Coletas</div><div class="hc-s">Ult: ${fd(u.timestamp)}</div></div>
+    <div class="hc fi"><div class="hc-ico">🏠</div><div class="hc-v" style="color:var(--a1)">${fmt(a?.mediana)}<span style="font-size:11px;font-weight:400;color:var(--muted)">/nt</span></div><div class="hc-l">S1 Mediana &bull; 5 pax</div><div class="hc-s">Min ${fmt(a?.minimo)} &bull; Max ${fmt(a?.maximo)}</div></div>
+    <div class="hc fi"><div class="hc-ico">🏡</div><div class="hc-v" style="color:var(--a2)">${fmt(b?.mediana)}<span style="font-size:11px;font-weight:400;color:var(--muted)">/nt</span></div><div class="hc-l">S2 Mediana &bull; 7 pax</div><div class="hc-s">Min ${fmt(b?.minimo)} &bull; Max ${fmt(b?.maximo)}</div></div>
+    <div class="hc fi"><div class="hc-ico">💰</div><div class="hc-v" style="color:var(--ye)">${(t1&&t2)?fmt(t1+t2):"—"}</div><div class="hc-l">Total 12 noites</div><div class="hc-s">S1: ${fmt(t1)} &bull; S2: ${fmt(t2)}</div></div>
+    <div class="hc fi"><div class="hc-ico">📊</div><div class="hc-v">${G.length}</div><div class="hc-l">Coletas</div><div class="hc-s">Últ: ${fd(u.timestamp)}</div></div>
   `;
-  document.getElementById("lu").textContent = "Ult. coleta: " + fd(u.timestamp);
+  document.getElementById("lu").textContent = "Últ. coleta: " + fd(u.timestamp);
+}
+
+function renderDestaques(){
+  const u = G[G.length-1];
+  const a = s1(u), b = s2(u);
+
+  function makeGrid(lista, elementId, noites){
+    const container = document.getElementById(elementId);
+    if(!lista || lista.length === 0){
+      container.innerHTML = `<div style="grid-column:1/-1;color:var(--muted);font-size:12px">Nenhuma casa específica com link direto capturada nesta coleta. Na próxima varredura automática os links atualizados aparecerão aqui.</div>`;
+      return;
+    }
+
+    container.innerHTML = lista.map(c => `
+      <div class="casa-card">
+        <div>
+          <div class="casa-title">${c.titulo}</div>
+          <div class="casa-meta">
+            <span class="casa-rating">${c.avaliacao}</span>
+            <span>${c.detalhes || 'Casa em Orlando'}</span>
+          </div>
+        </div>
+        <div>
+          <div class="casa-price-tag">
+            <div>
+              <div class="casa-price-night">${fmt(c.preco_noite)}<span style="font-size:10px;font-weight:400">/noite</span></div>
+            </div>
+            <div class="casa-price-total">Total ${noites} noites: <strong>${fmt(c.preco_total || c.preco_noite * noites)}</strong></div>
+          </div>
+          <a href="${c.link}" target="_blank" rel="noopener" class="casa-btn">Ver no Airbnb 🔗</a>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  makeGrid(a?.destaques, "grid-destaques-s1", 7);
+  makeGrid(b?.destaques, "grid-destaques-s2", 5);
 }
 
 function renderTrend(){
@@ -160,9 +227,9 @@ function renderTrend(){
   const base = {tension:.35, pointRadius:4, pointHoverRadius:7, fill:false};
   mkChart("cTrend",{type:"line",data:{labels:lbs,datasets:[
     {...base,label:"S1 Mediana",data:a1d,borderColor:"#f97316",backgroundColor:"rgba(249,115,22,.07)",borderWidth:2.5,fill:true},
-    {...base,label:"S1 Minimo", data:a1mn,borderColor:"#f97316",borderWidth:1,borderDash:[4,4],pointRadius:2},
+    {...base,label:"S1 Mínimo", data:a1mn,borderColor:"#f97316",borderWidth:1,borderDash:[4,4],pointRadius:2},
     {...base,label:"S2 Mediana",data:b1d,borderColor:"#3b82f6",backgroundColor:"rgba(59,130,246,.06)",borderWidth:2.5,fill:true},
-    {...base,label:"S2 Minimo", data:b1mn,borderColor:"#3b82f6",borderWidth:1,borderDash:[4,4],pointRadius:2},
+    {...base,label:"S2 Mínimo", data:b1mn,borderColor:"#3b82f6",borderWidth:1,borderDash:[4,4],pointRadius:2},
   ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
     plugins:{legend:{position:"top",labels:{boxWidth:10,font:{size:10}}},tooltip:{callbacks:{label:c=>c.dataset.label+": "+fmt(c.raw)}}},
     scales:{y:{ticks:{callback:v=>"R$"+v},grid:{color:"rgba(30,48,80,.5)"}},x:{ticks:{maxRotation:45,font:{size:9}},grid:{color:"rgba(30,48,80,.25)"}}}
@@ -190,19 +257,19 @@ function renderComparacao(){
   const t2 = b?.mediana ? b.mediana*5 : null;
   document.getElementById("cmp-cards").innerHTML = `
     <div class="cv">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span style="font-size:22px">&#127968;</span><div><div style="font-size:13px;font-weight:700">Semana 1 &mdash; 5 pessoas</div><div style="font-size:10px;color:var(--muted)">15 a 22 de fevereiro &bull; 7 noites</div></div></div>
-      <div class="cr"><span class="cl">Minimo/noite</span><span class="vg" style="font-weight:700">${fmt(a?.minimo)}</span></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span style="font-size:22px">🏠</span><div><div style="font-size:13px;font-weight:700">Semana 1 &mdash; 5 pessoas</div><div style="font-size:10px;color:var(--muted)">15 a 22 de fevereiro &bull; 7 noites</div></div></div>
+      <div class="cr"><span class="cl">Mínimo/noite</span><span class="vg" style="font-weight:700">${fmt(a?.minimo)}</span></div>
       <div class="cr"><span class="cl">Mediana/noite</span><span class="va" style="font-weight:700">${fmt(a?.mediana)}</span></div>
-      <div class="cr"><span class="cl">Maximo/noite</span><span class="vr" style="font-weight:700">${fmt(a?.maximo)}</span></div>
+      <div class="cr"><span class="cl">Máximo/noite</span><span class="vr" style="font-weight:700">${fmt(a?.maximo)}</span></div>
       <div class="cr"><span class="cl">Listagens</span><span class="vb" style="font-weight:700">${a?.total_listagens??'—'}</span></div>
       <div class="cr"><span class="cl">Total 7 noites (med.)</span><span class="vy" style="font-weight:700">${fmt(t1)}</span></div>
       <div class="cr"><span class="cl">Custo por pessoa</span><span style="font-weight:700">${fmt(pp1)}</span></div>
     </div>
     <div class="cv">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span style="font-size:22px">&#127969;</span><div><div style="font-size:13px;font-weight:700">Semana 2 &mdash; 7 pessoas</div><div style="font-size:10px;color:var(--muted)">22 a 27 de fevereiro &bull; 5 noites</div></div></div>
-      <div class="cr"><span class="cl">Minimo/noite</span><span class="vg" style="font-weight:700">${fmt(b?.minimo)}</span></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span style="font-size:22px">🏡</span><div><div style="font-size:13px;font-weight:700">Semana 2 &mdash; 7 pessoas</div><div style="font-size:10px;color:var(--muted)">22 a 27 de fevereiro &bull; 5 noites</div></div></div>
+      <div class="cr"><span class="cl">Mínimo/noite</span><span class="vg" style="font-weight:700">${fmt(b?.minimo)}</span></div>
       <div class="cr"><span class="cl">Mediana/noite</span><span class="vb" style="font-weight:700">${fmt(b?.mediana)}</span></div>
-      <div class="cr"><span class="cl">Maximo/noite</span><span class="vr" style="font-weight:700">${fmt(b?.maximo)}</span></div>
+      <div class="cr"><span class="cl">Máximo/noite</span><span class="vr" style="font-weight:700">${fmt(b?.maximo)}</span></div>
       <div class="cr"><span class="cl">Listagens</span><span class="vb" style="font-weight:700">${b?.total_listagens??'—'}</span></div>
       <div class="cr"><span class="cl">Total 5 noites (med.)</span><span class="vy" style="font-weight:700">${fmt(t2)}</span></div>
       <div class="cr"><span class="cl">Custo por pessoa</span><span style="font-weight:700">${fmt(pp2)}</span></div>
@@ -214,7 +281,6 @@ function renderComparacao(){
       <div class="cr"><span class="cl">Semana 2 &mdash; 5 noites x mediana</span><span class="vb" style="font-weight:700">${fmt(t2)}</span></div>
       <div class="cr"><span class="cl" style="font-weight:700;color:var(--text);font-size:13px">TOTAL GERAL (12 noites)</span><span style="font-weight:800;font-size:18px;color:var(--ye)">${(t1&&t2)?fmt(t1+t2):"—"}</span></div>
     </div>
-    <div class="ib">&#128161; Valores baseados na <strong>mediana das listagens</strong> encontradas. Preco real varia conforme disponibilidade. Recomenda-se reservar com antecedencia.</div>
   `;
 }
 
@@ -235,7 +301,7 @@ async function init(){
   try{
     const r = await fetch(URL_DATA+"?t="+Date.now());
     G = await r.json();
-    renderHero(); renderTrend(); renderComparacao(); renderHistorico();
+    renderHero(); renderDestaques(); renderTrend(); renderComparacao(); renderHistorico();
   }catch(e){
     document.getElementById("hero").innerHTML=`<div style="grid-column:1/-1;text-align:center;color:var(--re);padding:30px">Erro ao carregar dados: ${e.message}</div>`;
   }

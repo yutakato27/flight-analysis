@@ -2,7 +2,8 @@
 """
 Airbnb Monitor - Orlando 2027
 Busca casas para 2 semanas: semana 1 (5 pessoas) e semana 2 (7 pessoas)
-Salva historico em data/airbnb_historico.json
+Extrai métricas gerais + Top Casas em Destaque (Link, Título, Preço/noite, Avaliação e Detalhes)
+Salva histórico em data/airbnb_historico.json
 """
 import time, json, datetime, os, re, statistics
 from selenium import webdriver
@@ -10,13 +11,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), "data", "airbnb_historico.json")
-DEBUG     = True   # salva HTML para inspecionar se algo der errado
 
-# ======================================================
-# CONFIGURACAO DAS BUSCAS
-# Precos no Airbnb.com.br sao em BRL por noite
-# Faixa esperada para casa em Orlando: R$ 400 a R$ 2.500/noite
-# ======================================================
 BUSCAS = [
     {
         "id":       "semana1_5pax",
@@ -26,7 +21,6 @@ BUSCAS = [
         "checkout": "2027-02-22",
         "adultos":  5,
         "noites":   7,
-        # price_min/max em USD no filtro da URL (~R$400=~$72, ~R$2500=~$454)
         "url": (
             "https://www.airbnb.com.br/s/Orlando--Florida--Estados-Unidos/homes"
             "?checkin=2027-02-15&checkout=2027-02-22"
@@ -55,10 +49,9 @@ BUSCAS = [
     },
 ]
 
-TIMEOUT          = 25   # segundos aguardando a pagina carregar
-PRECO_MIN_BRL    = 300  # preco minimo plausivel por NOITE em BRL (~$55)
-PRECO_MAX_BRL    = 4000 # preco maximo plausivel por NOITE em BRL (~$727)
-
+TIMEOUT          = 25
+PRECO_MIN_BRL    = 300
+PRECO_MAX_BRL    = 4000
 
 def criar_driver():
     options = Options()
@@ -78,36 +71,25 @@ def criar_driver():
     driver.execute_script("Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
     return driver
 
-
 def extrair_preco_noite(texto):
-    """
-    Extrai o preco POR NOITE do texto de um card do Airbnb.
-    O Airbnb exibe algo como 'R$ 1.234 por noite' ou 'R$1.234 / noite'.
-    Retorna int em BRL ou None.
-    """
-    # Padrão: R$ X.XXX por noite  /  R$X.XXX/noite  /  R$ X.XXX night
-    padroes_noite = [
+    padroes = [
         r"R\$\s*([\d]{1,3}(?:[.,][\d]{3})*)\s*(?:por noite|/\s*noite|per night)",
         r"([\d]{1,3}(?:[.,][\d]{3})*)\s*(?:por noite|/\s*noite)",
     ]
-    for pat in padroes_noite:
+    for pat in padroes:
         m = re.search(pat, texto, re.IGNORECASE)
         if m:
             val = int(m.group(1).replace(".", "").replace(",", ""))
             if PRECO_MIN_BRL <= val <= PRECO_MAX_BRL:
                 return val
 
-    # Fallback generico: qualquer "R$ X.XXX" no intervalo plausivel
     for m in re.finditer(r"R\$\s*([\d]{1,3}(?:[.,][\d]{3})*)", texto):
         val = int(m.group(1).replace(".", "").replace(",", ""))
         if PRECO_MIN_BRL <= val <= PRECO_MAX_BRL:
             return val
-
     return None
 
-
 def buscar_airbnb(busca):
-    """Faz o scraping de uma busca e retorna estatísticas de precos."""
     driver = criar_driver()
     resultado = {
         "id":               busca["id"],
@@ -117,6 +99,7 @@ def buscar_airbnb(busca):
         "checkin":          busca["checkin"],
         "checkout":         busca["checkout"],
         "precos":           [],
+        "destaques":        [],
         "minimo":           None,
         "mediana":          None,
         "media":            None,
@@ -131,76 +114,100 @@ def buscar_airbnb(busca):
         print(f"  ⏳ Aguardando {TIMEOUT}s...")
         time.sleep(TIMEOUT)
 
-        # ---- Salvar HTML para debug ----
-        if DEBUG:
-            html_path = os.path.join(
-                os.path.dirname(__file__), "data",
-                f"debug_{busca['id']}.html"
-            )
-            with open(html_path, "w", encoding="utf-8") as f:
-                f.write(driver.page_source)
-            print(f"  💾 HTML salvo em {html_path}")
+        # Rolar pagina para carregar mais elementos
+        driver.execute_script("window.scrollBy(0, 1000);")
+        time.sleep(3)
 
-        # ---- Estrategia 1: aria-label nos cards (mais confiavel) ----
-        precos = []
-        els = driver.find_elements(By.CSS_SELECTOR, "[aria-label]")
-        for el in els:
-            label = el.get_attribute("aria-label") or ""
-            if "R$" in label or "por noite" in label.lower():
-                p = extrair_preco_noite(label)
-                if p:
-                    precos.append(p)
+        cards = driver.find_elements(By.CSS_SELECTOR, "div[data-testid='card-container']")
+        if not cards:
+            cards = driver.find_elements(By.CSS_SELECTOR, "div.c4mnd7m")
 
-        # ---- Estrategia 2: spans de preco ----
-        if len(precos) < 3:
-            seletores = [
-                "span._tyxjp1",
-                "span[data-testid='price-and-discounted-price']",
-                "div._1jo4hgw span",
-                "span.a8jt5op",
-            ]
-            for sel in seletores:
-                for el in driver.find_elements(By.CSS_SELECTOR, sel):
-                    p = extrair_preco_noite(el.text)
-                    if p:
-                        precos.append(p)
-                if len(precos) >= 3:
+        destaques = []
+        precos_todos = []
+
+        for card in cards:
+            texto = card.text
+            preco = extrair_preco_noite(texto)
+            if not preco:
+                continue
+
+            precos_todos.append(preco)
+
+            # Tentar extrair link
+            link = ""
+            try:
+                a_tag = card.find_element(By.CSS_SELECTOR, "a[href*='/rooms/']")
+                href = a_tag.get_attribute("href")
+                if href:
+                    clean_id = re.search(r"/rooms/(\d+)", href)
+                    if clean_id:
+                        link = f"https://www.airbnb.com.br/rooms/{clean_id.group(1)}?check_in={busca['checkin']}&check_out={busca['checkout']}&adults={busca['adultos']}"
+                    else:
+                        link = href
+            except:
+                pass
+
+            # Extrair titulo / descricao
+            linhas = [l.strip() for l in texto.split("\n") if l.strip()]
+            titulo = "Casa em Orlando"
+            for l in linhas:
+                if any(kw in l.lower() for kw in ["casa", "villa", "quarto", "condomínio", "resort", "em orlando", "kissimmee", "davenport"]):
+                    titulo = l
+                    break
+                elif len(l) > 10 and not "R$" in l and not "★" in l and not "Avaliação" in l:
+                    titulo = l
                     break
 
-        # ---- Estrategia 3: texto completo dos cards ----
-        if len(precos) < 3:
-            print("  🔄 Fallback: lendo cards completos...")
-            card_sels = [
-                "div[data-testid='card-container']",
-                "div[itemprop='itemListElement']",
-                "div.c4mnd7m",
-                "div[class*='g1tup9az']",
-            ]
-            for sel in card_sels:
-                cards = driver.find_elements(By.CSS_SELECTOR, sel)
-                for card in cards:
-                    p = extrair_preco_noite(card.text)
-                    if p:
-                        precos.append(p)
-                if len(precos) >= 3:
-                    break
+            # Extrair avaliação e nota
+            avaliacao = "Sem nota"
+            m_nota = re.search(r"(★\s*[\d,.]+)|([\d,.]{3,4}\s*\(\d+\))|([\d,.]{3,4}\s*·)", texto)
+            if m_nota:
+                avaliacao = m_nota.group(0).strip()
+            elif "Novo" in texto or "New" in texto:
+                avaliacao = "Novo no Airbnb"
 
-        # ---- Deduplicar e ordenar ----
-        precos = sorted(set(precos))
+            # Detalhes (ex: 4 quartos, 5 camas)
+            detalhes = ""
+            m_det = re.search(r"(\d+\s*quarto[s]?.*|\d+\s*cama[s]?.*|\d+\s*banheiro[s]?)", texto, re.IGNORECASE)
+            if m_det:
+                detalhes = m_det.group(0).strip()
 
-        if precos:
-            n = len(precos)
-            resultado["precos"]          = precos[:30]
-            resultado["minimo"]          = precos[0]
-            resultado["maximo"]          = precos[-1]
-            resultado["media"]           = int(statistics.mean(precos))
-            resultado["mediana"]         = int(statistics.median(precos))
+            if link and preco:
+                destaques.append({
+                    "titulo": titulo,
+                    "preco_noite": preco,
+                    "preco_total": preco * busca["noites"],
+                    "avaliacao": avaliacao,
+                    "detalhes": detalhes,
+                    "link": link
+                })
+
+        precos_todos = sorted(set(precos_todos))
+        
+        # Ordenar destaques por nota / melhor preço
+        # Remover duplicados de link
+        vistos = set()
+        destaques_unicos = []
+        for d in destaques:
+            if d["link"] not in vistos:
+                vistos.add(d["link"])
+                destaques_unicos.append(d)
+        
+        destaques_unicos.sort(key=lambda x: x["preco_noite"])
+
+        if precos_todos:
+            n = len(precos_todos)
+            resultado["precos"]          = precos_todos[:30]
+            resultado["destaques"]       = destaques_unicos[:6] # guarda os 6 melhores destaques
+            resultado["minimo"]          = precos_todos[0]
+            resultado["maximo"]          = precos_todos[-1]
+            resultado["media"]           = int(statistics.mean(precos_todos))
+            resultado["mediana"]         = int(statistics.median(precos_todos))
             resultado["total_listagens"] = n
             resultado["status"]          = "ok"
-            print(f"  ✅ {n} precos | Min: R${precos[0]:,} | Med: R${resultado['mediana']:,} | Max: R${precos[-1]:,}")
+            print(f"  ✅ {n} preços | {len(destaques_unicos)} casas com link extraídas | Min: R${precos_todos[0]:,}")
         else:
             resultado["status"] = "sem_dados"
-            print("  ⚠️  Nenhum preco extraido — verifique o HTML de debug")
 
     except Exception as e:
         resultado["erro"] = str(e)
@@ -209,7 +216,6 @@ def buscar_airbnb(busca):
         driver.quit()
 
     return resultado
-
 
 def salvar_historico(registro):
     os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
@@ -224,8 +230,7 @@ def salvar_historico(registro):
     historico = historico[-500:]
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(historico, f, indent=2, ensure_ascii=False)
-    print(f"\n📝 Historico salvo: {len(historico)} registros")
-
+    print(f"\n📝 Histórico atualizado: {len(historico)} registros")
 
 if __name__ == "__main__":
     print("=" * 55)
@@ -238,7 +243,7 @@ if __name__ == "__main__":
     for busca in BUSCAS:
         res = buscar_airbnb(busca)
         resultados.append(res)
-        time.sleep(8)   # pausa entre buscas
+        time.sleep(5)
 
     registro = {
         "timestamp": timestamp,
@@ -246,11 +251,5 @@ if __name__ == "__main__":
         "status":    "ok" if any(r["status"] == "ok" for r in resultados) else "erro",
     }
 
-    print("\n" + "=" * 55)
-    print(json.dumps(registro, indent=2, ensure_ascii=False))
-
     if registro["status"] == "ok":
         salvar_historico(registro)
-    else:
-        print("\n⚠️  Nenhum dado coletado. Historico nao modificado.")
-        print("    Verifique os arquivos data/debug_*.html para investigar.")
