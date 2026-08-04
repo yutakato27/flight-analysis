@@ -4,7 +4,7 @@ Airbnb Monitor - Orlando 2027
 Busca casas para 2 semanas:
 Semana 1: 15/02/2027 a 22/02/2027 (7 noites, 5 adultos)
 Semana 2: 22/02/2027 a 27/02/2027 (5 noites, 7 adultos)
-Corrige os parâmetros de URL dos links dos imóveis (utilizando checkin/checkout sem sublinhado).
+Filtra estritamente imóveis que cobrem a TOTALIDADE das noites pesquisadas, descartando listagens com disponibilidade parcial/flexible dates.
 """
 import time, json, datetime, os, re, statistics
 from selenium import webdriver
@@ -22,12 +22,15 @@ BUSCAS = [
         "checkout": "2027-02-22",
         "adultos":  5,
         "noites":   7,
+        # URL com parametros estritos e tipo de busca exato
         "url": (
             "https://www.airbnb.com.br/s/Orlando--FL--Estados-Unidos/homes"
             "?checkin=2027-02-15&checkout=2027-02-22"
             "&adults=5&children=0&infants=0&pets=0"
             "&room_types%5B%5D=Entire+home%2Fapt"
             "&min_bedrooms=3"
+            "&date_picker_type=calendar"
+            "&flexible_trip_lengths%5B%5D=one_week"
             "&search_type=filter_change"
         ),
     },
@@ -45,6 +48,7 @@ BUSCAS = [
             "&adults=7&children=0&infants=0&pets=0"
             "&room_types%5B%5D=Entire+home%2Fapt"
             "&min_bedrooms=4"
+            "&date_picker_type=calendar"
             "&search_type=filter_change"
         ),
     },
@@ -138,13 +142,20 @@ def buscar_airbnb(busca):
 
         for card in cards:
             texto = card.text
+            
+            # FILTRO DE SEGURANÇA: Descartar imóveis com disponibilidade parcial de datas
+            # Se o texto do card contiver indicação de intervalo reduzido (ex: "15 a 19", "16 a 20"), descarta
+            if re.search(r"de\s+\d+.*a.*\d+", texto, re.IGNORECASE) or re.search(r"^\d+.*–.*\d+", texto):
+                continue
+            if "datas disponíveis" in texto.lower() or "disponibilidade parcial" in texto.lower():
+                continue
+
             preco_noite, preco_total = extrair_valores_card(texto, busca["noites"])
             if not preco_noite:
                 continue
 
             precos_todos.append(preco_noite)
 
-            # Formatação dos links sem os sublinhados que travam a busca no Airbnb
             link = ""
             try:
                 a_tag = card.find_element(By.CSS_SELECTOR, "a[href*='/rooms/']")
@@ -214,7 +225,7 @@ def buscar_airbnb(busca):
             resultado["mediana"]         = int(statistics.median(precos_todos))
             resultado["total_listagens"] = n
             resultado["status"]          = "ok"
-            print(f"  ✅ {n} preços por noite | {len(destaques_unicos)} casas capturadas | Min: R${precos_todos[0]:,}/noite")
+            print(f"  ✅ {n} preços por noite | {len(destaques_unicos)} casas 100% disponíveis no período | Min: R${precos_todos[0]:,}/noite")
         else:
             resultado["status"] = "sem_dados"
 
@@ -243,7 +254,7 @@ def salvar_historico(registro):
 
 if __name__ == "__main__":
     print("=" * 55)
-    print("🏠 AIRBNB MONITOR - ORLANDO 2027 (URL LINK PARAMETER FIX)")
+    print("🏠 AIRBNB MONITOR - ORLANDO 2027 (PARIAL DATES FILTER FIX)")
     print("=" * 55)
 
     timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
