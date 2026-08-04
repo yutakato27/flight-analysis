@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Airbnb Monitor - Orlando 2027
-Busca casas para 2 semanas: semana 1 (5 pessoas) e semana 2 (7 pessoas)
+Busca casas para 2 semanas: semana 1 (5 pessoas: 15 a 22/fev) e semana 2 (7 pessoas: 22 a 27/fev)
 Extrai métricas gerais + Top Casas em Destaque (Link, Título, Preço/noite, Avaliação e Detalhes)
 Salva histórico em data/airbnb_historico.json
 """
@@ -114,7 +114,6 @@ def buscar_airbnb(busca):
         print(f"  ⏳ Aguardando {TIMEOUT}s...")
         time.sleep(TIMEOUT)
 
-        # Rolar pagina para carregar mais elementos
         driver.execute_script("window.scrollBy(0, 1000);")
         time.sleep(3)
 
@@ -133,7 +132,7 @@ def buscar_airbnb(busca):
 
             precos_todos.append(preco)
 
-            # Tentar extrair link
+            # Link direto
             link = ""
             try:
                 a_tag = card.find_element(By.CSS_SELECTOR, "a[href*='/rooms/']")
@@ -147,18 +146,24 @@ def buscar_airbnb(busca):
             except:
                 pass
 
-            # Extrair titulo / descricao
+            # Filtro rigoroso de título
             linhas = [l.strip() for l in texto.split("\n") if l.strip()]
-            titulo = "Casa em Orlando"
+            titulo = "Casa inteira em Orlando"
             for l in linhas:
-                if any(kw in l.lower() for kw in ["casa", "villa", "quarto", "condomínio", "resort", "em orlando", "kissimmee", "davenport"]):
+                # Ignorar linhas de datas como "De 16 a 20 de fev."
+                if re.search(r"de\s+\d+.*a.*\d+.*de", l, re.IGNORECASE) or re.search(r"^\d+.*–.*\d+", l):
+                    continue
+                if "de fev" in l.lower() or "de mar" in l.lower():
+                    continue
+
+                if any(kw in l.lower() for kw in ["casa", "villa", "quarto", "condomínio", "resort", "em orlando", "kissimmee", "davenport", "apartamento", "townhouse"]):
                     titulo = l
                     break
-                elif len(l) > 10 and not "R$" in l and not "★" in l and not "Avaliação" in l:
+                elif len(l) > 10 and not "R$" in l and not "★" in l and not "Avaliação" in l and not "Preferido" in l and not "Superhost" in l:
                     titulo = l
                     break
 
-            # Extrair avaliação e nota
+            # Avaliação
             avaliacao = "Sem nota"
             m_nota = re.search(r"(★\s*[\d,.]+)|([\d,.]{3,4}\s*\(\d+\))|([\d,.]{3,4}\s*·)", texto)
             if m_nota:
@@ -166,7 +171,7 @@ def buscar_airbnb(busca):
             elif "Novo" in texto or "New" in texto:
                 avaliacao = "Novo no Airbnb"
 
-            # Detalhes (ex: 4 quartos, 5 camas)
+            # Detalhes
             detalhes = ""
             m_det = re.search(r"(\d+\s*quarto[s]?.*|\d+\s*cama[s]?.*|\d+\s*banheiro[s]?)", texto, re.IGNORECASE)
             if m_det:
@@ -184,8 +189,6 @@ def buscar_airbnb(busca):
 
         precos_todos = sorted(set(precos_todos))
         
-        # Ordenar destaques por nota / melhor preço
-        # Remover duplicados de link
         vistos = set()
         destaques_unicos = []
         for d in destaques:
@@ -198,14 +201,14 @@ def buscar_airbnb(busca):
         if precos_todos:
             n = len(precos_todos)
             resultado["precos"]          = precos_todos[:30]
-            resultado["destaques"]       = destaques_unicos[:6] # guarda os 6 melhores destaques
+            resultado["destaques"]       = destaques_unicos[:6]
             resultado["minimo"]          = precos_todos[0]
             resultado["maximo"]          = precos_todos[-1]
             resultado["media"]           = int(statistics.mean(precos_todos))
             resultado["mediana"]         = int(statistics.median(precos_todos))
             resultado["total_listagens"] = n
             resultado["status"]          = "ok"
-            print(f"  ✅ {n} preços | {len(destaques_unicos)} casas com link extraídas | Min: R${precos_todos[0]:,}")
+            print(f"  ✅ {n} preços | {len(destaques_unicos)} casas com link | Min: R${precos_todos[0]:,}")
         else:
             resultado["status"] = "sem_dados"
 
