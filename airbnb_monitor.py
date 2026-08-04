@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
 Airbnb Monitor - Orlando 2027
-Busca casas para 2 semanas: semana 1 (5 pessoas: 15 a 22/fev) e semana 2 (7 pessoas: 22 a 27/fev)
-Extrai métricas gerais + Top Casas em Destaque (Link, Título, Preço/noite, Avaliação e Detalhes)
-Salva histórico em data/airbnb_historico.json
+Busca casas para 2 semanas:
+Semana 1: 15/02/2027 a 22/02/2027 (7 noites, 5 adultos)
+Semana 2: 22/02/2027 a 27/02/2027 (5 noites, 7 adultos)
+Corrige a captura do preço (Total / noites = preço por noite real) e links formatados do Airbnb.
 """
 import time, json, datetime, os, re, statistics
 from selenium import webdriver
@@ -22,12 +23,12 @@ BUSCAS = [
         "adultos":  5,
         "noites":   7,
         "url": (
-            "https://www.airbnb.com.br/s/Orlando--Florida--Estados-Unidos/homes"
+            "https://www.airbnb.com.br/s/Orlando--FL--Estados-Unidos/homes"
             "?checkin=2027-02-15&checkout=2027-02-22"
             "&adults=5&children=0&infants=0&pets=0"
             "&room_types%5B%5D=Entire+home%2Fapt"
             "&min_bedrooms=3"
-            "&sort=PRICE_RATE_ASC"
+            "&search_type=filter_change"
         ),
     },
     {
@@ -39,19 +40,19 @@ BUSCAS = [
         "adultos":  7,
         "noites":   5,
         "url": (
-            "https://www.airbnb.com.br/s/Orlando--Florida--Estados-Unidos/homes"
+            "https://www.airbnb.com.br/s/Orlando--FL--Estados-Unidos/homes"
             "?checkin=2027-02-22&checkout=2027-02-27"
             "&adults=7&children=0&infants=0&pets=0"
             "&room_types%5B%5D=Entire+home%2Fapt"
             "&min_bedrooms=4"
-            "&sort=PRICE_RATE_ASC"
+            "&search_type=filter_change"
         ),
     },
 ]
 
 TIMEOUT          = 25
-PRECO_MIN_BRL    = 300
-PRECO_MAX_BRL    = 4000
+PRECO_MIN_BRL    = 250   # Preço diário mínimo aceitável
+PRECO_MAX_BRL    = 3500  # Preço diário máximo aceitável
 
 def criar_driver():
     options = Options()
@@ -71,23 +72,43 @@ def criar_driver():
     driver.execute_script("Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
     return driver
 
-def extrair_preco_noite(texto):
-    padroes = [
-        r"R\$\s*([\d]{1,3}(?:[.,][\d]{3})*)\s*(?:por noite|/\s*noite|per night)",
-        r"([\d]{1,3}(?:[.,][\d]{3})*)\s*(?:por noite|/\s*noite)",
-    ]
-    for pat in padroes:
-        m = re.search(pat, texto, re.IGNORECASE)
-        if m:
-            val = int(m.group(1).replace(".", "").replace(",", ""))
-            if PRECO_MIN_BRL <= val <= PRECO_MAX_BRL:
-                return val
+def extrair_valores_card(texto, noites):
+    """
+    Analisa o texto do card para diferenciar 'Total da Estadia' de 'Preço por Noite'.
+    O Airbnb exibe textos como:
+    - 'R$ 3.317 no total' (onde 3317 é o valor total de 7 noites => R$ 473/noite)
+    - 'R$ 450 por noite'
+    """
+    texto_clean = texto.replace("\xa0", " ")
+    
+    # 1. Procurar por "R$ X.XXX total" ou "R$ X.XXX no total"
+    m_total = re.search(r"R\$\s*([\d]{1,3}(?:[.,][\d]{3})*)\s*(?:total|no total)", texto_clean, re.IGNORECASE)
+    if m_total:
+        val_total = int(m_total.group(1).replace(".", "").replace(",", ""))
+        preco_noite = int(val_total / noites)
+        if PRECO_MIN_BRL <= preco_noite <= PRECO_MAX_BRL:
+            return preco_noite, val_total
 
-    for m in re.finditer(r"R\$\s*([\d]{1,3}(?:[.,][\d]{3})*)", texto):
-        val = int(m.group(1).replace(".", "").replace(",", ""))
-        if PRECO_MIN_BRL <= val <= PRECO_MAX_BRL:
-            return val
-    return None
+    # 2. Procurar por "R$ XXX por noite"
+    m_noite = re.search(r"R\$\s*([\d]{1,3}(?:[.,][\d]{3})*)\s*(?:por noite|/\s*noite)", texto_clean, re.IGNORECASE)
+    if m_noite:
+        preco_noite = int(m_noite.group(1).replace(".", "").replace(",", ""))
+        if PRECO_MIN_BRL <= preco_noite <= PRECO_MAX_BRL:
+            return preco_noite, preco_noite * noites
+
+    # 3. Se houver apenas um valor genérico "R$ X.XXX"
+    m_gen = re.findall(r"R\$\s*([\d]{1,3}(?:[.,][\d]{3})*)", texto_clean)
+    if m_gen:
+        val = int(m_gen[0].replace(".", "").replace(",", ""))
+        # Se for um valor alto (> R$ 2000), assume que é o total da estadia
+        if val > (PRECO_MAX_BRL * 1.2):
+            preco_noite = int(val / noites)
+            if PRECO_MIN_BRL <= preco_noite <= PRECO_MAX_BRL:
+                return preco_noite, val
+        elif PRECO_MIN_BRL <= val <= PRECO_MAX_BRL:
+            return val, val * noites
+
+    return None, None
 
 def buscar_airbnb(busca):
     driver = criar_driver()
@@ -114,8 +135,10 @@ def buscar_airbnb(busca):
         print(f"  ⏳ Aguardando {TIMEOUT}s...")
         time.sleep(TIMEOUT)
 
-        driver.execute_script("window.scrollBy(0, 1000);")
-        time.sleep(3)
+        # Rolar a tela em etapas para disparar o lazy load de imóveis
+        for _ in range(3):
+            driver.execute_script("window.scrollBy(0, 800);")
+            time.sleep(2)
 
         cards = driver.find_elements(By.CSS_SELECTOR, "div[data-testid='card-container']")
         if not cards:
@@ -126,13 +149,13 @@ def buscar_airbnb(busca):
 
         for card in cards:
             texto = card.text
-            preco = extrair_preco_noite(texto)
-            if not preco:
+            preco_noite, preco_total = extrair_valores_card(texto, busca["noites"])
+            if not preco_noite:
                 continue
 
-            precos_todos.append(preco)
+            precos_todos.append(preco_noite)
 
-            # Link direto
+            # Extração e formatação correta do link do imóvel com datas
             link = ""
             try:
                 a_tag = card.find_element(By.CSS_SELECTOR, "a[href*='/rooms/']")
@@ -140,48 +163,45 @@ def buscar_airbnb(busca):
                 if href:
                     clean_id = re.search(r"/rooms/(\d+)", href)
                     if clean_id:
-                        link = f"https://www.airbnb.com.br/rooms/{clean_id.group(1)}?check_in={busca['checkin']}&check_out={busca['checkout']}&adults={busca['adultos']}"
+                        room_id = clean_id.group(1)
+                        link = f"https://www.airbnb.com.br/rooms/{room_id}?check_in={busca['checkin']}&check_out={busca['checkout']}&adults={busca['adultos']}"
                     else:
                         link = href
             except:
                 pass
 
-            # Filtro rigoroso de título
+            # Extração de Título Limpo
             linhas = [l.strip() for l in texto.split("\n") if l.strip()]
-            titulo = "Casa inteira em Orlando"
+            titulo = "Casa em Orlando"
             for l in linhas:
-                # Ignorar linhas de datas como "De 16 a 20 de fev."
-                if re.search(r"de\s+\d+.*a.*\d+.*de", l, re.IGNORECASE) or re.search(r"^\d+.*–.*\d+", l):
+                if re.search(r"de\s+\d+.*a.*\d+", l, re.IGNORECASE) or re.search(r"^\d+.*–.*\d+", l) or "de fev" in l.lower() or "de mar" in l.lower():
                     continue
-                if "de fev" in l.lower() or "de mar" in l.lower():
-                    continue
-
                 if any(kw in l.lower() for kw in ["casa", "villa", "quarto", "condomínio", "resort", "em orlando", "kissimmee", "davenport", "apartamento", "townhouse"]):
                     titulo = l
                     break
-                elif len(l) > 10 and not "R$" in l and not "★" in l and not "Avaliação" in l and not "Preferido" in l and not "Superhost" in l:
+                elif len(l) > 6 and not "R$" in l and not "★" in l and not "Avaliação" in l and not "Preferido" in l and not "Superhost" in l:
                     titulo = l
                     break
 
-            # Avaliação
+            # Extração da nota/avaliação
             avaliacao = "Sem nota"
-            m_nota = re.search(r"(★\s*[\d,.]+)|([\d,.]{3,4}\s*\(\d+\))|([\d,.]{3,4}\s*·)", texto)
+            m_nota = re.search(r"(★\s*[\d,.]+.*?\(.*?\))|(★\s*[\d,.]+)|([\d,.]{3,4}\s*\(\d+\))", texto)
             if m_nota:
                 avaliacao = m_nota.group(0).strip()
             elif "Novo" in texto or "New" in texto:
                 avaliacao = "Novo no Airbnb"
 
-            # Detalhes
+            # Detalhes do imóvel
             detalhes = ""
             m_det = re.search(r"(\d+\s*quarto[s]?.*|\d+\s*cama[s]?.*|\d+\s*banheiro[s]?)", texto, re.IGNORECASE)
             if m_det:
                 detalhes = m_det.group(0).strip()
 
-            if link and preco:
+            if link and preco_noite:
                 destaques.append({
                     "titulo": titulo,
-                    "preco_noite": preco,
-                    "preco_total": preco * busca["noites"],
+                    "preco_noite": preco_noite,
+                    "preco_total": preco_total,
                     "avaliacao": avaliacao,
                     "detalhes": detalhes,
                     "link": link
@@ -189,6 +209,7 @@ def buscar_airbnb(busca):
 
         precos_todos = sorted(set(precos_todos))
         
+        # Deduplicar e ordenar imóveis
         vistos = set()
         destaques_unicos = []
         for d in destaques:
@@ -201,14 +222,14 @@ def buscar_airbnb(busca):
         if precos_todos:
             n = len(precos_todos)
             resultado["precos"]          = precos_todos[:30]
-            resultado["destaques"]       = destaques_unicos[:6]
+            resultado["destaques"]       = destaques_unicos[:12]  # Retorna até 12 melhores opções
             resultado["minimo"]          = precos_todos[0]
             resultado["maximo"]          = precos_todos[-1]
             resultado["media"]           = int(statistics.mean(precos_todos))
             resultado["mediana"]         = int(statistics.median(precos_todos))
             resultado["total_listagens"] = n
             resultado["status"]          = "ok"
-            print(f"  ✅ {n} preços | {len(destaques_unicos)} casas com link | Min: R${precos_todos[0]:,}")
+            print(f"  ✅ {n} preços por noite | {len(destaques_unicos)} casas capturadas | Min: R${precos_todos[0]:,}/noite")
         else:
             resultado["status"] = "sem_dados"
 
@@ -237,7 +258,7 @@ def salvar_historico(registro):
 
 if __name__ == "__main__":
     print("=" * 55)
-    print("🏠 AIRBNB MONITOR - ORLANDO 2027")
+    print("🏠 AIRBNB MONITOR - ORLANDO 2027 (PREÇO POR NOITE FIX)")
     print("=" * 55)
 
     timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
