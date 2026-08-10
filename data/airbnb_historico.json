@@ -10651,5 +10651,274 @@
       }
     ],
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-08-10T16:43:20.721024+00:00",
+    "buscas": [
+      {
+        "id": "semana1_5pax",
+        "label": "Semana 1 - 5 pessoas",
+        "adultos": 5,
+        "noites": 7,
+        "checkin": "2027-02-15",
+        "checkout": "2027-02-22",
+        "precos": [
+          763,
+          782,
+          787,
+          811,
+          826,
+          892,
+          928,
+          988,
+          1005,
+          1020,
+          1064,
+          1113,
+          1133,
+          1140,
+          1168,
+          1175,
+          1184,
+          1318
+        ],
+        "destaques": [
+          {
+            "titulo": "Apartamento ⋅ Kissimmee",
+            "preco_noite": 763,
+            "preco_total": 5346,
+            "avaliacao": "4,88 (32)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1039123590913958539?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Townhouse ⋅ Kissimmee",
+            "preco_noite": 782,
+            "preco_total": 5480,
+            "avaliacao": "4,92 (12)",
+            "detalhes": "3 quartos perto da Disney / Piscinas / Animais de estimação / Four Corners e Wi-Fi",
+            "link": "https://www.airbnb.com.br/rooms/1420618035679331536?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Casa ⋅ Orlando",
+            "preco_noite": 787,
+            "preco_total": 5510,
+            "avaliacao": "4,94 (35)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1522513106392922117?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Apartamento ⋅ Kissimmee",
+            "preco_noite": 811,
+            "preco_total": 5680,
+            "avaliacao": "4,88 (17)",
+            "detalhes": "3 quartos de Mario e Moana",
+            "link": "https://www.airbnb.com.br/rooms/1596484658593712088?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Casa ⋅ Davenport",
+            "preco_noite": 826,
+            "preco_total": 5784,
+            "avaliacao": "Novo no Airbnb",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1732782966094801695?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Apartamento ⋅ Kissimmee",
+            "preco_noite": 892,
+            "preco_total": 6248,
+            "avaliacao": "Sem nota",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1455826702145066199?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Apartamento ⋅ Orlando",
+            "preco_noite": 928,
+            "preco_total": 6497,
+            "avaliacao": "Novo no Airbnb",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1745307555010031707?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Casa ⋅ Orlando",
+            "preco_noite": 988,
+            "preco_total": 6916,
+            "avaliacao": "4,88 (203)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/771933040418895963?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Condomínio ⋅ Reunion",
+            "preco_noite": 1005,
+            "preco_total": 7038,
+            "avaliacao": "4,9 (256)",
+            "detalhes": "3 quartos - Disney - Universal",
+            "link": "https://www.airbnb.com.br/rooms/48784052?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Entre os melhores preferidos dos hóspedes",
+            "preco_noite": 1020,
+            "preco_total": 7146,
+            "avaliacao": "4,98 (101)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/36073836?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Townhouse ⋅ Kissimmee",
+            "preco_noite": 1064,
+            "preco_total": 7452,
+            "avaliacao": "5,0 (11)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1448832022863017884?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Condomínio ⋅ Orlando",
+            "preco_noite": 1113,
+            "preco_total": 7795,
+            "avaliacao": "4,74 (19)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1157335108106268637?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          }
+        ],
+        "minimo": 763,
+        "mediana": 1012,
+        "media": 1005,
+        "maximo": 1318,
+        "total_listagens": 18,
+        "status": "ok"
+      },
+      {
+        "id": "semana2_7pax",
+        "label": "Semana 2 - 7 pessoas",
+        "adultos": 7,
+        "noites": 5,
+        "checkin": "2027-02-22",
+        "checkout": "2027-02-27",
+        "precos": [
+          1013,
+          1115,
+          1192,
+          1198,
+          1231,
+          1252,
+          1339,
+          1410,
+          1466,
+          1468,
+          1527,
+          1641,
+          1675,
+          1687,
+          1716,
+          1883,
+          2145
+        ],
+        "destaques": [
+          {
+            "titulo": "Townhouse ⋅ Four Corners",
+            "preco_noite": 1013,
+            "preco_total": 5068,
+            "avaliacao": "4,75 (51)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1275373122661068459?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Condomínio ⋅ Kissimmee",
+            "preco_noite": 1115,
+            "preco_total": 5576,
+            "avaliacao": "4,81 (162)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/51419807?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Casa ⋅ Kissimmee",
+            "preco_noite": 1192,
+            "preco_total": 5963,
+            "avaliacao": "4,85 (26)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1528337703939129885?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Townhouse ⋅ Kissimmee",
+            "preco_noite": 1198,
+            "preco_total": 5994,
+            "avaliacao": "4,95 (103)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/687041786947956013?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Townhouse ⋅ Kissimmee",
+            "preco_noite": 1231,
+            "preco_total": 6159,
+            "avaliacao": "4,89 (167)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/44894925?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Casa ⋅ Kissimmee",
+            "preco_noite": 1252,
+            "preco_total": 6264,
+            "avaliacao": "Novo no Airbnb",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1714005143098555620?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Casa ⋅ Kissimmee",
+            "preco_noite": 1339,
+            "preco_total": 6697,
+            "avaliacao": "4,96 (57)",
+            "detalhes": "4 quartos com carregador de veículos elétricos e localização perfeita!",
+            "link": "https://www.airbnb.com.br/rooms/1267039564407399673?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Casa ⋅ Kissimmee",
+            "preco_noite": 1410,
+            "preco_total": 7051,
+            "avaliacao": "4,93 (29)",
+            "detalhes": "5 quartos 4 banheiros Resort Parque Aquático Grátis",
+            "link": "https://www.airbnb.com.br/rooms/1567386215275384865?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Townhouse ⋅ Kissimmee",
+            "preco_noite": 1466,
+            "preco_total": 7331,
+            "avaliacao": "4,9 (81)",
+            "detalhes": "5 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1147289322876674195?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Townhouse ⋅ Kissimmee",
+            "preco_noite": 1468,
+            "preco_total": 7340,
+            "avaliacao": "4,63 (76)",
+            "detalhes": "5 quartos com piscina e quarto temático do Mickey",
+            "link": "https://www.airbnb.com.br/rooms/573134320475454686?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Casa ⋅ Davenport",
+            "preco_noite": 1527,
+            "preco_total": 7635,
+            "avaliacao": "4,97 (31)",
+            "detalhes": "5 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1203767474397729725?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Casa ⋅ Kissimmee",
+            "preco_noite": 1641,
+            "preco_total": 8206,
+            "avaliacao": "4,88 (32)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1176943544743821372?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          }
+        ],
+        "minimo": 1013,
+        "mediana": 1466,
+        "media": 1468,
+        "maximo": 2145,
+        "total_listagens": 17,
+        "status": "ok"
+      }
+    ],
+    "status": "ok"
   }
 ]
