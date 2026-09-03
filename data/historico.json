@@ -3165,5 +3165,24 @@
       "status": "ok"
     },
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-09-03T15:49:18.845318+00:00",
+    "menor_preco": {
+      "preco_casal": 6922,
+      "detalhes_voo": "✈️ GOL | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 16:00 – 11:35 (41h 35min)",
+      "status": "ok"
+    },
+    "melhor_rota": {
+      "preco_casal": 8326,
+      "detalhes_voo": "✈️ GOL, LATAM Airlines | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 18:05 – 12:30 (16h 25min)",
+      "status": "ok"
+    },
+    "mista": {
+      "preco_casal": 6922,
+      "detalhes_voo": "✈️ GOL | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 16:00 – 11:35 (41h 35min)",
+      "status": "ok"
+    },
+    "status": "ok"
   }
 ]
