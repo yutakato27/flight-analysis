@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voos CWB → BOG | Monitor</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+:root{--bg:#0b1120;--card:#141d2e;--card2:#1a2540;--border:#1e3050;--text:#e2e8f0;--muted:#64748b;--a1:#f97316;--a2:#3b82f6;--gr:#10b981;--re:#ef4444;--ye:#f59e0b;--pu:#a855f7;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.nav{background:rgba(11,17,32,.96);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.brand h1{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.dot{width:9px;height:9px;background:var(--gr);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
+.brand-sub{font-size:10px;color:var(--muted);margin-top:2px}
+.tabs{display:flex;gap:4px}
+.tb{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:7px;cursor:pointer;font-size:11px;font-family:'Inter',sans-serif;transition:.2s}
+.tb.on,.tb:hover{background:var(--card2);color:var(--text);border-color:var(--a2)}
+.nav-r{font-size:10px;color:var(--muted);white-space:nowrap}
+.hero{padding:22px 28px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.hc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+.hc-ico{font-size:20px;margin-bottom:6px}
+.hc-v{font-size:20px;font-weight:800;line-height:1;margin-bottom:3px}
+.hc-l{font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.hc-s{font-size:9.5px;color:var(--muted);margin-top:3px}
+.main{padding:0 28px 40px}
+.st{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin:24px 0 12px;display:flex;align-items:center;gap:8px}
+.st::after{content:'';flex:1;height:1px;background:var(--border)}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.ct{font-size:12px;font-weight:700;margin-bottom:2px}
+.cs{font-size:10px;color:var(--muted);margin-bottom:14px}
+.cw{position:relative;height:260px}
+.tp{display:none}.tp.on{display:block}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{background:var(--card2);padding:8px 10px;text-align:left;font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
+td{padding:8px 10px;border-bottom:1px solid rgba(30,48,80,.5);color:var(--text)}
+tr:hover td{background:var(--card2)}
+tr:last-child td{border-bottom:none}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cv{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.cr{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:11.5px}
+.cr:last-child{border-bottom:none}
+.cl{color:var(--muted)}
+.vg{color:var(--gr)}.va{color:var(--a1)}.vb{color:var(--a2)}.vy{color:var(--ye)}.vr{color:var(--re)}.vp{color:var(--pu)}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:700;text-transform:uppercase}
+.badge-ok{background:rgba(16,185,129,.15);color:var(--gr);border:1px solid rgba(16,185,129,.3)}
+.badge-re{background:rgba(239,68,68,.15);color:var(--re);border:1px solid rgba(239,68,68,.3)}
+.detalhe{font-size:10px;color:var(--muted);margin-top:4px}
+.flight-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}
+.flight-card-title{font-size:12px;font-weight:700;margin-bottom:6px;color:var(--a2)}
+.flight-card-detail{font-size:11px;color:var(--text);margin-bottom:4px}
+.flight-card-price{font-size:20px;font-weight:800;color:var(--gr);margin-top:8px}
+.flight-card-pp{font-size:11px;color:var(--muted)}
+.spin{width:28px;height:28px;border:3px solid var(--border);border-top:3px solid var(--a1);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 10px}
+.ld{text-align:center;padding:40px;color:var(--muted)}
+.alert-box{background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.25);border-radius:10px;padding:14px 16px;margin-top:14px;font-size:11.5px;line-height:1.6;color:var(--text)}
+.info-box{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:14px 16px;margin-top:10px;font-size:11px;color:var(--muted);line-height:1.6}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.fi{animation:fi .4s ease}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="brand">
+    <div>
+      <h1><div class="dot"></div>✈️ CWB → BOG &mdash; Monitor de Voos</h1>
+      <div class="brand-sub">Curitiba ➜ Bogotá &bull; Ida 28/10/2026 &bull; Volta 09/12/2026 &bull; 2 adultos</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:14px">
+    <div class="tabs">
+      <button class="tb on" onclick="tab('tendencia',this)">📈 Tendência</button>
+      <button class="tb" onclick="tab('voos',this)">✈️ Melhores Voos</button>
+      <button class="tb" onclick="tab('historico',this)">🗃️ Histórico</button>
+    </div>
+    <div class="nav-r" id="lu">Carregando...</div>
+  </div>
+</nav>
+
+<div class="hero" id="hero">
+  <div class="ld" style="grid-column:1/-1"><div class="spin"></div>Carregando dados...</div>
+</div>
+
+<div class="main">
+
+  <!-- TAB TENDÊNCIA -->
+  <div id="tp-tendencia" class="tp on">
+    <div class="st">📈 Evolução do Preço por Coleta (2 adultos)</div>
+    <div class="cc">
+      <div class="ct">Tendência de Preços — CWB ➜ BOG</div>
+      <div class="cs">Azul = Menor preço disponível &bull; Verde = Melhor rota (1 parada) &bull; Preços para 2 adultos em BRL</div>
+      <div class="cw"><canvas id="cTrend"></canvas></div>
+    </div>
+    <div class="info-box" id="info-viagem">
+      📅 <strong>Ida:</strong> 28 de outubro de 2026 (terça) &nbsp;|&nbsp;
+      🛬 <strong>Volta:</strong> 9 de dezembro de 2026 (quarta) &nbsp;|&nbsp;
+      📆 <strong>Duração:</strong> 42 noites &nbsp;|&nbsp;
+      👥 <strong>2 adultos</strong>
+    </div>
+  </div>
+
+  <!-- TAB MELHORES VOOS -->
+  <div id="tp-voos" class="tp">
+    <div class="st">✈️ Últimas Opções Encontradas</div>
+    <div class="g2" id="voos-cards">
+      <div class="ld" style="grid-column:1/-1"><div class="spin"></div>Carregando...</div>
+    </div>
+    <div class="alert-box" id="alert-box" style="display:none"></div>
+  </div>
+
+  <!-- TAB HISTÓRICO -->
+  <div id="tp-historico" class="tp">
+    <div class="st">🗃️ Histórico Completo de Coletas</div>
+    <div class="cc" style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Data/Hora</th>
+            <th>Menor Preço (casal)</th>
+            <th>Melhor Rota (casal)</th>
+            <th>Preço/Pessoa (menor)</th>
+            <th>Detalhes Menor</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="htb">
+          <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:20px">Carregando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const URL_DATA = "data/historico_bog.json";
+let G = [], CH = {};
+Chart.defaults.color = "#64748b";
+Chart.defaults.borderColor = "rgba(30,48,80,.6)";
+
+function fmt(v){ return v != null ? "R$ " + Number(v).toLocaleString("pt-BR") : "—"; }
+function fmtPP(v){ return v != null ? "R$ " + Number(Math.round(v/2)).toLocaleString("pt-BR") + "/pessoa" : "—"; }
+function fd(ts){ const d=new Date(ts); return d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit",year:"2-digit"})+" "+d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}); }
+
+function tab(id, el){
+  document.querySelectorAll(".tp").forEach(p=>p.classList.remove("on"));
+  document.querySelectorAll(".tb").forEach(b=>b.classList.remove("on"));
+  document.getElementById("tp-"+id).classList.add("on");
+  el.classList.add("on");
+}
+
+function mkChart(id, cfg){
+  if(CH[id]) CH[id].destroy();
+  CH[id] = new Chart(document.getElementById(id).getContext("2d"), cfg);
+}
+
+function renderHero(){
+  if(!G.length){ document.getElementById("hero").innerHTML='<div class="ld" style="grid-column:1/-1">Sem dados ainda. Aguarde a primeira coleta automática.</div>'; return; }
+  const u = G[G.length-1];
+  const mp = u.menor_preco?.preco_casal;
+  const mr = u.melhor_rota?.preco_casal;
+
+  // Calcular mínimo histórico
+  let minHist = null;
+  G.forEach(d=>{
+    const v = d.menor_preco?.preco_casal;
+    if(v && (minHist===null || v < minHist)) minHist = v;
+  });
+
+  const atual = mp || mr;
+  const diff = (atual && minHist) ? atual - minHist : null;
+
+  document.getElementById("hero").innerHTML = `
+    <div class="hc fi"><div class="hc-ico">💰</div>
+      <div class="hc-v" style="color:var(--gr)">${fmt(mp)}</div>
+      <div class="hc-l">Menor Preço Atual • 2 pax</div>
+      <div class="hc-s">${fmtPP(mp)}</div>
+    </div>
+    <div class="hc fi"><div class="hc-ico">✈️</div>
+      <div class="hc-v" style="color:var(--a2)">${fmt(mr)}</div>
+      <div class="hc-l">Melhor Rota (1 parada) • 2 pax</div>
+      <div class="hc-s">${fmtPP(mr)}</div>
+    </div>
+    <div class="hc fi"><div class="hc-ico">📉</div>
+      <div class="hc-v" style="color:var(--ye)">${fmt(minHist)}</div>
+      <div class="hc-l">Mínimo Histórico Registrado</div>
+      <div class="hc-s">${diff!==null ? (diff===0?'⬛ Este é o mínimo!':(diff>0?`🔺 +R$${diff.toLocaleString('pt-BR')} acima do mínimo`:'')) : ''}</div>
+    </div>
+    <div class="hc fi"><div class="hc-ico">📊</div>
+      <div class="hc-v">${G.length}</div>
+      <div class="hc-l">Total de Coletas</div>
+      <div class="hc-s">Últ: ${fd(u.timestamp)}</div>
+    </div>
+  `;
+  document.getElementById("lu").textContent = "Últ. coleta: " + fd(u.timestamp);
+}
+
+function renderTrend(){
+  if(!G.length) return;
+  const lbs   = G.map(d=>fd(d.timestamp));
+  const dMenor = G.map(d=>d.menor_preco?.preco_casal || null);
+  const dMelhor= G.map(d=>d.melhor_rota?.preco_casal || null);
+  const base  = {tension:.35, pointRadius:4, pointHoverRadius:7, fill:false};
+
+  mkChart("cTrend",{type:"line",data:{labels:lbs,datasets:[
+    {...base,label:"Menor Preço",data:dMenor,borderColor:"#10b981",backgroundColor:"rgba(16,185,129,.07)",borderWidth:2.5,fill:true},
+    {...base,label:"Melhor Rota (1 parada)",data:dMelhor,borderColor:"#3b82f6",backgroundColor:"rgba(59,130,246,.05)",borderWidth:2,fill:true},
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+    plugins:{legend:{position:"top",labels:{boxWidth:10,font:{size:10}}},
+      tooltip:{callbacks:{label:c=>c.dataset.label+": "+fmt(c.raw)}}
+    },
+    scales:{
+      y:{ticks:{callback:v=>"R$"+Number(v).toLocaleString("pt-BR")},grid:{color:"rgba(30,48,80,.5)"}},
+      x:{ticks:{maxRotation:45,font:{size:9}},grid:{color:"rgba(30,48,80,.25)"}}
+    }
+  }});
+}
+
+function renderVoos(){
+  if(!G.length){
+    document.getElementById("voos-cards").innerHTML='<div class="ld" style="grid-column:1/-1">Sem coletas ainda.</div>';
+    return;
+  }
+  const u = G[G.length-1];
+  const mp = u.menor_preco;
+  const mr = u.melhor_rota;
+
+  function card(label, color, icon, dados){
+    if(!dados || dados.status !== 'ok') return `
+      <div class="cv">
+        <div class="flight-card-title">${icon} ${label}</div>
+        <div class="detalhe" style="color:var(--muted);margin-top:10px">Sem dados nesta coleta</div>
+      </div>`;
+    const pp = dados.preco_casal ? Math.round(dados.preco_casal/2) : null;
+    return `
+      <div class="cv">
+        <div class="flight-card-title" style="color:${color}">${icon} ${label}</div>
+        <div class="flight-card-detail">${(dados.detalhes_voo||'').replace(/\|/g,'<br>')}</div>
+        <div class="flight-card-price" style="color:${color}">${fmt(dados.preco_casal)}</div>
+        <div class="flight-card-pp">${pp ? fmt(pp)+'/pessoa' : ''}</div>
+      </div>`;
+  }
+
+  document.getElementById("voos-cards").innerHTML =
+    card("Menor Preço (1-2 paradas)","var(--gr)","💰",mp) +
+    card("Melhor Rota (1 parada)","var(--a2)","✈️",mr);
+
+  // Alert se hoje tem mínimo histórico
+  let minHist = null;
+  G.forEach(d=>{ const v = d.menor_preco?.preco_casal; if(v&&(minHist===null||v<minHist)) minHist=v; });
+  const atual = mp?.preco_casal;
+  if(atual && minHist && atual === minHist){
+    const ab = document.getElementById("alert-box");
+    ab.style.display = "block";
+    ab.innerHTML = "🎯 <strong>Atenção!</strong> O preço atual <strong>" + fmt(atual) + "</strong> é o menor já registrado no histórico. Pode ser um bom momento para comprar!";
+  }
+}
+
+function renderHistorico(){
+  if(!G.length){
+    document.getElementById("htb").innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:20px">Sem dados ainda.</td></tr>';
+    return;
+  }
+  const rows = [...G].reverse().map(d=>{
+    const mp = d.menor_preco;
+    const mr = d.melhor_rota;
+    const ok = d.status==="ok";
+    const pp = mp?.preco_casal ? Math.round(mp.preco_casal/2) : null;
+    return `<tr>
+      <td>${fd(d.timestamp)}</td>
+      <td class="vg" style="font-weight:700">${fmt(mp?.preco_casal)}</td>
+      <td class="vb">${fmt(mr?.preco_casal)}</td>
+      <td class="vy">${fmt(pp)}</td>
+      <td style="font-size:10px;color:var(--muted);max-width:300px">${(mp?.detalhes_voo||'—').replace(/\|/g,' | ')}</td>
+      <td><span class="badge ${ok?'badge-ok':'badge-re'}">${ok?'OK':'Erro'}</span></td>
+    </tr>`;
+  }).join("");
+  document.getElementById("htb").innerHTML = rows;
+}
+
+async function init(){
+  try{
+    const r = await fetch(URL_DATA+"?t="+Date.now());
+    const data = await r.json();
+    G = data;
+    renderHero();
+    renderTrend();
+    renderVoos();
+    renderHistorico();
+  }catch(e){
+    document.getElementById("hero").innerHTML=`<div style="grid-column:1/-1;text-align:center;color:var(--re);padding:30px">Erro ao carregar dados: ${e.message}</div>`;
+  }
+}
+init();
+</script>
+</body>
+</html>

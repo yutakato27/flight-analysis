@@ -1,0 +1,44 @@
+name: Monitor BOG Flights - CWB to Bogota
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # A cada 6 horas
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-bog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar Google Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Instalar dependencias
+        run: |
+          pip install selenium==4.16.0
+
+      - name: Rodar Monitor BOG
+        run: python monitor_bog.py
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: Commit e push dos dados
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/historico_bog.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: bog flight data $(date -u '+%Y-%m-%d %H:%M UTC') [skip ci]" && git push)
