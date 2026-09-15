@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "timestamp": "2026-09-15T23:55:34.855937+00:00",
+    "menor_preco": {
+      "preco_casal": 5973,
+      "detalhes_voo": "✈️ GOL | 🛫 Ida: 18:55 – 6:00 (13h 05min) | 🛬 Volta: 21:45 – 10:20 (10h 35min)",
+      "status": "ok"
+    },
+    "melhor_rota": {
+      "preco_casal": 5934,
+      "detalhes_voo": "✈️ LATAM Airlines | 🛫 Ida: 7:55 – 16:20 (10h 25min) | 🛬 Volta: 17:15 – 6:50 (11h 35min)",
+      "status": "ok"
+    },
+    "status": "ok"
+  }
+]
