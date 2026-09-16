@@ -2,7 +2,8 @@ name: Monitor BOG Flights - CWB to Bogota
 
 on:
   schedule:
-    - cron: '0 */6 * * *'   # A cada 6 horas
+    - cron: '0 11 * * *'  # 08h Brasília (11h UTC)
+    - cron: '0 23 * * *'  # 20h Brasília (23h UTC)
   workflow_dispatch:
 
 permissions:
