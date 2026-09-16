@@ -48,6 +48,13 @@ tr:last-child td{border-bottom:none}
 .badge-re{background:rgba(239,68,68,.15);color:var(--re);border:1px solid rgba(239,68,68,.3)}
 .detalhe{font-size:10px;color:var(--muted);margin-top:4px}
 .flight-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}
+.search-links{display:flex;gap:10px;padding:14px 28px 0;flex-wrap:wrap;align-items:center}
+.search-lbl{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-right:4px}
+.search-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;transition:all .2s;border:1px solid transparent;cursor:pointer}
+.search-btn:hover{transform:translateY(-2px);filter:brightness(1.15)}
+.btn-kayak{background:rgba(255,100,0,.12);border-color:rgba(255,100,0,.3);color:#ff8040}
+.btn-sky{background:rgba(0,149,255,.12);border-color:rgba(0,149,255,.3);color:#4db8ff}
+.btn-google{background:rgba(234,67,53,.1);border-color:rgba(234,67,53,.25);color:#ef6c62}
 .flight-card-title{font-size:12px;font-weight:700;margin-bottom:6px;color:var(--a2)}
 .flight-card-detail{font-size:11px;color:var(--text);margin-bottom:4px}
 .flight-card-price{font-size:20px;font-weight:800;color:var(--gr);margin-top:8px}
@@ -79,6 +86,31 @@ tr:last-child td{border-bottom:none}
     <div class="nav-r" id="lu">Carregando...</div>
   </div>
 </nav>
+
+<!-- Barra de busca rápida nas plataformas -->
+<div class="search-links">
+  <span class="search-lbl">🔍 Buscar agora:</span>
+  <a class="search-btn btn-kayak"
+     href="https://www.kayak.com.br/flights/CWB-BOG/2026-10-28/2026-12-09/2adults?sort=price_a"
+     target="_blank" rel="noopener">
+    🟠 Kayak — Menor Preço
+  </a>
+  <a class="search-btn btn-kayak"
+     href="https://www.kayak.com.br/flights/CWB-BOG/2026-10-28/2026-12-09/2adults?sort=price_a&fs=stops=1"
+     target="_blank" rel="noopener">
+    🟠 Kayak — 1 Parada
+  </a>
+  <a class="search-btn btn-sky"
+     href="https://www.skyscanner.com.br/transporte/passagens-aereas/cwb/bog/261028/261209/?adults=2&cabinclass=economy"
+     target="_blank" rel="noopener">
+    🔵 Skyscanner
+  </a>
+  <a class="search-btn btn-google"
+     href="https://www.google.com/travel/flights?q=voos+de+Curitiba+para+Bogot%C3%A1&tfs=CBwQAhotEgoyCgJCUhIEQ1dCGg0IAxIJL20vMGQzeW0yEgsyCgJDTxICQk9HGgsICBIHL20vMGsycioKCDIwMjYtMTAtMjgSCDIwMjYtMTItMDkqAggCQAFIAXABggELCP___________wE&curr=BRL&hl=pt"
+     target="_blank" rel="noopener">
+    🔴 Google Flights
+  </a>
+</div>
 
 <div class="hero" id="hero">
   <div class="ld" style="grid-column:1/-1"><div class="spin"></div>Carregando dados...</div>
