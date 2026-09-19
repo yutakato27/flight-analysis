@@ -96,5 +96,19 @@
       "status": "ok"
     },
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-09-19T01:00:13.702287+00:00",
+    "menor_preco": {
+      "preco_casal": 5927,
+      "detalhes_voo": "✈️ LATAM Airlines | 🛫 Ida: 7:55 – 16:20 (10h 25min) | 🛬 Volta: 17:15 – 6:50 (11h 35min)",
+      "status": "ok"
+    },
+    "melhor_rota": {
+      "preco_casal": 5927,
+      "detalhes_voo": "✈️ LATAM Airlines | 🛫 Ida: 7:55 – 16:20 (10h 25min) | 🛬 Volta: 17:15 – 6:50 (11h 35min)",
+      "status": "ok"
+    },
+    "status": "ok"
   }
 ]
