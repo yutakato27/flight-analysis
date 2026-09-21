@@ -25,6 +25,13 @@ URL_MELHOR_ROTA = (
     "2adults?sort=price_a&fs=stops=1"
 )
 
+# Busca 3: Mista — 1 parada na ida, qualquer número na volta (mais barato)
+# Percorre cards filtrando pelo card cuja IDA tem "1 escala"
+URL_MISTA = (
+    "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
+    "2adults?sort=price_a&fs=stops=1,2"
+)
+
 # Limite de duração aceitável para a volta (em horas)
 MAX_HORAS_VOLTA = 13
 
@@ -105,10 +112,11 @@ def extrair_detalhes_card(card):
     return f"✈️ {cia} | {ida} | {volta}"
 
 
-def buscar(url, label, filtrar_volta_curta=False):
+def buscar(url, label, filtrar_volta_curta=False, is_mista=False):
     """
     Abre a URL no Kayak e retorna o primeiro card que atende ao filtro.
     filtrar_volta_curta=True: percorre os cards buscando volta <= MAX_HORAS_VOLTA
+    is_mista=True: percorre os cards buscando aquele cuja IDA tem exatamente 1 escala
     """
     driver = criar_driver()
     dados = {"preco_casal": None, "detalhes_voo": None, "status": "erro"}
@@ -132,8 +140,8 @@ def buscar(url, label, filtrar_volta_curta=False):
         card_escolhido = None
 
         if filtrar_volta_curta:
-            # Percorre todos os cards buscando o mais barato com volta <= MAX_HORAS_VOLTA
-            for i, c in enumerate(cards[:15]):  # analisa até 15 resultados
+            # Percorre os cards buscando o mais barato com volta <= MAX_HORAS_VOLTA
+            for i, c in enumerate(cards[:15]):
                 h_ida, h_volta = extrair_duracoes(c.text)
                 if h_ida and h_volta:
                     print(f"  Card {i+1}: ida={h_ida:.1f}h volta={h_volta:.1f}h", end="")
@@ -142,11 +150,29 @@ def buscar(url, label, filtrar_volta_curta=False):
                         card_escolhido = c
                         break
                     else:
-                        print(f" ❌ volta muito longa ({h_volta:.1f}h > {MAX_HORAS_VOLTA}h)")
+                        print(f" ❌ volta longa ({h_volta:.1f}h > {MAX_HORAS_VOLTA}h)")
             if not card_escolhido:
                 dados["status"] = "sem_rota_ideal"
-                print(f"⚠️  [{label}] Nenhum card com volta <= {MAX_HORAS_VOLTA}h encontrado nos primeiros 15 resultados.")
+                print(f"⚠️  [{label}] Nenhum card com volta <= {MAX_HORAS_VOLTA}h nos primeiros 15 resultados.")
                 return dados
+
+        elif is_mista:
+            # Percorre os cards buscando o mais barato onde a IDA tem "1 escala"
+            for i, c in enumerate(cards[:15]):
+                linhas = [l.strip() for l in c.text.split('\n') if l.strip()]
+                escalas = [l for l in linhas if "escala" in l.lower() and "escala de" not in l.lower()]
+                print(f"  Card {i+1}: escalas={escalas[:2]}", end="")
+                if len(escalas) >= 1 and "1 escala" in escalas[0].lower():
+                    print(f" ✅ ida com 1 escala")
+                    card_escolhido = c
+                    break
+                else:
+                    print(f" ❌ skip")
+            if not card_escolhido:
+                dados["status"] = "sem_cards"
+                print(f"⚠️  [{label}] Nenhum card misto encontrado.")
+                return dados
+
         else:
             card_escolhido = cards[0]
 
@@ -196,11 +222,15 @@ if __name__ == "__main__":
     # Busca 2: melhor rota com filtro de volta <= 13h
     melhor_rota = buscar(URL_MELHOR_ROTA, "Melhor Rota (volta <= 13h)", filtrar_volta_curta=True)
 
+    # Busca 3: mista (1 parada na ida, qualquer número na volta, mais barato)
+    mista = buscar(URL_MISTA, "Mista (1 ida, 2 volta)", is_mista=True)
+
     registro = {
         "timestamp":   datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "menor_preco": menor_preco,
         "melhor_rota": melhor_rota,
-        "status":      "ok" if menor_preco["status"] == "ok" or melhor_rota["status"] == "ok" else "erro",
+        "mista":       mista,
+        "status":      "ok" if menor_preco["status"] == "ok" or melhor_rota["status"] == "ok" or mista["status"] == "ok" else "erro",
     }
 
     print()
