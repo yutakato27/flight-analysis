@@ -151,7 +151,7 @@ def buscar(url, label, filtrar_volta_curta=False, is_mista=False):
 
         if filtrar_volta_curta:
             # Percorre os cards buscando o mais barato com volta <= MAX_HORAS_VOLTA
-            for i, c in enumerate(cards[:15]):
+            for i, c in enumerate(cards[:30]):
                 h_ida, h_volta = extrair_duracoes(c.text)
                 if h_ida and h_volta:
                     print(f"  Card {i+1}: ida={h_ida:.1f}h volta={h_volta:.1f}h", end="")
@@ -168,7 +168,7 @@ def buscar(url, label, filtrar_volta_curta=False, is_mista=False):
 
         elif is_mista:
             # Percorre os cards buscando o mais barato onde a IDA tem "1 escala"
-            for i, c in enumerate(cards[:15]):
+            for i, c in enumerate(cards[:30]):
                 linhas = [l.strip() for l in c.text.split('\n') if l.strip()]
                 escalas = [l for l in linhas if "escala" in l.lower() and "escala de" not in l.lower()]
                 print(f"  Card {i+1}: escalas={escalas[:2]}", end="")
