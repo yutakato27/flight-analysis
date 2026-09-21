@@ -57,19 +57,29 @@ def criar_driver():
 
 def extrair_duracoes(texto_card):
     """
-    Extrai as durações de ida e volta do texto do card.
-    Ex: '11h 30min' -> 11.5 horas
-    Retorna (horas_ida, horas_volta) ou (None, None)
+    Extrai durações de ida e volta identificando linhas de duração que aparecem
+    logo após linhas de horário no formato 'HH:MM – HH:MM'.
+    Retorna (horas_ida, horas_volta) ou (None, None).
     """
-    matches = re.findall(r'(\d+)h\s*(\d+)?(?:min)?', texto_card)
-    # filtra só pares que sejam duracoes realistas de voo (5h-30h)
+    linhas = [l.strip() for l in texto_card.split('\n') if l.strip()]
+    # Padrão de horário: "6:00 – 15:30" ou "17:20 – 15:30+1"
+    padrao_horario = re.compile(r'^\d{1,2}:\d{2}\s*[–-]\s*\d{1,2}:\d{2}')
+    # Padrão de duração: "11h 30min", "19h 10min", "24h", etc.
+    padrao_duracao = re.compile(r'^(\d+)h\s*(\d+)?')
+
     duracoes = []
-    for h_str, m_str in matches:
-        h = int(h_str)
-        m = int(m_str) if m_str else 0
-        total = h + m / 60
-        if 5 <= total <= 30:
-            duracoes.append(total)
+    for i, linha in enumerate(linhas):
+        if padrao_horario.match(linha):
+            # A linha de duração fica logo após a de horário
+            if i + 1 < len(linhas):
+                prox = linhas[i + 1]
+                m = padrao_duracao.match(prox)
+                if m:
+                    h = int(m.group(1))
+                    mins = int(m.group(2)) if m.group(2) else 0
+                    total = h + mins / 60
+                    if 5 <= total <= 50:   # inclui até 50h para capturar qualquer caso
+                        duracoes.append(total)
     if len(duracoes) >= 2:
         return duracoes[0], duracoes[1]
     return None, None
