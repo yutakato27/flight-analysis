@@ -162,7 +162,9 @@ def buscar(url, label, filtrar_volta_curta=False, is_mista=False):
         card_escolhido = None
 
         if filtrar_volta_curta:
-            # Percorre os cards buscando o mais barato com volta <= MAX_HORAS_VOLTA
+            # A URL já tem fs=stops=1 — confiamos no filtro do Kayak.
+            # Percorremos os cards para logar as durações e pegar o 1º com duração válida.
+            # Se extrair_duracoes falhar, pegamos o cards[0] como fallback.
             for i, c in enumerate(cards[:30]):
                 h_ida, h_volta = extrair_duracoes(c.text)
                 if h_ida and h_volta:
@@ -172,11 +174,19 @@ def buscar(url, label, filtrar_volta_curta=False, is_mista=False):
                         card_escolhido = c
                         break
                     else:
-                        print(f" ❌ volta longa ({h_volta:.1f}h > {MAX_HORAS_VOLTA}h)")
+                        print(f" ⚠️  volta {h_volta:.1f}h (acima de {MAX_HORAS_VOLTA}h, continuando...)")
+                else:
+                    # Extração falhou: pega o 1º card e loga o texto bruto para debug
+                    if i == 0:
+                        print(f"  ⚠️  extrair_duracoes falhou. Usando 1º card como fallback.")
+                        print(f"  📄 Primeiras linhas do card: {c.text[:200].replace(chr(10),' | ')}")
+                        card_escolhido = c
+                        break
+
+            # Se ainda não achou (todos tinham volta longa), usa cards[0] como fallback
             if not card_escolhido:
-                dados["status"] = "sem_rota_ideal"
-                print(f"⚠️  [{label}] Nenhum card com volta <= {MAX_HORAS_VOLTA}h nos primeiros 15 resultados.")
-                return dados
+                print(f"  ⚠️  Nenhum card com volta <= {MAX_HORAS_VOLTA}h. Usando 1º card (fallback).")
+                card_escolhido = cards[0]
 
         elif is_mista:
             # Percorre os cards buscando o mais barato onde a IDA tem "1 escala"
@@ -204,7 +214,8 @@ def buscar(url, label, filtrar_volta_curta=False, is_mista=False):
             dados["preco_casal"] = preco_casal
             dados["status"] = "ok"
             h_ida, h_volta = extrair_duracoes(card_escolhido.text)
-            print(f"✅ [{label}] R$ {preco_casal:,} | ida={h_ida:.1f}h volta={h_volta:.1f}h")
+            dur_str = f"ida={h_ida:.1f}h volta={h_volta:.1f}h" if h_ida and h_volta else "duração não extraída"
+            print(f"✅ [{label}] R$ {preco_casal:,} | {dur_str}")
         else:
             dados["status"] = "sem_preco"
             print(f"⚠️  [{label}] Preço não encontrado no card.")
@@ -215,6 +226,7 @@ def buscar(url, label, filtrar_volta_curta=False, is_mista=False):
     finally:
         driver.quit()
     return dados
+
 
 
 def salvar_historico(r):
