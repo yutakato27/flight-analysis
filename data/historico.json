@@ -153,9 +153,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10825,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6422,
@@ -172,9 +172,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10825,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6422,
@@ -191,9 +191,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10825,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6725,
@@ -210,9 +210,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10825,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6725,
@@ -229,9 +229,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10796,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6707,
@@ -248,9 +248,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10415,
-      "detalhes_voo": "✈️ Azul | 🛫 Ida: 20:55 – 17:00 (22h 05min) | 🛬 Volta: 19:00 – 10:50 (13h 50min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6707,
@@ -381,9 +381,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10291,
-      "detalhes_voo": "✈️ Azul | 🛫 Ida: 20:55 – 17:00 (22h 05min) | 🛬 Volta: 19:00 – 10:50 (13h 50min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6707,
@@ -400,9 +400,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10291,
-      "detalhes_voo": "✈️ Azul | 🛫 Ida: 20:55 – 17:00 (22h 05min) | 🛬 Volta: 19:00 – 10:50 (13h 50min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6707,
@@ -419,9 +419,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10291,
-      "detalhes_voo": "✈️ Azul | 🛫 Ida: 20:55 – 17:00 (22h 05min) | 🛬 Volta: 19:00 – 10:50 (13h 50min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6707,
@@ -438,9 +438,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10305,
-      "detalhes_voo": "✈️ Azul | 🛫 Ida: 20:55 – 17:00 (22h 05min) | 🛬 Volta: 19:00 – 10:50 (13h 50min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6707,
@@ -457,9 +457,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10372,
-      "detalhes_voo": "✈️ Azul | 🛫 Ida: 20:55 – 17:00 (22h 05min) | 🛬 Volta: 19:00 – 10:50 (13h 50min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6757,
@@ -476,9 +476,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10462,
-      "detalhes_voo": "✈️ Azul | 🛫 Ida: 20:55 – 17:00 (22h 05min) | 🛬 Volta: 19:00 – 10:50 (13h 50min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6757,
@@ -495,9 +495,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10050,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6757,
@@ -514,9 +514,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10050,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6757,
@@ -533,9 +533,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10083,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6779,
@@ -552,9 +552,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10083,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6779,
@@ -571,9 +571,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10083,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6779,
@@ -590,9 +590,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10083,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6779,
@@ -609,9 +609,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10090,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6784,
@@ -628,9 +628,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10090,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6784,
@@ -647,9 +647,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10090,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6784,
@@ -666,9 +666,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10090,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6784,
@@ -685,9 +685,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 9999,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6724,
@@ -704,9 +704,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 9999,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6724,
@@ -723,9 +723,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 9999,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6724,
@@ -742,9 +742,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 9999,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6724,
@@ -761,9 +761,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10005,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6728,
@@ -780,9 +780,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10005,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6728,
@@ -799,9 +799,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10005,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6728,
@@ -818,9 +818,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10005,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6728,
@@ -837,9 +837,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10005,
-      "detalhes_voo": "✈️ Delta | 🛫 Ida: 19:40 – 15:15 (21h 35min) | 🛬 Volta: 22:00 – 14:30 (14h 30min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6728,
@@ -989,9 +989,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 9165,
-      "detalhes_voo": "✈️ LATAM Airlines | 🛫 Ida: 19:45 – 15:15 (21h 30min) | 🛬 Volta: 22:00 – 14:00 (14h 00min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 7077,
@@ -1008,9 +1008,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 9156,
-      "detalhes_voo": "✈️ LATAM Airlines | 🛫 Ida: 19:45 – 15:15 (21h 30min) | 🛬 Volta: 22:00 – 14:00 (14h 00min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6722,
@@ -1027,9 +1027,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 9156,
-      "detalhes_voo": "✈️ LATAM Airlines | 🛫 Ida: 19:45 – 15:15 (21h 30min) | 🛬 Volta: 22:00 – 14:00 (14h 00min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6722,
@@ -1046,9 +1046,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 9156,
-      "detalhes_voo": "✈️ LATAM Airlines | 🛫 Ida: 19:45 – 15:15 (21h 30min) | 🛬 Volta: 22:00 – 14:00 (14h 00min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6722,
@@ -1198,9 +1198,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10171,
-      "detalhes_voo": "✈️ Azul | 🛫 Ida: 19:20 – 19:30 (26h 10min) | 🛬 Volta: 19:00 – 10:50 (13h 50min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 7332,
@@ -1217,9 +1217,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10171,
-      "detalhes_voo": "✈️ Azul | 🛫 Ida: 19:20 – 19:30 (26h 10min) | 🛬 Volta: 19:00 – 10:50 (13h 50min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 7332,
@@ -1236,9 +1236,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 10209,
-      "detalhes_voo": "✈️ Azul | 🛫 Ida: 19:20 – 19:30 (26h 10min) | 🛬 Volta: 19:00 – 10:50 (13h 50min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 7313,
@@ -2205,9 +2205,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 7570,
-      "detalhes_voo": "✈️ GOL | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:10 – 22:55 (23h 45min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6360,
@@ -3174,9 +3174,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8326,
-      "detalhes_voo": "✈️ GOL, LATAM Airlines | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 18:05 – 12:30 (16h 25min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 6922,
@@ -3820,9 +3820,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8536,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8536,
@@ -3839,9 +3839,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8565,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8565,
@@ -3858,9 +3858,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8565,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8565,
@@ -3877,9 +3877,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8565,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8565,
@@ -3896,9 +3896,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8316,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8316,
@@ -3915,9 +3915,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8322,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8322,
@@ -3934,9 +3934,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8126,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8126,
@@ -3953,9 +3953,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8126,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8126,
@@ -3972,9 +3972,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8126,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8126,
@@ -3991,9 +3991,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8284,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8284,
@@ -4010,9 +4010,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 7777,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 7777,
@@ -4029,9 +4029,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 7755,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 23:40 (24h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 7755,
@@ -4048,9 +4048,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8175,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8011,
@@ -4067,9 +4067,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8193,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8193,
@@ -4086,9 +4086,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8043,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8043,
@@ -4105,9 +4105,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 7837,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 7837,
@@ -4124,9 +4124,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8387,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 23:40 (24h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8387,
@@ -4143,9 +4143,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8305,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8305,
@@ -4162,9 +4162,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8510,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8510,
@@ -4181,9 +4181,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8510,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8510,
@@ -4200,9 +4200,9 @@
       "status": "sem_cards"
     },
     "melhor_rota": {
-      "preco_casal": 8280,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8280,
@@ -4219,9 +4219,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8300,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8300,
@@ -4238,9 +4238,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8517,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8517,
@@ -4257,9 +4257,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8517,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8517,
@@ -4276,9 +4276,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8416,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8416,
@@ -4295,9 +4295,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8070,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 8070,
@@ -4328,9 +4328,9 @@
       "status": "ok"
     },
     "melhor_rota": {
-      "preco_casal": 8157,
-      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
-      "status": "ok"
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "removido_oscilacao"
     },
     "mista": {
       "preco_casal": 7782,
