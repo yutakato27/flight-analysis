@@ -4359,5 +4359,26 @@
       "erro": "unsupported format string passed to NoneType.__format__"
     },
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-09-21T15:42:57.374371+00:00",
+    "menor_preco": {
+      "preco_casal": 7782,
+      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 17:20 – 15:30 (24h 10min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
+      "status": "ok",
+      "erro": "unsupported format string passed to NoneType.__format__"
+    },
+    "melhor_rota": {
+      "preco_casal": null,
+      "detalhes_voo": null,
+      "status": "sem_rota_ideal"
+    },
+    "mista": {
+      "preco_casal": 7782,
+      "detalhes_voo": "✈️ GOL, Azul | 🛫 Ida: 17:20 – 15:30 (24h 10min) | 🛬 Volta: 21:30 – 18:40 (19h 10min)",
+      "status": "ok",
+      "erro": "unsupported format string passed to NoneType.__format__"
+    },
+    "status": "ok"
   }
 ]
