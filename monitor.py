@@ -1,32 +1,33 @@
 #!/usr/bin/env python3
-import time, json, datetime, sys, os, re
+"""
+Monitor de Voos: CWB -> MCO (Orlando 2027)
+15/02 - 27/02/2027 | 2 adultos
+Busca rota ideal: 1 parada ida + volta com duração máx 13h em cada trecho
+"""
+import time, json, datetime, os, re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
-LOG_FILE        = os.path.join(os.path.dirname(__file__), "data", "historico.json")
-TIMEOUT_KAYAK   = 30
-NUM_ADULTOS     = 2
+LOG_FILE      = os.path.join(os.path.dirname(__file__), "data", "historico.json")
+TIMEOUT_KAYAK = 30
+NUM_ADULTOS   = 2
 
-# Busca 1: Menor preço geral (1 ou 2 paradas por perna, mais barato primeiro)
+# Busca 1: Menor preço geral (1 ou 2 paradas)
 URL_MENOR_PRECO = (
     "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
     "2adults?sort=price_a&fs=stops=1,2"
 )
 
-# Busca 2: Melhor rota (exatamente 1 parada em CADA perna - ida e volta)
+# Busca 2: Melhor rota — percorre os cards até achar 1 parada CADA perna E volta <= 13h
 URL_MELHOR_ROTA = (
     "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
     "2adults?sort=price_a&fs=stops=1"
 )
 
-# Busca 3: Mista (1 parada na ida, até 2 na volta, ordenado por preço)
-# Como o Kayak ignora filtros assimétricos na URL, buscamos 1 ou 2 paradas e filtramos no Python
-URL_MISTA = (
-    "https://www.kayak.com.br/flights/CWB-MCO/2027-02-15/2027-02-27/"
-    "2adults?sort=price_a&fs=stops=1,2"
-)
+# Limite de duração aceitável para a volta (em horas)
+MAX_HORAS_VOLTA = 13
+
 
 def criar_driver():
     options = Options()
@@ -37,28 +38,45 @@ def criar_driver():
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_argument("--lang=pt-BR,pt")
     options.add_argument(
-        "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     )
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option("useAutomationExtension", False)
-
     driver = webdriver.Chrome(options=options)
     driver.execute_script("Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
     return driver
 
+
+def extrair_duracoes(texto_card):
+    """
+    Extrai as durações de ida e volta do texto do card.
+    Ex: '11h 30min' -> 11.5 horas
+    Retorna (horas_ida, horas_volta) ou (None, None)
+    """
+    matches = re.findall(r'(\d+)h\s*(\d+)?(?:min)?', texto_card)
+    # filtra só pares que sejam duracoes realistas de voo (5h-30h)
+    duracoes = []
+    for h_str, m_str in matches:
+        h = int(h_str)
+        m = int(m_str) if m_str else 0
+        total = h + m / 60
+        if 5 <= total <= 30:
+            duracoes.append(total)
+    if len(duracoes) >= 2:
+        return duracoes[0], duracoes[1]
+    return None, None
+
+
 def extrair_preco_card(texto_card):
-    """Extrai o preço TOTAL do casal diretamente do texto do card (ex: 'R$ 10.664 no total')."""
-    import re
-    # Primeiro tenta pegar o preço "no total" que é o mais confiável
+    """Extrai o preço total do casal do card."""
     total = re.search(r'R\$\s?([\d]{1,3}(?:\.[\d]{3})*)\s*no total', texto_card)
     if total:
         preco = int(total.group(1).replace(".", ""))
         if 4_000 <= preco <= 30_000:
             return preco
 
-    # Fallback: pega o preço por pessoa e multiplica
-    padrao = r'R\$\s?([\d]{1,3}(?:\.[\d]{3})*)\s*\n?\s*/\s*pessoa'
-    pessoa = re.search(padrao, texto_card)
+    pessoa = re.search(r'R\$\s?([\d]{1,3}(?:\.[\d]{3})*)\s*\n?\s*/\s*pessoa', texto_card)
     if pessoa:
         preco_pessoa = int(pessoa.group(1).replace(".", ""))
         if 2_000 <= preco_pessoa <= 15_000:
@@ -66,26 +84,32 @@ def extrair_preco_card(texto_card):
 
     return None
 
+
 def extrair_detalhes_card(card):
-    """Extrai companhia, horários e duração do primeiro card de voo."""
+    """Extrai companhia, horários e duração do card."""
     linhas_card = [l for l in card.text.split('\n') if l.strip()]
 
     cia = "—"
     for i, l in enumerate(linhas_card):
         if "R$" in l:
-            if i > 0: cia = linhas_card[i-1]
+            if i > 0:
+                cia = linhas_card[i - 1]
             break
 
     horarios = [l for l in linhas_card if "–" in l and ":" in l]
-    duracoes = [l for l in linhas_card if "h" in l and ("min" in l or "m" in l) and "Escala" not in l]
+    duracoes = [l for l in linhas_card if re.search(r'\d+h', l) and "Escala" not in l and "escala" not in l]
 
-    ida   = f"🛫 Ida: {horarios[0]} ({duracoes[0]})"   if len(horarios)>0 and len(duracoes)>0 else ""
-    volta = f"🛬 Volta: {horarios[1]} ({duracoes[1]})" if len(horarios)>1 and len(duracoes)>1 else ""
+    ida   = f"🛫 Ida: {horarios[0]} ({duracoes[0]})"   if len(horarios) > 0 and len(duracoes) > 0 else ""
+    volta = f"🛬 Volta: {horarios[1]} ({duracoes[1]})" if len(horarios) > 1 and len(duracoes) > 1 else ""
 
     return f"✈️ {cia} | {ida} | {volta}"
 
-def buscar(url, label, is_mista=False):
-    """Abre a URL no Kayak e retorna os dados do primeiro resultado que atende ao critério."""
+
+def buscar(url, label, filtrar_volta_curta=False):
+    """
+    Abre a URL no Kayak e retorna o primeiro card que atende ao filtro.
+    filtrar_volta_curta=True: percorre os cards buscando volta <= MAX_HORAS_VOLTA
+    """
     driver = criar_driver()
     dados = {"preco_casal": None, "detalhes_voo": None, "status": "erro"}
     try:
@@ -98,44 +122,52 @@ def buscar(url, label, is_mista=False):
         if not cards:
             cards = driver.find_elements(By.CSS_SELECTOR, "div.inner-wrapper")
 
-        if cards:
-            card_escolhido = None
-            if is_mista:
-                for c in cards:
-                    linhas = [l.strip() for l in c.text.split('\n') if l.strip()]
-                    escalas = [l for l in linhas if "escala" in l.lower() and "escala de" not in l.lower()]
-                    # escalas[0] = ida, escalas[1] = volta
-                    if len(escalas) >= 2:
-                        if "1 escala" in escalas[0].lower():
-                            card_escolhido = c
-                            break
-            else:
-                card_escolhido = cards[0]
+        print(f"  📋 {len(cards)} cards encontrados")
 
-            if card_escolhido:
-                dados["detalhes_voo"] = extrair_detalhes_card(card_escolhido)
-
-                # Lê preço diretamente do card (prioriza "no total", fallback "/pessoa * 2")
-                preco_casal = extrair_preco_card(card_escolhido.text)
-                if preco_casal:
-                    dados["preco_casal"] = preco_casal
-                    dados["status"] = "ok"
-                    print(f"✅ [{label}] R$ {dados['preco_casal']:,}")
-                else:
-                    dados["status"] = "sem_preco"
-                    print(f"⚠️  [{label}] Preço não encontrado no card.")
-            else:
-                dados["status"] = "sem_cards"
-                print(f"⚠️  [{label}] Nenhum card atendeu ao filtro.")
-        else:
+        if not cards:
             dados["status"] = "sem_cards"
             print(f"⚠️  [{label}] Nenhum card encontrado.")
+            return dados
+
+        card_escolhido = None
+
+        if filtrar_volta_curta:
+            # Percorre todos os cards buscando o mais barato com volta <= MAX_HORAS_VOLTA
+            for i, c in enumerate(cards[:15]):  # analisa até 15 resultados
+                h_ida, h_volta = extrair_duracoes(c.text)
+                if h_ida and h_volta:
+                    print(f"  Card {i+1}: ida={h_ida:.1f}h volta={h_volta:.1f}h", end="")
+                    if h_volta <= MAX_HORAS_VOLTA:
+                        print(f" ✅ volta OK")
+                        card_escolhido = c
+                        break
+                    else:
+                        print(f" ❌ volta muito longa ({h_volta:.1f}h > {MAX_HORAS_VOLTA}h)")
+            if not card_escolhido:
+                dados["status"] = "sem_rota_ideal"
+                print(f"⚠️  [{label}] Nenhum card com volta <= {MAX_HORAS_VOLTA}h encontrado nos primeiros 15 resultados.")
+                return dados
+        else:
+            card_escolhido = cards[0]
+
+        dados["detalhes_voo"] = extrair_detalhes_card(card_escolhido)
+        preco_casal = extrair_preco_card(card_escolhido.text)
+        if preco_casal:
+            dados["preco_casal"] = preco_casal
+            dados["status"] = "ok"
+            h_ida, h_volta = extrair_duracoes(card_escolhido.text)
+            print(f"✅ [{label}] R$ {preco_casal:,} | ida={h_ida:.1f}h volta={h_volta:.1f}h")
+        else:
+            dados["status"] = "sem_preco"
+            print(f"⚠️  [{label}] Preço não encontrado no card.")
+
     except Exception as e:
         dados["erro"] = str(e)
         print(f"❌ [{label}] Erro: {e}")
     finally:
         driver.quit()
     return dados
+
 
 def salvar_historico(r):
     os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
@@ -152,24 +184,29 @@ def salvar_historico(r):
         json.dump(hist, f, indent=2, ensure_ascii=False)
     print(f"📝 Histórico salvo com {len(hist)} registros.")
 
-if __name__ == "__main__":
-    print("Iniciando coleta dupla...")
 
-    menor_preco  = buscar(URL_MENOR_PRECO, "Menor Preço")
-    melhor_rota  = buscar(URL_MELHOR_ROTA, "Melhor Rota (1 parada)")
-    mista        = buscar(URL_MISTA, "Mista (1 ida, 2 volta)", is_mista=True)
+if __name__ == "__main__":
+    print("=" * 55)
+    print("✈️  MONITOR CWB → MCO | 15/02 - 27/02/2027")
+    print("=" * 55)
+
+    # Busca 1: menor preço (qualquer rota)
+    menor_preco = buscar(URL_MENOR_PRECO, "Menor Preço (1-2 paradas)")
+
+    # Busca 2: melhor rota com filtro de volta <= 13h
+    melhor_rota = buscar(URL_MELHOR_ROTA, "Melhor Rota (volta <= 13h)", filtrar_volta_curta=True)
 
     registro = {
-        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "timestamp":   datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "menor_preco": menor_preco,
         "melhor_rota": melhor_rota,
-        "mista": mista,
-        "status": "ok" if menor_preco["status"] == "ok" or melhor_rota["status"] == "ok" or mista["status"] == "ok" else "erro",
+        "status":      "ok" if menor_preco["status"] == "ok" or melhor_rota["status"] == "ok" else "erro",
     }
 
+    print()
     print(json.dumps(registro, indent=2, ensure_ascii=False))
 
     if registro["status"] == "ok":
         salvar_historico(registro)
     else:
-        print("Nenhum preço encontrado. Histórico não modificado.")
+        print("⚠️  Nenhum preço encontrado. Histórico não modificado.")

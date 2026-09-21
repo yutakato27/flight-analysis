@@ -2,7 +2,9 @@ name: Monitor Flight Prices
 
 on:
   schedule:
-    - cron: '0 9 * * *'   # 06h Brasília (9h UTC)
+    - cron: '0 3 * * *'   # 00h Brasília (03h UTC)
+    - cron: '0 9 * * *'   # 06h Brasília (09h UTC)
+    - cron: '0 15 * * *'  # 12h Brasília (15h UTC)
     - cron: '0 21 * * *'  # 18h Brasília (21h UTC)
   workflow_dispatch: # Permite rodar manualmente pelo site do GitHub
 
