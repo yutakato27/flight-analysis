@@ -133,19 +133,31 @@ def buscar(url, label, filtrar_volta_curta=False, is_mista=False):
     try:
         print(f"🌐 [{label}] Abrindo Kayak...")
         driver.get(url)
-        print(f"⏳ Aguardando {TIMEOUT_KAYAK}s...")
+        print(f"⏳ Aguardando {TIMEOUT_KAYAK}s carregamento inicial...")
         time.sleep(TIMEOUT_KAYAK)
+
+        # Scroll progressivo para acionar lazy-load dos resultados
+        print("  🖱️  Rolando página para carregar mais resultados...")
+        for scroll_pct in [0.3, 0.5, 0.7, 0.9, 1.0]:
+            driver.execute_script(
+                f"window.scrollTo(0, document.body.scrollHeight * {scroll_pct});"
+            )
+            time.sleep(2)
+        # Volta ao topo para leitura estável
+        driver.execute_script("window.scrollTo(0, 0);")
+        time.sleep(2)
 
         cards = driver.find_elements(By.CSS_SELECTOR, "div.nrc6-wrapper")
         if not cards:
             cards = driver.find_elements(By.CSS_SELECTOR, "div.inner-wrapper")
 
-        print(f"  📋 {len(cards)} cards encontrados")
+        print(f"  📋 {len(cards)} cards encontrados após scroll")
 
         if not cards:
             dados["status"] = "sem_cards"
             print(f"⚠️  [{label}] Nenhum card encontrado.")
             return dados
+
 
         card_escolhido = None
 
