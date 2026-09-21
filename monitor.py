@@ -57,32 +57,47 @@ def criar_driver():
 
 def extrair_duracoes(texto_card):
     """
-    Extrai durações de ida e volta identificando linhas de duração que aparecem
-    logo após linhas de horário no formato 'HH:MM – HH:MM'.
-    Retorna (horas_ida, horas_volta) ou (None, None).
+    Extrai todas as durações no range 10–20h (voos reais, excluindo escalas curtas < 9h
+    e rotas absurdas > 20h). Retorna (horas_ida, horas_volta) ou (None, None).
     """
-    linhas = [l.strip() for l in texto_card.split('\n') if l.strip()]
-    # Padrão de horário: "6:00 – 15:30" ou "17:20 – 15:30+1"
-    padrao_horario = re.compile(r'^\d{1,2}:\d{2}\s*[–-]\s*\d{1,2}:\d{2}')
-    # Padrão de duração: "11h 30min", "19h 10min", "24h", etc.
-    padrao_duracao = re.compile(r'^(\d+)h\s*(\d+)?')
-
+    matches = re.findall(r'(\d+)h\s*(\d+)?', texto_card)
     duracoes = []
-    for i, linha in enumerate(linhas):
-        if padrao_horario.match(linha):
-            # A linha de duração fica logo após a de horário
-            if i + 1 < len(linhas):
-                prox = linhas[i + 1]
-                m = padrao_duracao.match(prox)
-                if m:
-                    h = int(m.group(1))
-                    mins = int(m.group(2)) if m.group(2) else 0
-                    total = h + mins / 60
-                    if 5 <= total <= 50:   # inclui até 50h para capturar qualquer caso
-                        duracoes.append(total)
+    for h_str, m_str in matches:
+        h = int(h_str)
+        m = int(m_str) if m_str else 0
+        total = h + m / 60
+        if 10 <= total <= 20:   # range real de voo CWB-MCO com 1-2 escalas
+            duracoes.append(total)
     if len(duracoes) >= 2:
         return duracoes[0], duracoes[1]
     return None, None
+
+
+def card_e_rota_ideal(card_text, max_horas=15.0):
+    """
+    Retorna (True, h_ida, h_volta) se o card tem:
+      - "1 escala" aparecendo >= 2x (uma por perna), E
+      - ambas as durações entre 10h e max_horas.
+    Caso contrário retorna (False, None, None).
+    """
+    # Conta ocorrências de "1 escala" (ida e volta)
+    num_1_escala = card_text.lower().count("1 escala")
+    if num_1_escala < 2:
+        return False, None, None
+
+    # Extrai durações no range 10–max_horas (exclui escalas curtas e voos absurdos)
+    matches = re.findall(r'(\d+)h\s*(\d+)?', card_text)
+    duracoes = []
+    for h_str, m_str in matches:
+        h = int(h_str)
+        m = int(m_str) if m_str else 0
+        total = h + m / 60
+        if 10 <= total <= max_horas:
+            duracoes.append(total)
+
+    if len(duracoes) >= 2:
+        return True, duracoes[0], duracoes[1]
+    return False, None, None
 
 
 def extrair_preco_card(texto_card):
@@ -162,31 +177,22 @@ def buscar(url, label, filtrar_volta_curta=False, is_mista=False):
         card_escolhido = None
 
         if filtrar_volta_curta:
-            # A URL já tem fs=stops=1 — confiamos no filtro do Kayak.
-            # Percorremos os cards para logar as durações e pegar o 1º com duração válida.
-            # Se extrair_duracoes falhar, pegamos o cards[0] como fallback.
+            # Filtra 100% no Python: exige "1 escala" em CADA perna E duração 10-15h
+            # Não dependemos do filtro de URL do Kayak (ignorado em modo headless)
             for i, c in enumerate(cards[:30]):
-                h_ida, h_volta = extrair_duracoes(c.text)
-                if h_ida and h_volta:
-                    print(f"  Card {i+1}: ida={h_ida:.1f}h volta={h_volta:.1f}h", end="")
-                    if h_volta <= MAX_HORAS_VOLTA:
-                        print(f" ✅ volta OK")
-                        card_escolhido = c
-                        break
-                    else:
-                        print(f" ⚠️  volta {h_volta:.1f}h (acima de {MAX_HORAS_VOLTA}h, continuando...)")
-                else:
-                    # Extração falhou: pega o 1º card e loga o texto bruto para debug
-                    if i == 0:
-                        print(f"  ⚠️  extrair_duracoes falhou. Usando 1º card como fallback.")
-                        print(f"  📄 Primeiras linhas do card: {c.text[:200].replace(chr(10),' | ')}")
-                        card_escolhido = c
-                        break
+                ok, h_ida, h_volta = card_e_rota_ideal(c.text, max_horas=MAX_HORAS_VOLTA)
+                escalas = c.text.lower().count("1 escala")
+                h_ida_d, h_volta_d = extrair_duracoes(c.text)
+                print(f"  Card {i+1}: escalas={escalas} | ida={h_ida_d}h volta={h_volta_d}h | ideal={ok}")
+                if ok:
+                    print(f"    ✅ Rota ideal encontrada! ida={h_ida:.1f}h volta={h_volta:.1f}h")
+                    card_escolhido = c
+                    break
 
-            # Se ainda não achou (todos tinham volta longa), usa cards[0] como fallback
             if not card_escolhido:
-                print(f"  ⚠️  Nenhum card com volta <= {MAX_HORAS_VOLTA}h. Usando 1º card (fallback).")
-                card_escolhido = cards[0]
+                dados["status"] = "sem_rota_ideal"
+                print(f"⚠️  [{label}] Nenhum card com 1 escala+1 escala e ambas pernas <= {MAX_HORAS_VOLTA}h.")
+                return dados
 
         elif is_mista:
             # Percorre os cards buscando o mais barato onde a IDA tem "1 escala"
