@@ -376,5 +376,19 @@
       "status": "ok"
     },
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-09-30T16:33:18.926171+00:00",
+    "menor_preco": {
+      "preco_casal": 5570,
+      "detalhes_voo": "✈️ GOL, Avianca | 🛫 Ida: 19:35 – 11:55 (18h 20min) | 🛬 Volta: 7:55 – 23:55 (14h 00min)",
+      "status": "ok"
+    },
+    "melhor_rota": {
+      "preco_casal": 5570,
+      "detalhes_voo": "✈️ GOL, Avianca | 🛫 Ida: 19:35 – 11:55 (18h 20min) | 🛬 Volta: 7:55 – 23:55 (14h 00min)",
+      "status": "ok"
+    },
+    "status": "ok"
   }
 ]
