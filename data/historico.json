@@ -5079,5 +5079,24 @@
       "status": "ok"
     },
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-10-01T16:03:37.559565+00:00",
+    "menor_preco": {
+      "preco_casal": 8908,
+      "detalhes_voo": "✈️ GOL, Copa Airlines | 🛫 Ida: 19:35 – 11:00 (17h 25min) | 🛬 Volta: 12:55 – 10:10 (19h 15min)",
+      "status": "ok"
+    },
+    "melhor_rota": {
+      "preco_casal": 10692,
+      "detalhes_voo": "✈️ Várias companhias aéreas | 🛫 Ida: 19:35 – 17:00 (23h 25min) | 🛬 Volta: 18:05 – 8:15 (12h 10min)",
+      "status": "ok"
+    },
+    "mista": {
+      "preco_casal": 9897,
+      "detalhes_voo": "✈️ GOL | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 12:55 – 9:30 (18h 35min)",
+      "status": "ok"
+    },
+    "status": "ok"
   }
 ]
