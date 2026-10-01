@@ -5060,5 +5060,24 @@
       "status": "ok"
     },
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-10-01T09:57:26.104408+00:00",
+    "menor_preco": {
+      "preco_casal": 8232,
+      "detalhes_voo": "✈️ GOL | 🛫 Ida: 19:35 – 15:30 (21h 55min) | 🛬 Volta: 12:55 – 9:30 (18h 35min)",
+      "status": "ok"
+    },
+    "melhor_rota": {
+      "preco_casal": 11722,
+      "detalhes_voo": "✈️ Azul, LATAM Airlines | 🛫 Ida: 20:55 – 17:00 (22h 05min) | 🛬 Volta: 18:05 – 8:15 (12h 10min)",
+      "status": "ok"
+    },
+    "mista": {
+      "preco_casal": 9897,
+      "detalhes_voo": "✈️ GOL | 🛫 Ida: 6:00 – 15:30 (11h 30min) | 🛬 Volta: 12:55 – 9:30 (18h 35min)",
+      "status": "ok"
+    },
+    "status": "ok"
   }
 ]
