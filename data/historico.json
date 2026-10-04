@@ -5326,5 +5326,24 @@
       "status": "ok"
     },
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-10-04T18:32:29.489870+00:00",
+    "menor_preco": {
+      "preco_casal": 8297,
+      "detalhes_voo": "✈️ GOL | 🛫 Ida: 19:35 – 15:30 (21h 55min) | 🛬 Volta: 12:55 – 9:30 (18h 35min)",
+      "status": "ok"
+    },
+    "melhor_rota": {
+      "preco_casal": 10904,
+      "detalhes_voo": "✈️ Azul, GOL | 🛫 Ida: 21:55 – 17:00 (21h 05min) | 🛬 Volta: 21:00 – 11:05 (12h 05min)",
+      "status": "ok"
+    },
+    "mista": {
+      "preco_casal": 9771,
+      "detalhes_voo": "✈️ GOL | 🛫 Ida: 17:20 – 15:30 (24h 10min) | 🛬 Volta: 21:00 – 11:05 (12h 05min)",
+      "status": "ok"
+    },
+    "status": "ok"
   }
 ]
