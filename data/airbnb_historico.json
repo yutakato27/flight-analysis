@@ -78851,5 +78851,269 @@
       }
     ],
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-10-20T14:38:32.358311+00:00",
+    "buscas": [
+      {
+        "id": "semana1_5pax",
+        "label": "Semana 1 - 5 pessoas",
+        "adultos": 5,
+        "noites": 7,
+        "checkin": "2027-02-15",
+        "checkout": "2027-02-22",
+        "precos": [
+          722,
+          728,
+          743,
+          767,
+          842,
+          894,
+          943,
+          975,
+          996,
+          1036,
+          1066,
+          1112,
+          1514,
+          1578,
+          1757
+        ],
+        "destaques": [
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 722,
+            "preco_total": 5058,
+            "avaliacao": "Novo no Airbnb",
+            "detalhes": "3 Quartos em Resort Perto da Disney",
+            "link": "https://www.airbnb.com.br/rooms/1798252283381445110?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 728,
+            "preco_total": 5102,
+            "avaliacao": "5,0 (12)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1518006150467084438?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 743,
+            "preco_total": 5204,
+            "avaliacao": "Novo no Airbnb",
+            "detalhes": "3 quartos • Vista para o lago • Loft",
+            "link": "https://www.airbnb.com.br/rooms/1790683261481541014?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 767,
+            "preco_total": 5371,
+            "avaliacao": "4,85 (13)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1325347647578842583?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 842,
+            "preco_total": 5895,
+            "avaliacao": "4,89 (18)",
+            "detalhes": "3 quartos de Mario e Moana",
+            "link": "https://www.airbnb.com.br/rooms/1596484658593712088?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 894,
+            "preco_total": 6261,
+            "avaliacao": "4,82 (17)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1087287496464910753?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 943,
+            "preco_total": 6606,
+            "avaliacao": "4,63 (8)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1401691627519154267?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 975,
+            "preco_total": 6828,
+            "avaliacao": "4,98 (102)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/36073836?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 996,
+            "preco_total": 6975,
+            "avaliacao": "5,0 (3)",
+            "detalhes": "3 quartos perto do Epic Park",
+            "link": "https://www.airbnb.com.br/rooms/1682714904238379042?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1036,
+            "preco_total": 7255,
+            "avaliacao": "4,91 (155)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/667466148015124733?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1066,
+            "preco_total": 7463,
+            "avaliacao": "4,85 (46)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/17864766?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1112,
+            "preco_total": 7789,
+            "avaliacao": "4,84 (45)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/914097886991941831?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          }
+        ],
+        "minimo": 722,
+        "mediana": 975,
+        "media": 1044,
+        "maximo": 1757,
+        "total_listagens": 15,
+        "status": "ok"
+      },
+      {
+        "id": "semana2_7pax",
+        "label": "Semana 2 - 7 pessoas",
+        "adultos": 7,
+        "noites": 5,
+        "checkin": "2027-02-22",
+        "checkout": "2027-02-27",
+        "precos": [
+          848,
+          903,
+          975,
+          1019,
+          1035,
+          1148,
+          1216,
+          1284,
+          1305,
+          1311,
+          1313,
+          1371,
+          1520,
+          1597,
+          1650
+        ],
+        "destaques": [
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 848,
+            "preco_total": 4243,
+            "avaliacao": "4,58 (142)",
+            "detalhes": "4 camas perto de parques temáticos 3947",
+            "link": "https://www.airbnb.com.br/rooms/22959478?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 903,
+            "preco_total": 4519,
+            "avaliacao": "4,78 (60)",
+            "detalhes": "4 quartos perto da Disney | Piscina privativa",
+            "link": "https://www.airbnb.com.br/rooms/984805100565562423?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 975,
+            "preco_total": 4876,
+            "avaliacao": "4,88 (32)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1153108021160141887?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1019,
+            "preco_total": 5099,
+            "avaliacao": "4,63 (8)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1401691627519154267?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1035,
+            "preco_total": 5178,
+            "avaliacao": "4,71 (49)",
+            "detalhes": "4 quartos - 3 banheiros e um lavabo",
+            "link": "https://www.airbnb.com.br/rooms/30525159?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1148,
+            "preco_total": 5744,
+            "avaliacao": "4,82 (11)",
+            "detalhes": "4 quartos com decoração moderna e piscina",
+            "link": "https://www.airbnb.com.br/rooms/27232063?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1216,
+            "preco_total": 6084,
+            "avaliacao": "4,8 (5)",
+            "detalhes": "2752 Quartos Mickey e Mario! Jacuzzi Privativa",
+            "link": "https://www.airbnb.com.br/rooms/1680564259325796740?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1284,
+            "preco_total": 6423,
+            "avaliacao": "5,0 (5)",
+            "detalhes": "6 quartos - 3 banheiros e meio - Piscina privativa",
+            "link": "https://www.airbnb.com.br/rooms/1572655205605008117?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1305,
+            "preco_total": 6526,
+            "avaliacao": "Novo no Airbnb",
+            "detalhes": "5 quartos e vista para a água, com piscina, perto do Bronson Club",
+            "link": "https://www.airbnb.com.br/rooms/1762389419813835463?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1311,
+            "preco_total": 6558,
+            "avaliacao": "4,9 (21)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1321058945855048917?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1313,
+            "preco_total": 6569,
+            "avaliacao": "5,0 (10)",
+            "detalhes": "4 quartos/3 banheiros/Storey Lake (4833 Ll)",
+            "link": "https://www.airbnb.com.br/rooms/1647959557501316516?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1371,
+            "preco_total": 6858,
+            "avaliacao": "Novo no Airbnb",
+            "detalhes": "5 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1798880246577460871?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          }
+        ],
+        "minimo": 848,
+        "mediana": 1284,
+        "media": 1233,
+        "maximo": 1650,
+        "total_listagens": 15,
+        "status": "ok"
+      }
+    ],
+    "status": "ok"
   }
 ]
