@@ -86977,5 +86977,281 @@
       }
     ],
     "status": "ok"
+  },
+  {
+    "timestamp": "2026-11-04T17:43:35.843666+00:00",
+    "buscas": [
+      {
+        "id": "semana1_5pax",
+        "label": "Semana 1 - 5 pessoas",
+        "adultos": 5,
+        "noites": 7,
+        "checkin": "2027-02-15",
+        "checkout": "2027-02-22",
+        "precos": [
+          710,
+          724,
+          778,
+          840,
+          904,
+          946,
+          963,
+          974,
+          1068,
+          1080,
+          1152,
+          1212,
+          1223,
+          1278,
+          1318,
+          1336,
+          1364,
+          1427,
+          1792,
+          1977,
+          2032,
+          2046
+        ],
+        "destaques": [
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 710,
+            "preco_total": 4970,
+            "avaliacao": "4,7 (169)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/26333837?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 724,
+            "preco_total": 5068,
+            "avaliacao": "Sem nota",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1679218575514965364?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 778,
+            "preco_total": 5446,
+            "avaliacao": "4,78 (169)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/21802385?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 840,
+            "preco_total": 5886,
+            "avaliacao": "4,89 (37)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/46704968?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 904,
+            "preco_total": 6328,
+            "avaliacao": "4,89 (57)",
+            "detalhes": "3 quartos voltado para famílias perto da Disney.",
+            "link": "https://www.airbnb.com.br/rooms/1071462168512402437?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 946,
+            "preco_total": 6623,
+            "avaliacao": "4,95 (37)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1176163648298123606?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 963,
+            "preco_total": 6746,
+            "avaliacao": "Sem nota",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1455826702145066199?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 974,
+            "preco_total": 6821,
+            "avaliacao": "4,82 (17)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1087287496464910753?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1068,
+            "preco_total": 7476,
+            "avaliacao": "4,66 (202)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/651956611748522471?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1080,
+            "preco_total": 7561,
+            "avaliacao": "4,87 (208)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/771933040418895963?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1152,
+            "preco_total": 8070,
+            "avaliacao": "4,79 (199)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/51653594?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1212,
+            "preco_total": 8486,
+            "avaliacao": "4,85 (46)",
+            "detalhes": "3 quartos",
+            "link": "https://www.airbnb.com.br/rooms/914097886991941831?checkin=2027-02-15&checkout=2027-02-22&adults=5"
+          }
+        ],
+        "minimo": 710,
+        "mediana": 1182,
+        "media": 1233,
+        "maximo": 2046,
+        "total_listagens": 22,
+        "status": "ok"
+      },
+      {
+        "id": "semana2_7pax",
+        "label": "Semana 2 - 7 pessoas",
+        "adultos": 7,
+        "noites": 5,
+        "checkin": "2027-02-22",
+        "checkout": "2027-02-27",
+        "precos": [
+          1028,
+          1146,
+          1224,
+          1324,
+          1337,
+          1354,
+          1413,
+          1415,
+          1467,
+          1468,
+          1490,
+          1547,
+          1568,
+          1598,
+          1668,
+          1673,
+          1798,
+          1813,
+          1996,
+          2657
+        ],
+        "destaques": [
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1028,
+            "preco_total": 5141,
+            "avaliacao": "4,58 (60)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/51687393?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1146,
+            "preco_total": 5731,
+            "avaliacao": "4,95 (21)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1329237211906799514?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1224,
+            "preco_total": 6121,
+            "avaliacao": "4,94 (36)",
+            "detalhes": "4 quartos: Sol, verão e diversão na Disney!",
+            "link": "https://www.airbnb.com.br/rooms/835774517526836376?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1324,
+            "preco_total": 6624,
+            "avaliacao": "Novo no Airbnb",
+            "detalhes": "4 quartos com localização central",
+            "link": "https://www.airbnb.com.br/rooms/1810240599317804294?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1337,
+            "preco_total": 6687,
+            "avaliacao": "4,8 (127)",
+            "detalhes": "5 camas - Piscina privativa - Perto da Disney",
+            "link": "https://www.airbnb.com.br/rooms/587597653730898276?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1354,
+            "preco_total": 6771,
+            "avaliacao": "4,93 (102)",
+            "detalhes": "5 quartos",
+            "link": "https://www.airbnb.com.br/rooms/53719720?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1413,
+            "preco_total": 7065,
+            "avaliacao": "4,9 (84)",
+            "detalhes": "4 quartos 2 suítes Min para clube/refeições Disney",
+            "link": "https://www.airbnb.com.br/rooms/1226666521387170802?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1415,
+            "preco_total": 7077,
+            "avaliacao": "4,85 (341)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/46612460?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1467,
+            "preco_total": 7336,
+            "avaliacao": "4,91 (22)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1321058945855048917?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1468,
+            "preco_total": 7343,
+            "avaliacao": "Sem nota",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1466903023433503085?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1490,
+            "preco_total": 7454,
+            "avaliacao": "4,81 (21)",
+            "detalhes": "4 quartos, sem tapete, com piscina e churrasqueira!",
+            "link": "https://www.airbnb.com.br/rooms/1410220378960151527?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          },
+          {
+            "titulo": "Foto 1 de 6",
+            "preco_noite": 1547,
+            "preco_total": 7737,
+            "avaliacao": "4,86 (88)",
+            "detalhes": "4 quartos",
+            "link": "https://www.airbnb.com.br/rooms/1100682933883950135?checkin=2027-02-22&checkout=2027-02-27&adults=7"
+          }
+        ],
+        "minimo": 1028,
+        "mediana": 1479,
+        "media": 1549,
+        "maximo": 2657,
+        "total_listagens": 20,
+        "status": "ok"
+      }
+    ],
+    "status": "ok"
   }
 ]
