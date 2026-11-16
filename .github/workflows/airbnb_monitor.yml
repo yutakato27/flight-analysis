@@ -1,9 +1,9 @@
 name: Airbnb Monitor - Orlando 2027
 
 on:
-  schedule:
-    - cron: '0 10 * * *'  # 07h Brasília (10h UTC)
-    - cron: '0 22 * * *'  # 19h Brasília (22h UTC)
+  # schedule:
+  #   - cron: '0 10 * * *'  # 07h Brasília (10h UTC)
+  #   - cron: '0 22 * * *'  # 19h Brasília (22h UTC)
   workflow_dispatch:
 
 permissions:
